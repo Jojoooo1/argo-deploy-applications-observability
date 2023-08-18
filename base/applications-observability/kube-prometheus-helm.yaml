@@ -23,6 +23,8 @@ spec:
     helm:
       skipCrds: true
       parameters:
+        - name: fullnameOverride
+          value: "kube-prom"
         # Ingress
         - name: grafana.ingress.enabled
           value: "true"
