@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
+  - ../../../base/applications-observability/grafana-dashboard-kubernetes.yaml
   - ../../../base/applications-observability/kube-prometheus-helm-crds.yaml
   - ../../../base/applications-observability/kube-prometheus-helm.yaml
   # - ../../../base/applications-observability/tempo-helm.yaml
