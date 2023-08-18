@@ -4,10 +4,10 @@
 
 Available Applications:
 
-- grafana: <http://grafana-local.jonathan.com.br>
+- grafana: <http://grafan.local.com.br>
   - username: 'user', password: 'password'
-- prometheus: <http://prometheus-local.jonathan.com.br>
-- alertmanager: <http://alertmanager-local.jonathan.com.br>
+- prometheus: <http://prometheu.local.com.br>
+- alertmanager: <http://alertmanage.local.com.br>
 
 ## ArgoCD Folders organization
 

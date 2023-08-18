@@ -29,7 +29,7 @@ spec:
         - name: grafana.ingress.paths[0]
           value: "/"
         - name: grafana.ingress.hosts[0]
-          value: "grafana-local.jonathan.com.br"
+          value: "grafana.local.com.br"
         - name: grafana.ingress.ingressClassName
           value: "nginx"
 
@@ -38,7 +38,7 @@ spec:
         - name: prometheus.ingress.paths[0]
           value: "/"
         - name: prometheus.ingress.hosts[0]
-          value: "prometheus-local.jonathan.com.br"
+          value: "prometheus.local.com.br"
         - name: prometheus.ingress.ingressClassName
           value: "nginx"
 
@@ -47,15 +47,15 @@ spec:
         - name: alertmanager.ingress.paths[0]
           value: "/"
         - name: alertmanager.ingress.hosts[0]
-          value: "alertmanager-local.jonathan.com.br"
+          value: "alertmanager.local.com.br"
         - name: alertmanager.ingress.ingressClassName
           value: "nginx"
 
         # ExternalUrl
         - name: prometheus.prometheusSpec.externalUrl
-          value: "http://prometheus-local.jonathan.com.br"
+          value: "http://prometheus.local.com.br"
         - name: alertmanager.alertmanagerSpec.externalUrl
-          value: "http://alertmanager-local.jonathan.com.br"
+          value: "http://alertmanager.local.com.br"
 
         # Persistence
         # - name: alertmanager.alertmanagerSpec.storage.volumeClaimTemplate.spec.storageClassName
