@@ -1,0 +1,70 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: observability-tempo
+  namespace: argocd
+
+  # Add this finalizer ONLY if you want these to cascade delete (A cascade delete, deletes both the app and its resources, rather than only the app.)
+  # finalizers:
+  #   - resources-finalizer.argocd.argoproj.io
+
+spec:
+  project: default
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+
+  source:
+    chart: tempo
+    repoURL: "https://grafana.github.io/helm-charts"
+    targetRevision: 1.5.0
+    helm:
+      # https://github.com/grafana/helm-charts/blob/main/charts/tempo/values.yaml
+      parameters:
+        - name: tempo.resources.requests.memory
+          value: "512Mi"
+        - name: tempo.resources.limits.memory
+          value: "1.5Gi"
+        - name: tempo.resources.requests.cpu
+          value: "100m"
+        - name: tempo.resources.limits.cpu
+          value: "150m"
+
+        - name: serviceMonitor.enabled
+          value: "false"
+        - name: serviceMonitor.additionalLabels.release
+          value: "observability-kube-prometheus"
+
+        # Note: used by ingestor to save the indexes before flushing it to gcs (https://github.com/grafana/tempo/blob/main/docs/tempo/website/operations/ingester_pvcs.md)
+        - name: persistence.enabled
+          value: "true"
+        # - name: persistence.storageClassName
+        #   value: "standard-rwo"
+        - name: persistence.size
+          value: "1Gi"
+
+        # Trace retention
+        - name: tempo.retention
+          value: "30d"
+        
+        # In high volume cenario we need to increase this value.
+        - name: tempo.global_overrides.max_traces_per_user
+          value: "20000"
+
+      values: |-
+        # serviceAccount:
+        #   annotations:
+        #     iam.gke.io/gcp-service-account: tempo-storage@${ARGOCD_ENV_PROJECT}.iam.gserviceaccount.com
+
+        tempo:
+          # https://github.com/grafana/tempo/blob/main/docs/tempo/website/configuration/_index.md#storage
+          storage:
+            trace:
+              backend: gcs
+              gcs:
+                bucket_name: your_bucket_name
+
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: observability

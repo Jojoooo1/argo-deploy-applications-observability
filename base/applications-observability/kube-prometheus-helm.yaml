@@ -1,0 +1,285 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: observability-kube-prometheus
+  namespace: argocd
+
+  # Add this finalizer ONLY if you want these to cascade delete (A cascade delete, deletes both the app and its resources, rather than only the app.)
+  # finalizers:
+  #   - resources-finalizer.argocd.argoproj.io
+
+spec:
+  project: default
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+
+  source:
+    chart: kube-prometheus-stack
+    repoURL: "https://prometheus-community.github.io/helm-charts"
+    targetRevision: 48.3.1
+    # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
+    helm:
+      skipCrds: true
+      parameters:
+        # Ingress
+        - name: grafana.ingress.enabled
+          value: "true"
+        - name: grafana.ingress.paths[0]
+          value: "/"
+        - name: grafana.ingress.hosts[0]
+          value: "grafana-local.jonathan.com.br"
+        - name: grafana.ingress.ingressClassName
+          value: "nginx"
+
+        - name: prometheus.ingress.enabled
+          value: "true"
+        - name: prometheus.ingress.paths[0]
+          value: "/"
+        - name: prometheus.ingress.hosts[0]
+          value: "prometheus-local.jonathan.com.br"
+        - name: prometheus.ingress.ingressClassName
+          value: "nginx"
+
+        - name: alertmanager.ingress.enabled
+          value: "true"
+        - name: alertmanager.ingress.paths[0]
+          value: "/"
+        - name: alertmanager.ingress.hosts[0]
+          value: "alertmanager-local.jonathan.com.br"
+        - name: alertmanager.ingress.ingressClassName
+          value: "nginx"
+
+        # ExternalUrl
+        - name: prometheus.prometheusSpec.externalUrl
+          value: "http://prometheus-local.jonathan.com.br"
+        - name: alertmanager.alertmanagerSpec.externalUrl
+          value: "http://alertmanager-local.jonathan.com.br"
+
+        # Persistence
+        # - name: alertmanager.alertmanagerSpec.storage.volumeClaimTemplate.spec.storageClassName
+        #   value: "standard-rwo"
+        - name: alertmanager.alertmanagerSpec.storage.volumeClaimTemplate.spec.resources.requests.storage
+          value: "1Gi"
+        - name: alertmanager.alertmanagerSpec.storage.volumeClaimTemplate.spec.accessModes[0]
+          value: "ReadWriteOnce"
+        - name: alertmanager.alertmanagerSpec.retention
+          value: "30d"
+
+        # - name: prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName
+        #   value: "standard-rwo"
+        - name: prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.resources.requests.storage
+          value: "1Gi"
+        - name: prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.accessModes[0]
+          value: "ReadWriteOnce"
+        - name: prometheus.prometheusSpec.retention
+          value: "30d"
+
+        # Resources requests & limits
+        - name: grafana.resources.requests.memory
+          value: "128Mi"
+        - name: grafana.resources.limits.memory
+          value: "384Mi"
+        - name: grafana.resources.requests.cpu
+          value: "50m"
+        - name: grafana.resources.limits.cpu
+          value: "100m"
+
+        - name: prometheusOperator.resources.requests.memory
+          value: "512Mi"
+        - name: prometheusOperator.resources.limits.memory
+          value: "1.5Gi"
+        - name: prometheusOperator.resources.requests.cpu
+          value: "100m"
+        - name: prometheusOperator.resources.limits.cpu
+          value: "200m"
+
+        - name: alertmanager.alertmanagerSpec.resources.requests.memory
+          value: "64Mi"
+        - name: alertmanager.alertmanagerSpec.resources.limits.memory
+          value: "128Mi"
+        - name: alertmanager.alertmanagerSpec.resources.requests.cpu
+          value: "50m"
+        - name: alertmanager.alertmanagerSpec.resources.limits.cpu
+          value: "100m"
+
+        - name: prometheus-node-exporter.resources.requests.memory
+          value: "32Mi"
+        - name: prometheus-node-exporter.resources.limits.memory
+          value: "64Mi"
+        - name: prometheus-node-exporter.resources.requests.cpu
+          value: "60m"
+        - name: prometheus-node-exporter.resources.limits.cpu
+          value: "120m"
+
+        - name: kube-state-metrics.resources.requests.memory
+          value: "32Mi"
+        - name: kube-state-metrics.resources.limits.memory
+          value: "64Mi"
+        - name: kube-state-metrics.resources.requests.cpu
+          value: "25m"
+        - name: kube-state-metrics.resources.limits.cpu
+          value: "50m"
+
+        ## Rules and Controle Plan monitoring configuration
+        - name: kubeEtcd.enabled
+          value: "false"
+        - name: kubeApiserver.enabled
+          value: "false"
+        - name: kubeControllerManager.enabled
+          value: "false"
+        - name: kubeScheduler.enabled
+          value: "false"
+        - name: coreDns.enabled
+          value: "false"
+        - name: kubeProxy.enabled
+          value: "false"
+        
+        - name: defaultRules.rules.etcd
+          value: "false"
+        - name: defaultRules.rules.kubeApiserver
+          value: "false"
+        - name: defaultRules.rules.kubeApiserverAvailability
+          value: "false"
+        - name: defaultRules.rules.kubeApiserverBurnrate
+          value: "false"
+        - name: defaultRules.rules.kubeApiserverHistogram
+          value: "false"
+        - name: defaultRules.rules.kubeApiserverSlos
+          value: "false"
+        - name: defaultRules.rules.kubeProxy
+          value: "false"
+        - name: defaultRules.rules.kubeSchedulerAlerting
+          value: "false"
+        - name: defaultRules.rules.kubeSchedulerRecording
+          value: "false"
+        - name: defaultRules.rules.network
+          value: "false"
+        - name: defaultRules.rules.kubernetesSystem
+          value: "false"
+
+        # Recreated this value in observability pro.rules
+        - name: defaultRules.disabled.CPUThrottlingHigh
+          value: "true"
+        # Node autoscaling is used, we do not need this alert.
+        - name: defaultRules.disabled.KubeCPUOvercommit
+          value: "true"
+        # This rule is useless.
+        - name: defaultRules.disabled.InfoInhibitor
+          value: "true"
+
+        # Grafana
+        - name: grafana.image.tag
+          value: "10.0.3"
+        - name: grafana.plugins[0]
+          value: "grafana-piechart-panel"
+        - name: grafana.admin.adminUser
+          value: "admin"
+        - name: grafana.adminPassword
+          value: "password"
+
+        # Grafana dashboard configuration (can also use dashboardProviders)
+        - name: grafana.sidecar.dashboards.provider.foldersFromFilesStructure
+          value: "true"
+        - name: grafana.sidecar.dashboards.annotations.k8s-sidecar-target-directory
+          value: "/tmp/dashboards/Kubernetes"
+
+      # Cluster alerts
+      values: |-
+        grafana:
+          grafana.ini:
+            # https://grafana.com/docs/grafana/latest/administration/configuration/#dataproxy
+            dataproxy:
+              timeout: 1200
+              keep_alive_seconds: 1200
+              idle_conn_timeout_seconds: 1200
+
+          additionalDataSources:
+            - name: Tempo
+              uid: tempo
+              type: tempo
+              access: proxy
+              url: http://tempo.observability.svc:3100
+              jsonData:
+                httpMethod: GET
+                tracesToLogs:
+                  datasourceUid: 'loki'
+                  # tags: ['job', 'instance', 'pod', 'namespace']
+                  mappedTags: [{ key: 'service.name', value: 'app' }]
+                  mapTagNamesEnabled: true
+                  spanStartTimeShift: '1h'
+                  spanEndTimeShift: '1h'
+                  filterByTraceID: false
+                  filterBySpanID: false
+                  lokiSearch: true
+                serviceMap:
+                  datasourceUid: 'prometheus'
+                search:
+                  hide: false
+                nodeGraph:
+                  enabled: true
+
+        alertmanager:
+          config:
+            global:
+              resolve_timeout: 5m
+              slack_api_url: "https://hooks.slack.com/services/T5BG38LNS/fake-url"
+            route:
+              group_by: ['job']
+              group_wait: 10s
+              group_interval: 30s
+              repeat_interval: 12h
+              receiver: 'slack'
+              routes:
+                - receiver: 'null'
+                  matchers:
+                    - alertname = Watchdog
+                - receiver: 'slack'
+                  matchers:
+                    - severity = info|critical|warning
+                  continue: true
+            receivers:
+              - name: 'null'
+              - name: slack
+                slack_configs:
+                  - send_resolved: true
+                    channel: '#danger-room-sandbox'
+                    icon_url: https://avatars3.githubusercontent.com/u/3380462
+                    title: |
+                      [{{ .Status | toUpper -}}
+                      {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
+                      ] {{ .CommonLabels.alertname }}
+                    text: |-
+                      {{ range .Alerts -}}
+                      *Severity:* `{{ .Labels.severity }}`
+                      *Description:* {{ .Annotations.description }}
+                      *Details:*
+                         • *env:* `${ARGOCD_ENV_ENV}`
+                        {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+                        {{ end }}
+                      {{ end }}
+
+                    actions:
+                      # TODO: add in the future: log_url, dashboard_url, runbook_url
+
+                      - type: button
+                        text: 'Runbook :green_book:'
+                        url: '{{ (index .Alerts 0).Annotations.runbook_url }}'
+                      - type: button
+                        text: 'Query :mag:'
+                        url: '{{ (index .Alerts 0).GeneratorURL }}'
+                      - type: button
+                        text: 'Silence :no_bell:'
+                        url: |
+                          {{ .ExternalURL }}/#/silences/new?filter=%7B
+                          {{- range .CommonLabels.SortedPairs -}}
+                              {{- if ne .Name "alertname" -}}
+                                  {{- .Name }}%3D"{{- .Value -}}"%2C%20
+                              {{- end -}}
+                          {{- end -}}
+                          alertname%3D"{{- .CommonLabels.alertname -}}"%7D
+
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: observability
