@@ -172,6 +172,8 @@ spec:
           value: "true"
 
         # Grafana
+        - name: grafana.fullnameOverride
+          value: "grafana"
         - name: grafana.image.tag
           value: "10.0.3"
         - name: grafana.plugins[0]
@@ -197,7 +199,7 @@ spec:
               providers:
               - name: 'grafana-dashboards-kubernetes'
                 orgId: 1
-                folder: 'Kubernetes'
+                folder: 'Kubernetes-v2'
                 type: file
                 options:
                   path: /var/lib/grafana/dashboards/grafana-dashboards-kubernetes
