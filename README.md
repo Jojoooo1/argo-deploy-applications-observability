@@ -2,7 +2,7 @@
 
 ## Observability applications
 
-You can then use the following applications after syncing the corresponding argo apps:
+Available Applications:
 
 - grafana: <http://grafana-local.jonathan.com.br>
   - username: 'user', password: 'password'
