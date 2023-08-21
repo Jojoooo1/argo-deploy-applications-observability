@@ -1,4 +1,4 @@
-# Argo infra personal labs
+# Argo observability personal labs
 
 ## Observability applications
 
