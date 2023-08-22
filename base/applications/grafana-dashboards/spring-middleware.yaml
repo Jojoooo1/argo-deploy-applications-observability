@@ -1,14 +1,4 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: dashboard-microservice-middleware
-  namespace: observability
-  labels:
-    grafana_dashboard: "1"
-  annotations:
-    k8s-sidecar-target-directory: "/tmp/dashboards/Spring"
-data:
-  microservice-middleware.json: |
+
     {
       "annotations": {
         "list": [
@@ -2631,7 +2621,7 @@ data:
         ]
       },
       "timezone": "",
-      "title": "Middleware",
+      "title": "Middlewaree",
       "uid": "spring-microservice-middleware",
       "version": 3,
       "weekStart": ""
