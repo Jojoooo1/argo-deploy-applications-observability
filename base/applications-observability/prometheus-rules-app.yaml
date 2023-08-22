@@ -18,7 +18,7 @@ spec:
   source: 
     repoURL: https://github.com/Jojoooo1/argo-deploy-applications-observability.git
     targetRevision: main
-    path: overlays/local/applications/prometheus-rules-app
+    path: overlays/local/applications/prometheus-rules
 
   destination:
     server: "https://kubernetes.default.svc"
