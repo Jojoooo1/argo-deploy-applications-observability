@@ -1,0 +1,50 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: container-rules
+  namespace: observability
+  labels:
+    release: observability-kube-prometheus
+spec:
+  groups:
+    - name: container.general.rules
+      rules:
+      
+        - alert: ContainerCPUThrottlingHigh
+          expr: sum by(container, pod, namespace) (increase(container_cpu_cfs_throttled_periods_total{container!=""}[5m])) / sum by(container, pod, namespace) (increase(container_cpu_cfs_periods_total[5m])) > (35 / 100)
+          for: 10m
+          labels:
+            severity: info
+          annotations:
+            description: "{{ $value | humanizePercentage }} throttling of CPU in namespace {{ $labels.namespace }} for container {{ $labels.container }} in pod {{ $labels.pod }}."
+            runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/cputhrottlinghigh
+            summary: Processes experience elevated CPU throttling.
+        
+        - alert: ContainerCpuUsage
+          expr: sum(rate(container_cpu_usage_seconds_total{image!=""}[5m])) by (pod) / sum(kube_pod_container_resource_limits{unit="core"}) by (pod) > 0.85
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: Container CPU usage in pod {{ $labels.pod }} is too high
+            description: "Container CPU limit is above 85% VALUE = {{ $value }}"
+
+        - alert: ContainerMemoryUsage
+          expr: sum(container_memory_working_set_bytes{image!=""}) by (pod) / sum(kube_pod_container_resource_limits{unit="byte"}) by (pod) > 0.85
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Container Memory usage in pod {{ $labels.pod }} is too high
+            description: "Container Memory limit is above 85% VALUE = {{ $value }}"
+
+        - alert: ContainerVolumeUsage
+          expr: (1 - (sum(container_fs_inodes_free{name!=""}) BY (instance, pod) / sum(container_fs_inodes_total) BY (instance, pod))) * 100 > 85
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Container Volume usage in pod {{ $labels.pod }} is too high
+            description: "Container Volume usage is above 85% VALUE = {{ $value }}"
+
+

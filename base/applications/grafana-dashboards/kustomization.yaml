@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: observability
+
+resources:
+  - argocd.yaml
+  - cert-manager.yaml
+  - ingress-microservice.yaml
+  - ingress-nginx-controllers.yaml
+  - rabbitmq.yaml
+  - spring-api.yaml
+  - spring-middleware.yaml
+  - spring-webhook.yaml

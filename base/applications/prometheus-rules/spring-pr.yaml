@@ -1,0 +1,28 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: microservice-api-rules
+  namespace: observability
+  labels:
+    release: observability-kube-prometheus
+spec:
+  groups:
+    - name: microservice.api.rules
+      rules:
+        - alert: MicroserviceXXXX
+          expr: sum by(uri) (http_server_requests_seconds_count{status=~"2.*"}) / sum by(uri) (http_server_requests_seconds_count{}) < 0.90
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: 'Microservice XXXX "{{ $labels.uri }}" success rate is below 90% for the past 5min'
+            description: 'success rate is {{ $value | printf "%.2f" }}'
+
+        - alert: MicroserviceHttpClientXXXX
+          expr: sum by(uri) (http_client_requests_seconds_count{status=~"2.*"}) / sum by(uri) (http_client_requests_seconds_count{}) < 0.90
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: 'Microservice HTTP client XXXX "{{ $labels.uri }}" success rate is below 90% for the past 5min'
+            description: 'success rate is {{ $value | printf "%.2f" }}'

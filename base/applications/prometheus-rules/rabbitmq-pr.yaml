@@ -1,0 +1,109 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: rabbitmq-rules
+  namespace: observability
+  labels:
+    release: observability-kube-prometheus
+spec:
+  groups:
+    - name: rabbitmq.rules
+      rules:
+        - alert: RabbitmqNodeDown
+          expr: sum(rabbitmq_build_info) < 3
+          for: 0m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Rabbitmq node down"
+            description: "Less than 3 nodes running in RabbitMQ cluster"
+        
+        - alert: RabbitmqNodeNotDistributed
+          expr: erlang_vm_dist_node_state < 3
+          for: 0m
+          labels:
+            severity: critical
+          annotations:
+            summary: Rabbitmq node not distributed
+            description: "Distribution link state is not 'up'"
+
+        - alert: RabbitmqInstancesDifferentVersions
+          expr: count(count(rabbitmq_build_info) by (rabbitmq_version)) > 1
+          for: 1h
+          labels:
+            severity: warning
+          annotations:
+            summary: Rabbitmq instances different versions
+            description: "Running different version of Rabbitmq in the same cluster, can lead to failure."
+
+        - alert: RabbitmqMemorySlightlyHigh
+          expr: rabbitmq_process_resident_memory_bytes / rabbitmq_resident_memory_limit_bytes * 100 > 75
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: Rabbitmq memory slightly high
+            description: "A node use more than 75% of allocated RAM"
+
+        - alert: RabbitmqMemoryHigh
+          expr: rabbitmq_process_resident_memory_bytes / rabbitmq_resident_memory_limit_bytes * 100 > 90
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: Rabbitmq memory high
+            description: "A node use more than 90% of allocated RAM"
+
+        - alert: RabbitmqFileDescriptorsUsage
+          expr: rabbitmq_process_open_fds / rabbitmq_process_max_fds * 100 > 90
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: Rabbitmq file descriptors usage
+            description: "A node use more than 90% of file descriptors"
+
+        - alert: RabbitmqTooManyConnections
+          expr: rabbitmq_connections > 50
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: Rabbitmq too many connections
+            description: "The total connections of a node is too high"
+
+        - alert: RabbitmqNoQueueConsumer
+          expr: sum(rabbitmq_queue_consumers) == 0
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: Rabbitmq no queue consumer
+            description: "A queue has less than 1 consumer"
+        
+        - alert: RabbitmqUnroutableMessages
+          expr: increase(rabbitmq_channel_messages_unroutable_returned_total[1m]) > 0 or increase(rabbitmq_channel_messages_unroutable_dropped_total[1m]) > 0
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: Rabbitmq unroutable messages
+            description: "A queue has unroutable messages"
+
+        - alert: RabbitmqTooManyMessagesInQueue
+          expr: rabbitmq_queue_messages > 10000
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: Rabbitmq too many messages
+            description: "A queue has too many messages"
+
+        - alert: RabbitmqTooManyUnackMessages
+          expr: sum(rabbitmq_queue_messages_unacked) BY (queue) > 10000
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: Rabbitmq too many unack messages
+            description: "Too many unacknowledged messages"
