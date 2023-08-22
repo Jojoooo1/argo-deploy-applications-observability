@@ -8,6 +8,7 @@ resources:
   - cert-manager.yaml
   - ingress-microservice.yaml
   - ingress-nginx-controllers.yaml
+  - keycloak.yaml
   - rabbitmq.yaml
   - spring-api.yaml
   - spring-middleware.yaml
