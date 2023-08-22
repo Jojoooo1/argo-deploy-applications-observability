@@ -2631,7 +2631,7 @@ data:
         ]
       },
       "timezone": "",
-      "title": "Middlewaree",
+      "title": "Middleware",
       "uid": "spring-microservice-middleware",
       "version": 3,
       "weekStart": ""
