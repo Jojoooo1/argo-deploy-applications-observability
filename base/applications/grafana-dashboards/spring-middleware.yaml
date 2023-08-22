@@ -6,7 +6,7 @@ metadata:
   labels:
     grafana_dashboard: "1"
   annotations:
-    k8s-sidecar-target-directory: "/tmp/dashboards/Middleware"
+    k8s-sidecar-target-directory: "/tmp/dashboards/Spring"
 data:
   microservice-middleware.json: |
     {
@@ -2631,8 +2631,8 @@ data:
         ]
       },
       "timezone": "",
-      "title": "Spring Middleware",
-      "uid": "microservice-middleware",
+      "title": "Middleware",
+      "uid": "spring-microservice-middleware",
       "version": 3,
       "weekStart": ""
     }

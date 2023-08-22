@@ -6,7 +6,7 @@ metadata:
   labels:
     grafana_dashboard: "1"
   annotations:
-    k8s-sidecar-target-directory: "/tmp/dashboards/Microservice"
+    k8s-sidecar-target-directory: "/tmp/dashboards/Spring"
 data:
   microservice-webhoook.json: |
     {
@@ -2631,8 +2631,8 @@ data:
         ]
       },
       "timezone": "",
-      "title": "microservice-webhook",
-      "uid": "spring-microservice",
+      "title": "Webhook",
+      "uid": "spring-microservice-webhook",
       "version": 1,
       "weekStart": ""
     }
