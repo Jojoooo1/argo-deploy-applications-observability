@@ -38,15 +38,13 @@ spec:
 
         ## Database ##
         - name: config.datasource.host
-          value: "127.0.0.1"
+          value: "postgres.postgres.svc.cluster.local.:9093"
         - name: config.datasource.database
-          value: "jonathan"
+          value: "postgres"
         - name: config.datasource.user
-          value: "jonathan"
-        - name: config.datasource.passwordSecret.name
-          value: "jonathan-api-secrets"
-        - name: config.datasource.passwordSecret.key
-          value: "DB_PASSWORD"
+          value: "admin"
+        - name: config.datasource.password
+          value: "password"
 
       values: |
         # serviceAccount:
