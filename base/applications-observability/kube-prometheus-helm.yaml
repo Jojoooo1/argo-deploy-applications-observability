@@ -18,13 +18,13 @@ spec:
   source:
     chart: kube-prometheus-stack
     repoURL: "https://prometheus-community.github.io/helm-charts"
-    targetRevision: 48.3.1
+    targetRevision: 48.3.3
     # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
     helm:
       skipCrds: true
       parameters:
         - name: fullnameOverride
-          value: "kube"
+          value: "prometheus-stack"
         # Ingress
         - name: grafana.ingress.enabled
           value: "true"
