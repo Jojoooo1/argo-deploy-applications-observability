@@ -219,11 +219,16 @@ spec:
                 url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
 
           grafana.ini:
+            feature_toggles:
+              enable: prometheusMetricEncyclopedia scenes traceToMetrics newTraceViewHeader showTraceId traceqlSearch
             # https://grafana.com/docs/grafana/latest/administration/configuration/#dataproxy
             dataproxy:
               timeout: 1200
               keep_alive_seconds: 1200
               idle_conn_timeout_seconds: 1200
+              server:
+                domain: grafana.local.com.br
+                root_url: https://grafana.local.com.br
 
           additionalDataSources:
             - name: Tempo
