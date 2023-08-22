@@ -3,9 +3,8 @@ kind: ConfigMap
 metadata:
   name: dashboard-argocd
   namespace: observability
-  # Labels & annotations are necessary for service discovery.
   labels:
-    grafana_dashboard: "1" # defined in kube-prometheus helm chart.
+    grafana_dashboard: "1"
   annotations:
     k8s-sidecar-target-directory: "/tmp/dashboards/ArgoCD"
 data:
