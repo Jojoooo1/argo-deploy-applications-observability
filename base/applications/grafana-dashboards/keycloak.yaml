@@ -8,7 +8,7 @@ metadata:
   annotations:
     k8s-sidecar-target-directory: "/tmp/dashboards/Keycloak"
 data:
-  keycloak.json: |
+  keycloak-dashboard.json: |
     {
       "annotations": {
         "list": [
