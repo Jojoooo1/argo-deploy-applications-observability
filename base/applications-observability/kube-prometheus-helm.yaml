@@ -38,12 +38,10 @@ spec:
           ingress:
             enabled: true
             ingressClassName: nginx
-            hostname: grafana.local.com.br
-            tls: true
-            extraTls:
-              - secretName: grafana-tls
-                hosts:
-                - grafana.local.com.br
+            paths: 
+              - /
+            hosts: 
+              - grafana.local.com.br
           resources:
             requests: 
               memory: 128Mi
@@ -125,15 +123,15 @@ spec:
           ingress:
             enabled: true
             ingressClassName: nginx
-            hostname: prometheus.local.com.br
-            tls: true
-            extraTls:
-              - secretName: prometheus-tls
-                hosts:
-                - prometheus.local.com.br
+            paths: 
+              - /
+            hosts: 
+              - prometheus.local.com.br
           prometheusSpec:
             retention: "30d"
             externalUrl: http://prometheus.local.com.br
+            enableFeatures:
+            - exemplar-storage
             storage: 
               volumeClaimTemplate:
                 spec:
@@ -156,12 +154,10 @@ spec:
           ingress:
             enabled: true
             ingressClassName: nginx
-            hostname: alertmanager.local.com.br
-            tls: true
-            extraTls:
-              - secretName: alertmanager-tls
-                hosts:
-                - alertmanager.local.com.br
+            paths: 
+              - /
+            hosts: 
+              - alertmanager.local.com.br
           alertmanagerSpec:
             retention: "720h" # 30 days
             externalUrl: http://alertmanager.local.com.br
