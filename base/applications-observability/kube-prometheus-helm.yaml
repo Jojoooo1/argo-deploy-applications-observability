@@ -92,8 +92,8 @@ spec:
               timeout: 1200
               keep_alive_seconds: 1200
               idle_conn_timeout_seconds: 1200
-              server:
-                root_url: https://grafana.local.com.br
+            server:
+              root_url: https://grafana.local.com.br
 
           additionalDataSources:
             - name: Tempo
