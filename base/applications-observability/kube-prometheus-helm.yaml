@@ -132,7 +132,7 @@ spec:
             externalUrl: http://prometheus.local.com.br
             enableFeatures:
             - exemplar-storage
-            storage: 
+            storageSpec: 
               volumeClaimTemplate:
                 spec:
                   # storageClassName: standard-rwo
