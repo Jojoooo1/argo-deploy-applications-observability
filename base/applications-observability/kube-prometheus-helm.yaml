@@ -93,7 +93,6 @@ spec:
               keep_alive_seconds: 1200
               idle_conn_timeout_seconds: 1200
               server:
-                domain: grafana.local.com.br
                 root_url: https://grafana.local.com.br
 
           additionalDataSources:
@@ -164,7 +163,7 @@ spec:
                 - alertmanager.local.com.br
           alertmanagerSpec:
             retention: "720h" # 30 days
-            externalUrl: http://prometheus.local.com.br
+            externalUrl: http://alertmanager.local.com.br
             storage: 
               volumeClaimTemplate:
                 spec:
