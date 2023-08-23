@@ -20,50 +20,41 @@ spec:
     repoURL: "https://grafana.github.io/helm-charts"
     targetRevision: 1.5.1
     helm:
+
       # https://github.com/grafana/helm-charts/blob/main/charts/tempo/values.yaml
-      parameters:
-        - name: tempo.resources.requests.memory
-          value: "1Gi"
-        - name: tempo.resources.limits.memory
-          value: "1Gi" # 7Gi for production is pretty good
-        - name: tempo.resources.requests.cpu
-          value: "100m" # 900m for production is pretty good
-        - name: tempo.resources.limits.cpu
-          value: "150m" # 900m for production is pretty good
-
-        - name: serviceMonitor.enabled
-          value: "true"
-        - name: serviceMonitor.additionalLabels.release
-          value: "observability-kube-prometheus"
-
-        # Note: used by ingestor to save the indexes before flushing it to gcs (https://github.com/grafana/tempo/blob/main/docs/tempo/website/operations/ingester_pvcs.md)
-        - name: persistence.enabled
-          value: "true"
-        # - name: persistence.storageClassName
-        #   value: "standard-rwo"
-        - name: persistence.size
-          value: "1Gi"
-
-        # Trace retention
-        - name: tempo.retention
-          value: "30d"
-        
-        # In high volume cenario we need to increase this value.
-        - name: tempo.global_overrides.max_traces_per_user
-          value: "20000"
-
-      values: |-
-        # serviceAccount:
-        #   annotations:
-        #     iam.gke.io/gcp-service-account: tempo-storage@${ARGOCD_ENV_PROJECT}.iam.gserviceaccount.com
-
+      valuesObject:
         tempo:
+          retention: 30d
+          resources:
+            requests: 
+              memory: 1Gi
+              cpu: 150m
+            limits:
+              memory: 1Gi # 7Gi for production is pretty good
+              cpu: 150m # 900m for production is pretty good
+          global_overrides:
+            # In high volume cenario we need to increase this value.
+            max_traces_per_user: 20000
           # https://github.com/grafana/tempo/blob/main/docs/tempo/website/configuration/_index.md#storage
           storage:
             trace:
               backend: gcs
               gcs:
                 bucket_name: your_bucket_name
+
+        serviceMonitor:
+          enabled: true
+          namespace: observability
+          additionalLabels:
+            release: observability-kube-prometheus
+
+        persistence:
+          enabled: true
+          size: 1Gi
+
+        # serviceAccount:
+        #   annotations:
+        #     iam.gke.io/gcp-service-account: tempo-storage@${ARGOCD_ENV_PROJECT}.iam.gserviceaccount.com
 
   destination:
     server: "https://kubernetes.default.svc"
