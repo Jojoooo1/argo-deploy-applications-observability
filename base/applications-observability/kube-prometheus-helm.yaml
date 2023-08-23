@@ -141,7 +141,8 @@ spec:
                   accessModes:
                   - ReadWriteOnce
                   resources:
-                  storage: 1Gi
+                    requests: 
+                      storage: 1Gi
         prometheusOperator:
           resources:
             requests: 
@@ -171,7 +172,8 @@ spec:
                   accessModes:
                   - ReadWriteOnce
                   resources:
-                  storage: 1Gi
+                    requests: 
+                      storage: 1Gi
             resources:
               requests: 
                 memory: 64Mi
