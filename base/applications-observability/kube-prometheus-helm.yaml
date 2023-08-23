@@ -93,6 +93,7 @@ spec:
               keep_alive_seconds: 1200
               idle_conn_timeout_seconds: 1200
             server:
+              domain: grafana.local.com.br
               root_url: https://grafana.local.com.br
 
           additionalDataSources:
