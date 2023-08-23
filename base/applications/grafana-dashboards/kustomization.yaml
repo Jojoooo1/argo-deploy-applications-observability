@@ -8,6 +8,8 @@ resources:
   - cert-manager.yaml
   - ingress-microservice.yaml
   - ingress-nginx-controllers.yaml
+  - kafka-overview.yaml
+  - kafka-topics.yaml
   - keycloak.yaml
   - rabbitmq.yaml
   - spring-api.yaml
