@@ -5,7 +5,6 @@ metadata:
   namespace: observability
   labels:
     scrapWith: kube-prometheus-stack
-    scrapWith: kube-prometheus-stack
 spec:
   groups:
 
