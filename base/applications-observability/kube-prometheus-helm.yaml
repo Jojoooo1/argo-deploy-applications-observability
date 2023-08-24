@@ -126,7 +126,7 @@ spec:
         prometheus:
           podDisruptionBudget:
             enabled: true
-          servicemonitor:
+          serviceMonitor:
             additionalLabels:
               scrapWith: kube-prometheus-stack
           ingress:
