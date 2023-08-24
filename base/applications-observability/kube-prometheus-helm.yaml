@@ -49,6 +49,10 @@ spec:
             limits:
               memory: 384Mi
               cpu: 100m
+          
+          serviceMonitor:
+            labels:
+              scrapWith: kube-prometheus-stack 
           sidecar: 
             dashboards: 
               provider:
@@ -120,6 +124,11 @@ spec:
                   enabled: true
 
         prometheus:
+          podDisruptionBudget:
+            enabled: true
+          servicemonitor:
+            additionalLabels:
+              crapWith: kube-prometheus-stack
           ingress:
             enabled: true
             ingressClassName: nginx
@@ -160,7 +169,11 @@ spec:
                   resources:
                     requests: 
                       storage: 1Gi
+
         prometheusOperator:
+          serviceMonitor:
+            additionalLabels:
+              scrapWith: kube-prometheus-stack
           resources:
             requests: 
               memory: 512Mi
@@ -271,6 +284,7 @@ spec:
             limits:
               memory: 64Mi
               cpu: 120m
+
         kube-state-metrics:
           prometheus:
             monitor:
@@ -284,9 +298,15 @@ spec:
               memory: 64Mi
               cpu: 50m
 
-        kubeEtcd:
-          enabled: false
+        kubelet:
+          enabled: true
+            serviceMonitor:
+              additionalLabels:
+                scrapWith: kube-prometheus-stack
+
         kubeApiserver:
+          enabled: false
+        kubeEtcd:
           enabled: false
         kubeControllerManager:
           enabled: false
