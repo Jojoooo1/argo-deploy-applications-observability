@@ -142,7 +142,7 @@ spec:
             ruleSelector:
               matchLabels:
                 scrapWith: kube-prometheus-stack
-            serviceMonitorSelector.matchLabels:
+            serviceMonitorSelector:
               matchLabels:
                 scrapWith: kube-prometheus-stack
             podMonitorSelector:
