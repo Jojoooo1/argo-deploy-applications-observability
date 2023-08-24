@@ -170,9 +170,10 @@ spec:
               cpu: 200m
 
         alertmanager:
-          servicemonitor:
+          serviceMonitor:
             additionalLabels:
               scrapWith: kube-prometheus-stack
+
           ingress:
             enabled: true
             ingressClassName: nginx
