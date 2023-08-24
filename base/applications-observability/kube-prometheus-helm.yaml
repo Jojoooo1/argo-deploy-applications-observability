@@ -300,9 +300,9 @@ spec:
 
         kubelet:
           enabled: true
-            serviceMonitor:
-              additionalLabels:
-                scrapWith: kube-prometheus-stack
+          serviceMonitor:
+            additionalLabels:
+              scrapWith: kube-prometheus-stack
 
         kubeApiserver:
           enabled: false
