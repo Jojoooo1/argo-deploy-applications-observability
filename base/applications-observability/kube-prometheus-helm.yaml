@@ -20,324 +20,324 @@ spec:
     repoURL: "https://prometheus-community.github.io/helm-charts"
     targetRevision: 48.3.6
     # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
-    helm:
-      skipCrds: true
-      valuesObject:
+    # helm:
+    #   skipCrds: true
+    #   valuesObject:
 
-        fullnameOverride: prometheus-stack
+    #     fullnameOverride: prometheus-stack
 
-        grafana:
-          fullnameOverride: grafana
-          image:
-            tag: 10.0.3
-          plugins:
-           - grafana-piechart-panel
-          admin:
-            adminUser: admin
-          adminPassword: password
-          ingress:
-            enabled: true
-            ingressClassName: nginx
-            paths: 
-              - /
-            hosts: 
-              - grafana.local.com.br
-          resources:
-            requests: 
-              memory: 128Mi
-              cpu: 50m
-            limits:
-              memory: 384Mi
-              cpu: 100m
+    #     grafana:
+    #       fullnameOverride: grafana
+    #       image:
+    #         tag: 10.0.3
+    #       plugins:
+    #        - grafana-piechart-panel
+    #       admin:
+    #         adminUser: admin
+    #       adminPassword: password
+    #       ingress:
+    #         enabled: true
+    #         ingressClassName: nginx
+    #         paths: 
+    #           - /
+    #         hosts: 
+    #           - grafana.local.com.br
+    #       resources:
+    #         requests: 
+    #           memory: 128Mi
+    #           cpu: 50m
+    #         limits:
+    #           memory: 384Mi
+    #           cpu: 100m
           
-          serviceMonitor:
-            labels:
-              scrapWith: kube-prometheus-stack 
-          sidecar: 
-            dashboards: 
-              provider:
-                foldersFromFilesStructure: true
-              annotations:
-                k8s-sidecar-target-directory: /tmp/dashboards/Kubernetes
+    #       serviceMonitor:
+    #         labels:
+    #           scrapWith: kube-prometheus-stack 
+    #       sidecar: 
+    #         dashboards: 
+    #           provider:
+    #             foldersFromFilesStructure: true
+    #           annotations:
+    #             k8s-sidecar-target-directory: /tmp/dashboards/Kubernetes
 
-          # Provision grafana-dashboards-kubernetes
-          dashboardProviders:
-            dashboardproviders.yaml:
-              apiVersion: 1
-              providers:
-              - name: 'grafana-dashboards-kubernetes'
-                orgId: 1
-                folder: 'Kubernetes-v2'
-                type: file
-                options:
-                  path: /var/lib/grafana/dashboards/grafana-dashboards-kubernetes
-          dashboards:
-            grafana-dashboards-kubernetes:
-              k8s-system-api-server:
-                url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
-              k8s-system-coredns:
-                url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json
-              k8s-views-global:
-                url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
-              k8s-views-namespaces:
-                url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
-              k8s-views-nodes:
-                url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
-              k8s-views-pods:
-                url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
+    #       # Provision grafana-dashboards-kubernetes
+    #       dashboardProviders:
+    #         dashboardproviders.yaml:
+    #           apiVersion: 1
+    #           providers:
+    #           - name: 'grafana-dashboards-kubernetes'
+    #             orgId: 1
+    #             folder: 'Kubernetes-v2'
+    #             type: file
+    #             options:
+    #               path: /var/lib/grafana/dashboards/grafana-dashboards-kubernetes
+    #       dashboards:
+    #         grafana-dashboards-kubernetes:
+    #           k8s-system-api-server:
+    #             url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
+    #           k8s-system-coredns:
+    #             url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json
+    #           k8s-views-global:
+    #             url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
+    #           k8s-views-namespaces:
+    #             url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
+    #           k8s-views-nodes:
+    #             url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
+    #           k8s-views-pods:
+    #             url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
 
-          grafana.ini:
-            feature_toggles:
-              enable: prometheusMetricEncyclopedia scenes traceToMetrics newTraceViewHeader showTraceId traceqlSearch
-            # https://grafana.com/docs/grafana/latest/administration/configuration/#dataproxy
-            dataproxy:
-              timeout: 1200
-              keep_alive_seconds: 1200
-              idle_conn_timeout_seconds: 1200
-            server:
-              domain: grafana.local.com.br
-              root_url: https://grafana.local.com.br
+    #       grafana.ini:
+    #         feature_toggles:
+    #           enable: prometheusMetricEncyclopedia scenes traceToMetrics newTraceViewHeader showTraceId traceqlSearch
+    #         # https://grafana.com/docs/grafana/latest/administration/configuration/#dataproxy
+    #         dataproxy:
+    #           timeout: 1200
+    #           keep_alive_seconds: 1200
+    #           idle_conn_timeout_seconds: 1200
+    #         server:
+    #           domain: grafana.local.com.br
+    #           root_url: https://grafana.local.com.br
 
-          additionalDataSources:
-            - name: Tempo
-              uid: tempo
-              type: tempo
-              access: proxy
-              url: http://tempo.observability.svc:3100
-              jsonData:
-                httpMethod: GET
-                tracesToLogs:
-                  datasourceUid: 'loki'
-                  # tags: ['job', 'instance', 'pod', 'namespace']
-                  mappedTags: [{ key: 'service.name', value: 'app' }]
-                  mapTagNamesEnabled: true
-                  spanStartTimeShift: '1h'
-                  spanEndTimeShift: '1h'
-                  filterByTraceID: false
-                  filterBySpanID: false
-                  lokiSearch: true
-                serviceMap:
-                  datasourceUid: 'prometheus'
-                search:
-                  hide: false
-                nodeGraph:
-                  enabled: true
+    #       additionalDataSources:
+    #         - name: Tempo
+    #           uid: tempo
+    #           type: tempo
+    #           access: proxy
+    #           url: http://tempo.observability.svc:3100
+    #           jsonData:
+    #             httpMethod: GET
+    #             tracesToLogs:
+    #               datasourceUid: 'loki'
+    #               # tags: ['job', 'instance', 'pod', 'namespace']
+    #               mappedTags: [{ key: 'service.name', value: 'app' }]
+    #               mapTagNamesEnabled: true
+    #               spanStartTimeShift: '1h'
+    #               spanEndTimeShift: '1h'
+    #               filterByTraceID: false
+    #               filterBySpanID: false
+    #               lokiSearch: true
+    #             serviceMap:
+    #               datasourceUid: 'prometheus'
+    #             search:
+    #               hide: false
+    #             nodeGraph:
+    #               enabled: true
 
-        prometheus:
-          podDisruptionBudget:
-            enabled: true
-          serviceMonitor:
-            additionalLabels:
-              scrapWith: kube-prometheus-stack
-          ingress:
-            enabled: true
-            ingressClassName: nginx
-            paths: 
-              - /
-            hosts: 
-              - prometheus.local.com.br
-          prometheusSpec:
-            retention: "30d"
-            externalUrl: http://prometheus.local.com.br
-            ruleSelector:
-              matchLabels:
-                scrapWith: kube-prometheus-stack
-            serviceMonitorSelector.matchLabels:
-              matchLabels:
-                scrapWith: kube-prometheus-stack
-            podMonitorSelector:
-              matchLabels:
-                scrapWith: kube-prometheus-stack
-            probeSelector:
-              matchLabels:
-                scrapWith: kube-prometheus-stack
-            scrapeConfigSelector:
-              matchLabels:
-                scrapWith: kube-prometheus-stack            
-            alertmanagerConfigSelector:
-              matchLabels:
-                scrapWith: kube-prometheus-stack
+    #     prometheus:
+    #       podDisruptionBudget:
+    #         enabled: true
+    #       serviceMonitor:
+    #         additionalLabels:
+    #           scrapWith: kube-prometheus-stack
+    #       ingress:
+    #         enabled: true
+    #         ingressClassName: nginx
+    #         paths: 
+    #           - /
+    #         hosts: 
+    #           - prometheus.local.com.br
+    #       prometheusSpec:
+    #         retention: "30d"
+    #         externalUrl: http://prometheus.local.com.br
+    #         ruleSelector:
+    #           matchLabels:
+    #             scrapWith: kube-prometheus-stack
+    #         serviceMonitorSelector.matchLabels:
+    #           matchLabels:
+    #             scrapWith: kube-prometheus-stack
+    #         podMonitorSelector:
+    #           matchLabels:
+    #             scrapWith: kube-prometheus-stack
+    #         probeSelector:
+    #           matchLabels:
+    #             scrapWith: kube-prometheus-stack
+    #         scrapeConfigSelector:
+    #           matchLabels:
+    #             scrapWith: kube-prometheus-stack            
+    #         alertmanagerConfigSelector:
+    #           matchLabels:
+    #             scrapWith: kube-prometheus-stack
 
-            enableFeatures:
-            - exemplar-storage
-            storageSpec: 
-              volumeClaimTemplate:
-                spec:
-                  # storageClassName: standard-rwo
-                  accessModes:
-                  - ReadWriteOnce
-                  resources:
-                    requests: 
-                      storage: 1Gi
+    #         enableFeatures:
+    #         - exemplar-storage
+    #         storageSpec: 
+    #           volumeClaimTemplate:
+    #             spec:
+    #               # storageClassName: standard-rwo
+    #               accessModes:
+    #               - ReadWriteOnce
+    #               resources:
+    #                 requests: 
+    #                   storage: 1Gi
 
-        prometheusOperator:
-          serviceMonitor:
-            additionalLabels:
-              scrapWith: kube-prometheus-stack
-          resources:
-            requests: 
-              memory: 512Mi
-              cpu: 100m
-            limits:
-              memory: 1.5Gi
-              cpu: 200m
+    #     prometheusOperator:
+    #       serviceMonitor:
+    #         additionalLabels:
+    #           scrapWith: kube-prometheus-stack
+    #       resources:
+    #         requests: 
+    #           memory: 512Mi
+    #           cpu: 100m
+    #         limits:
+    #           memory: 1.5Gi
+    #           cpu: 200m
 
-        alertmanager:
-          serviceMonitor:
-            additionalLabels:
-              scrapWith: kube-prometheus-stack
+    #     alertmanager:
+    #       serviceMonitor:
+    #         additionalLabels:
+    #           scrapWith: kube-prometheus-stack
 
-          ingress:
-            enabled: true
-            ingressClassName: nginx
-            paths: 
-              - /
-            hosts: 
-              - alertmanager.local.com.br
-          alertmanagerSpec:
-            retention: "720h" # 30 days
-            externalUrl: http://alertmanager.local.com.br
-            storage: 
-              volumeClaimTemplate:
-                spec:
-                  # storageClassName: standard-rwo
-                  accessModes:
-                  - ReadWriteOnce
-                  resources:
-                    requests: 
-                      storage: 1Gi
-            resources:
-              requests: 
-                memory: 64Mi
-                cpu: 50m
-              limits:
-                memory: 128Mi
-                cpu: 100m
-          config:
-            global:
-              resolve_timeout: 5m
-              slack_api_url: "https://hooks.slack.com/services/T5BG38LNS/fake-url"
-            route:
-              group_by: ['job']
-              group_wait: 10s
-              group_interval: 30s
-              repeat_interval: 12h
-              receiver: 'slack'
-              routes:
-                - receiver: 'null'
-                  matchers:
-                    - alertname = Watchdog
-                - receiver: 'slack'
-                  matchers:
-                    - severity = info|critical|warning
-                  continue: true
-            receivers:
-              - name: 'null'
-              - name: slack
-                slack_configs:
-                  - send_resolved: true
-                    channel: '#danger-room-sandbox'
-                    icon_url: https://avatars3.githubusercontent.com/u/3380462
-                    title: |
-                      [{{ .Status | toUpper -}}
-                      {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
-                      ] {{ .CommonLabels.alertname }}
-                    text: |-
-                      {{ range .Alerts -}}
-                      *Severity:* `{{ .Labels.severity }}`
-                      *Description:* {{ .Annotations.description }}
-                      *Details:*
-                         • *env:* `${ARGOCD_ENV_ENV}`
-                        {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
-                        {{ end }}
-                      {{ end }}
+    #       ingress:
+    #         enabled: true
+    #         ingressClassName: nginx
+    #         paths: 
+    #           - /
+    #         hosts: 
+    #           - alertmanager.local.com.br
+    #       alertmanagerSpec:
+    #         retention: "720h" # 30 days
+    #         externalUrl: http://alertmanager.local.com.br
+    #         storage: 
+    #           volumeClaimTemplate:
+    #             spec:
+    #               # storageClassName: standard-rwo
+    #               accessModes:
+    #               - ReadWriteOnce
+    #               resources:
+    #                 requests: 
+    #                   storage: 1Gi
+    #         resources:
+    #           requests: 
+    #             memory: 64Mi
+    #             cpu: 50m
+    #           limits:
+    #             memory: 128Mi
+    #             cpu: 100m
+    #       config:
+    #         global:
+    #           resolve_timeout: 5m
+    #           slack_api_url: "https://hooks.slack.com/services/T5BG38LNS/fake-url"
+    #         route:
+    #           group_by: ['job']
+    #           group_wait: 10s
+    #           group_interval: 30s
+    #           repeat_interval: 12h
+    #           receiver: 'slack'
+    #           routes:
+    #             - receiver: 'null'
+    #               matchers:
+    #                 - alertname = Watchdog
+    #             - receiver: 'slack'
+    #               matchers:
+    #                 - severity = info|critical|warning
+    #               continue: true
+    #         receivers:
+    #           - name: 'null'
+    #           - name: slack
+    #             slack_configs:
+    #               - send_resolved: true
+    #                 channel: '#danger-room-sandbox'
+    #                 icon_url: https://avatars3.githubusercontent.com/u/3380462
+    #                 title: |
+    #                   [{{ .Status | toUpper -}}
+    #                   {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
+    #                   ] {{ .CommonLabels.alertname }}
+    #                 text: |-
+    #                   {{ range .Alerts -}}
+    #                   *Severity:* `{{ .Labels.severity }}`
+    #                   *Description:* {{ .Annotations.description }}
+    #                   *Details:*
+    #                      • *env:* `${ARGOCD_ENV_ENV}`
+    #                     {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+    #                     {{ end }}
+    #                   {{ end }}
 
-                    actions:
-                      # TODO: add in the future: log_url, dashboard_url, runbook_url
+    #                 actions:
+    #                   # TODO: add in the future: log_url, dashboard_url, runbook_url
 
-                      - type: button
-                        text: 'Runbook :green_book:'
-                        url: '{{ (index .Alerts 0).Annotations.runbook_url }}'
-                      - type: button
-                        text: 'Query :mag:'
-                        url: '{{ (index .Alerts 0).GeneratorURL }}'
-                      - type: button
-                        text: 'Silence :no_bell:'
-                        url: |
-                          {{ .ExternalURL }}/#/silences/new?filter=%7B
-                          {{- range .CommonLabels.SortedPairs -}}
-                              {{- if ne .Name "alertname" -}}
-                                  {{- .Name }}%3D"{{- .Value -}}"%2C%20
-                              {{- end -}}
-                          {{- end -}}
-                          alertname%3D"{{- .CommonLabels.alertname -}}"%7D
+    #                   - type: button
+    #                     text: 'Runbook :green_book:'
+    #                     url: '{{ (index .Alerts 0).Annotations.runbook_url }}'
+    #                   - type: button
+    #                     text: 'Query :mag:'
+    #                     url: '{{ (index .Alerts 0).GeneratorURL }}'
+    #                   - type: button
+    #                     text: 'Silence :no_bell:'
+    #                     url: |
+    #                       {{ .ExternalURL }}/#/silences/new?filter=%7B
+    #                       {{- range .CommonLabels.SortedPairs -}}
+    #                           {{- if ne .Name "alertname" -}}
+    #                               {{- .Name }}%3D"{{- .Value -}}"%2C%20
+    #                           {{- end -}}
+    #                       {{- end -}}
+    #                       alertname%3D"{{- .CommonLabels.alertname -}}"%7D
 
-        prometheus-node-exporter:
-          prometheus:
-            monitor:
-              additionalLabels:
-                scrapWith: kube-prometheus-stack
-          resources:
-            requests: 
-              memory: 32Mi
-              cpu: 60m
-            limits:
-              memory: 64Mi
-              cpu: 120m
+    #     prometheus-node-exporter:
+    #       prometheus:
+    #         monitor:
+    #           additionalLabels:
+    #             scrapWith: kube-prometheus-stack
+    #       resources:
+    #         requests: 
+    #           memory: 32Mi
+    #           cpu: 60m
+    #         limits:
+    #           memory: 64Mi
+    #           cpu: 120m
 
-        kube-state-metrics:
-          prometheus:
-            monitor:
-              additionalLabels:
-                scrapWith: kube-prometheus-stack
-          resources:
-            requests: 
-              memory: 32Mi
-              cpu: 25m
-            limits:
-              memory: 64Mi
-              cpu: 50m
+    #     kube-state-metrics:
+    #       prometheus:
+    #         monitor:
+    #           additionalLabels:
+    #             scrapWith: kube-prometheus-stack
+    #       resources:
+    #         requests: 
+    #           memory: 32Mi
+    #           cpu: 25m
+    #         limits:
+    #           memory: 64Mi
+    #           cpu: 50m
 
-        kubelet:
-          enabled: true
-          serviceMonitor:
-            additionalLabels:
-              scrapWith: kube-prometheus-stack
+    #     kubelet:
+    #       enabled: true
+    #       serviceMonitor:
+    #         additionalLabels:
+    #           scrapWith: kube-prometheus-stack
 
-        kubeApiserver:
-          enabled: false
-        kubeEtcd:
-          enabled: false
-        kubeControllerManager:
-          enabled: false
-        kubeScheduler:
-          enabled: false
-        coreDns:
-          enabled: false
-        kubeProxy:
-          enabled: false
+    #     kubeApiserver:
+    #       enabled: false
+    #     kubeEtcd:
+    #       enabled: false
+    #     kubeControllerManager:
+    #       enabled: false
+    #     kubeScheduler:
+    #       enabled: false
+    #     coreDns:
+    #       enabled: false
+    #     kubeProxy:
+    #       enabled: false
         
-        defaultRules:
-          additionalRuleLabels:
-            scrapWith: kube-prometheus-stack
+    #     defaultRules:
+    #       additionalRuleLabels:
+    #         scrapWith: kube-prometheus-stack
 
-          rules:
-            etcd: false
-            kubeApiserver: false
-            kubeApiserverAvailability: false
-            kubeApiserverBurnrate: false
-            kubeApiserverHistogram: false
-            kubeApiserverSlos: false
-            kubeProxy: false
-            kubeSchedulerAlerting: false
-            kubeSchedulerRecording: false
-            network: false
-            kubernetesSystem: false
+    #       rules:
+    #         etcd: false
+    #         kubeApiserver: false
+    #         kubeApiserverAvailability: false
+    #         kubeApiserverBurnrate: false
+    #         kubeApiserverHistogram: false
+    #         kubeApiserverSlos: false
+    #         kubeProxy: false
+    #         kubeSchedulerAlerting: false
+    #         kubeSchedulerRecording: false
+    #         network: false
+    #         kubernetesSystem: false
           
-          disabled:
-            CPUThrottlingHigh: true
-            KubeCPUOvercommit: true
-            InfoInhibitor: true
+    #       disabled:
+    #         CPUThrottlingHigh: true
+    #         KubeCPUOvercommit: true
+    #         InfoInhibitor: true
 
   destination:
     server: "https://kubernetes.default.svc"
