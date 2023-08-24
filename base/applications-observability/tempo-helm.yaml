@@ -43,13 +43,13 @@ spec:
                 bucket_name: your_bucket_name
 
         serviceMonitor:
-          enabled: true
+          enabled: "true"
           namespace: observability
           additionalLabels:
             release: observability-kube-prometheus
 
         persistence:
-          enabled: true
+          enabled: "true"
           size: 1Gi
 
         # serviceAccount:

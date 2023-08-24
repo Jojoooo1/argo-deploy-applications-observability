@@ -36,7 +36,7 @@ spec:
             adminUser: admin
           adminPassword: password
           ingress:
-            enabled: true
+            enabled: "true"
             ingressClassName: nginx
             paths: 
               - /
@@ -106,7 +106,7 @@ spec:
                   datasourceUid: 'loki'
                   # tags: ['job', 'instance', 'pod', 'namespace']
                   mappedTags: [{ key: 'service.name', value: 'app' }]
-                  mapTagNamesEnabled: true
+                  mapTagNamesEnabled: "true"
                   spanStartTimeShift: '1h'
                   spanEndTimeShift: '1h'
                   filterByTraceID: false
@@ -117,11 +117,11 @@ spec:
                 search:
                   hide: false
                 nodeGraph:
-                  enabled: true
+                  enabled: "true"
 
         prometheus:
           ingress:
-            enabled: true
+            enabled: "true"
             ingressClassName: nginx
             paths: 
               - /
@@ -171,7 +171,7 @@ spec:
 
         alertmanager:
           ingress:
-            enabled: true
+            enabled: "true"
             ingressClassName: nginx
             paths: 
               - /
