@@ -170,6 +170,9 @@ spec:
               cpu: 200m
 
         alertmanager:
+          servicemonitor:
+            additionalLabels:
+              scrapWith: kube-prometheus-stack
           ingress:
             enabled: true
             ingressClassName: nginx
@@ -256,6 +259,10 @@ spec:
                           alertname%3D"{{- .CommonLabels.alertname -}}"%7D
 
         prometheus-node-exporter:
+          prometheus:
+            monitor:
+              additionalLabels:
+                scrapWith: kube-prometheus-stack
           resources:
             requests: 
               memory: 32Mi
@@ -264,6 +271,10 @@ spec:
               memory: 64Mi
               cpu: 120m
         kube-state-metrics:
+          prometheus:
+            monitor:
+              additionalLabels:
+                scrapWith: kube-prometheus-stack
           resources:
             requests: 
               memory: 32Mi
@@ -286,6 +297,9 @@ spec:
           enabled: false
         
         defaultRules:
+          additionalRuleLabels:
+            scrapWith: kube-prometheus-stack
+
           rules:
             etcd: false
             kubeApiserver: false
