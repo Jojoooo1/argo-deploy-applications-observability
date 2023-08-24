@@ -151,15 +151,26 @@ spec:
             serviceMonitorSelector:
               matchLabels:
                 scrapWith: kube-prometheus-stack
+
+            podMonitorNamespaceSelector: false
+            podMonitorSelectorNilUsesHelmValues: {}
             podMonitorSelector:
               matchLabels:
                 scrapWith: kube-prometheus-stack
+
+            probeSelectorNilUsesHelmValues: false
+            probeNamespaceSelector: {}
             probeSelector:
               matchLabels:
                 scrapWith: kube-prometheus-stack
+
+            scrapeConfigSelectorNilUsesHelmValues: false
+            scrapeConfigNamespaceSelector: {}
             scrapeConfigSelector:
               matchLabels:
-                scrapWith: kube-prometheus-stack            
+                scrapWith: kube-prometheus-stack  
+
+            alertmanagerConfigNamespaceSelector: {}
             alertmanagerConfigSelector:
               matchLabels:
                 scrapWith: kube-prometheus-stack

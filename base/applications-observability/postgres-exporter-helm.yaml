@@ -35,7 +35,7 @@ spec:
           enabled: true
           namespace: observability
           labels:
-            release: observability-kube-prometheus
+            scrapWith: kube-prometheus-stack
 
         # serviceAccount:
         #   annotations:

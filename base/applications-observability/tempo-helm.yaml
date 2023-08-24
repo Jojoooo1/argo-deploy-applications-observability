@@ -46,7 +46,7 @@ spec:
           enabled: "true"
           namespace: observability
           additionalLabels:
-            release: observability-kube-prometheus
+            scrapWith: kube-prometheus-stack
 
         persistence:
           enabled: "true"
