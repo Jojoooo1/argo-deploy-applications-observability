@@ -142,6 +142,9 @@ spec:
             ruleSelector:
               matchLabels:
                 scrapWith: kube-prometheus-stack
+            
+            serviceMonitorSelectorNilUsesHelmValues: false
+            serviceMonitorNamespaceSelector: {}
             serviceMonitorSelector:
               matchLabels:
                 scrapWith: kube-prometheus-stack
