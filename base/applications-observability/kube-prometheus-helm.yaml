@@ -130,7 +130,9 @@ spec:
           prometheusSpec:
             retention: "30d"
             externalUrl: http://prometheus.local.com.br
-            ruleSelector
+            ruleSelector:
+              matchLabels:
+                scrapWith: kube-prometheus-stack
             serviceMonitorSelector.matchLabels:
               matchLabels:
                 scrapWith: kube-prometheus-stack
