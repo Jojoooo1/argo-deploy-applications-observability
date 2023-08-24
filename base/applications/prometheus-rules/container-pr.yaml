@@ -4,7 +4,7 @@ metadata:
   name: container-rules
   namespace: observability
   labels:
-    release: observability-kube-prometheus
+    scrapWith: kube-prometheus-stack
 spec:
   groups:
     - name: container.general.rules

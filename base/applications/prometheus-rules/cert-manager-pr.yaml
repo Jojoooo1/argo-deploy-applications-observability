@@ -4,7 +4,7 @@ metadata:
   name: cert-manager-rules
   namespace: observability
   labels:
-    release: observability-kube-prometheus
+    scrapWith: kube-prometheus-stack
     scrapWith: kube-prometheus-stack
 spec:
   groups:
