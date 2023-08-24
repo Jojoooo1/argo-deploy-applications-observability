@@ -18,7 +18,7 @@ spec:
   source:
     chart: kube-prometheus-stack
     repoURL: "https://prometheus-community.github.io/helm-charts"
-    targetRevision: 48.3.3
+    targetRevision: 48.3.6
     # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
     helm:
       skipCrds: true
@@ -130,6 +130,23 @@ spec:
           prometheusSpec:
             retention: "30d"
             externalUrl: http://prometheus.local.com.br
+            ruleSelector
+            serviceMonitorSelector.matchLabels:
+              matchLabels:
+                scrapWith: kube-prometheus-stack
+            podMonitorSelector:
+              matchLabels:
+                scrapWith: kube-prometheus-stack
+            probeSelector:
+              matchLabels:
+                scrapWith: kube-prometheus-stack
+            scrapeConfigSelector:
+              matchLabels:
+                scrapWith: kube-prometheus-stack            
+            alertmanagerConfigSelector:
+              matchLabels:
+                scrapWith: kube-prometheus-stack
+
             enableFeatures:
             - exemplar-storage
             storageSpec: 
