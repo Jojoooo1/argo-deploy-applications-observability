@@ -318,7 +318,7 @@ spec:
           enabled: false
         
         defaultRules:
-          additionalRuleLabels:
+          labels:
             scrapWith: kube-prometheus-stack
 
           rules:
