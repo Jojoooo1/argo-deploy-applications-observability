@@ -128,7 +128,7 @@ spec:
             enabled: true
           servicemonitor:
             additionalLabels:
-              crapWith: kube-prometheus-stack
+              scrapWith: kube-prometheus-stack
           ingress:
             enabled: true
             ingressClassName: nginx
