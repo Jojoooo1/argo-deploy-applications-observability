@@ -4,7 +4,7 @@ metadata:
   name: microservice-api-rules
   namespace: observability
   labels:
-    scrapWith: kube-prometheus-stack
+    prometheus.io/scrap-with: kube-prometheus-stack
 spec:
   groups:
     - name: microservice.api.rules

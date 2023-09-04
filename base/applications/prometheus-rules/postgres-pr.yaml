@@ -4,7 +4,7 @@ metadata:
   name: postgres-rules
   namespace: observability
   labels:
-    scrapWith: kube-prometheus-stack
+    prometheus.io/scrap-with: kube-prometheus-stack
 spec:
   groups:
     - name: PostgresExporter

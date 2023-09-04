@@ -35,7 +35,7 @@ spec:
           enabled: true
           namespace: observability
           labels:
-            scrapWith: kube-prometheus-stack
+            prometheus.io/scrap-with: kube-prometheus-stack
 
         # serviceAccount:
         #   annotations:

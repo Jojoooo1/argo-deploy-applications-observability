@@ -4,7 +4,7 @@ metadata:
   name: rabbitmq-rules
   namespace: observability
   labels:
-    scrapWith: kube-prometheus-stack
+    prometheus.io/scrap-with: kube-prometheus-stack
 spec:
   groups:
     - name: rabbitmq.rules

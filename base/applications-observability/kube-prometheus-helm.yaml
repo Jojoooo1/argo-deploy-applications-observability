@@ -52,7 +52,7 @@ spec:
           
           serviceMonitor:
             labels:
-              scrapWith: kube-prometheus-stack 
+              prometheus.io/scrap-with: kube-prometheus-stack 
           sidecar: 
             dashboards: 
               provider:
@@ -128,7 +128,7 @@ spec:
             enabled: true
           serviceMonitor:
             additionalLabels:
-              scrapWith: kube-prometheus-stack
+              prometheus.io/scrap-with: kube-prometheus-stack
           ingress:
             enabled: true
             ingressClassName: nginx
@@ -144,36 +144,36 @@ spec:
             ruleNamespaceSelector: {}
             ruleSelector:
               matchLabels:
-                scrapWith: kube-prometheus-stack
+                prometheus.io/scrap-with: kube-prometheus-stack
             
             serviceMonitorSelectorNilUsesHelmValues: false
             # serviceMonitorNamespaceSelector: {}
             serviceMonitorSelector:
               matchLabels:
-                scrapWith: kube-prometheus-stack
+                prometheus.io/scrap-with: kube-prometheus-stack
 
             podMonitorNamespaceSelector: false
             # podMonitorSelectorNilUsesHelmValues: {}
             podMonitorSelector:
               matchLabels:
-                scrapWith: kube-prometheus-stack
+                prometheus.io/scrap-with: kube-prometheus-stack
 
             probeSelectorNilUsesHelmValues: false
             # probeNamespaceSelector: {}
             probeSelector:
               matchLabels:
-                scrapWith: kube-prometheus-stack
+                prometheus.io/scrap-with: kube-prometheus-stack
 
             scrapeConfigSelectorNilUsesHelmValues: false
             # scrapeConfigNamespaceSelector: {}
             scrapeConfigSelector:
               matchLabels:
-                scrapWith: kube-prometheus-stack  
+                prometheus.io/scrap-with: kube-prometheus-stack  
 
             # alertmanagerConfigNamespaceSelector: {}
             alertmanagerConfigSelector:
               matchLabels:
-                scrapWith: kube-prometheus-stack
+                prometheus.io/scrap-with: kube-prometheus-stack
 
             enableFeatures:
             - exemplar-storage
@@ -190,7 +190,7 @@ spec:
         prometheusOperator:
           serviceMonitor:
             additionalLabels:
-              scrapWith: kube-prometheus-stack
+              prometheus.io/scrap-with: kube-prometheus-stack
           resources:
             requests: 
               memory: 512Mi
@@ -202,7 +202,7 @@ spec:
         alertmanager:
           serviceMonitor:
             additionalLabels:
-              scrapWith: kube-prometheus-stack
+              prometheus.io/scrap-with: kube-prometheus-stack
 
           ingress:
             enabled: true
@@ -293,7 +293,7 @@ spec:
           prometheus:
             monitor:
               additionalLabels:
-                scrapWith: kube-prometheus-stack
+                prometheus.io/scrap-with: kube-prometheus-stack
           resources:
             requests: 
               memory: 32Mi
@@ -306,7 +306,7 @@ spec:
           prometheus:
             monitor:
               additionalLabels:
-                scrapWith: kube-prometheus-stack
+                prometheus.io/scrap-with: kube-prometheus-stack
           resources:
             requests: 
               memory: 32Mi
@@ -319,7 +319,7 @@ spec:
           enabled: true
           serviceMonitor:
             additionalLabels:
-              scrapWith: kube-prometheus-stack
+              prometheus.io/scrap-with: kube-prometheus-stack
 
         kubeApiserver:
           enabled: false
@@ -336,7 +336,7 @@ spec:
         
         defaultRules:
           labels:
-            scrapWith: kube-prometheus-stack
+            prometheus.io/scrap-with: kube-prometheus-stack
 
           rules:
             etcd: false
