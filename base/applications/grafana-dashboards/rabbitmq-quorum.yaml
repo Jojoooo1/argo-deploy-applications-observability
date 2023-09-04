@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dashboard-rabbitmq-quorum
+  namespace: observability
+  labels:
+    grafana_dashboard: "1"
+  annotations:
+    k8s-sidecar-target-directory: "/tmp/dashboards/Rabbitmq"
+data:
+  # https://grafana.com/grafana/dashboards/11340
+  rabbitmq-quorum-queues-raft-dashboard.json.url: "https://github.com/rabbitmq/rabbitmq-server/raw/e57c579d1a71b283469defdd0d6d45313e6d6daf/deps/rabbitmq_prometheus/docker/grafana/dashboards/RabbitMQ-Quorum-Queues-Raft.json"
+    

@@ -11,7 +11,7 @@ resources:
   - kafka-overview.yaml
   - kafka-topics.yaml
   - keycloak.yaml
-  - rabbitmq.yaml
+  - rabbitmq-overview.yaml
   - spring-api.yaml
   - spring-middleware.yaml
   - spring-webhook.yaml
