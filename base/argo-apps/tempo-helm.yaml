@@ -19,42 +19,42 @@ spec:
     chart: tempo
     repoURL: "https://grafana.github.io/helm-charts"
     targetRevision: 1.6.1
-    # helm:
+    helm:
 
-    #   # https://github.com/grafana/helm-charts/blob/main/charts/tempo/values.yaml
-    #   valuesObject:
-    #     tempo:
-    #       retention: 720h # 30d
-    #       resources:
-    #         requests: 
-    #           memory: 1Gi
-    #           cpu: 150m
-    #         limits:
-    #           memory: 1Gi # 7Gi for production is pretty good
-    #           cpu: 150m # 1 for production is pretty good
-    #       global_overrides:
-    #         # In high volume cenario we need to increase this value.
-    #         max_traces_per_user: 20000
-    #       # https://github.com/grafana/tempo/blob/main/docs/tempo/website/configuration/_index.md#storage
-    #       # storage:
-    #       #   trace:
-    #       #     backend: gcs
-    #       #     gcs:
-    #       #       bucket_name: <bucket_name>
+      # https://github.com/grafana/helm-charts/blob/main/charts/tempo/values.yaml
+      valuesObject:
+        tempo:
+          retention: 720h # 30d
+          resources:
+            requests: 
+              memory: 1Gi
+              cpu: 150m
+            limits:
+              memory: 1Gi # 7Gi for production is pretty good
+              cpu: 150m # 1 for production is pretty good
+          global_overrides:
+            # In high volume cenario we need to increase this value.
+            max_traces_per_user: 20000
+          # https://github.com/grafana/tempo/blob/main/docs/tempo/website/configuration/_index.md#storage
+          # storage:
+          #   trace:
+          #     backend: gcs
+          #     gcs:
+          #       bucket_name: <bucket_name>
 
-    #     serviceMonitor:
-    #       enabled: "true"
-    #       namespace: observability
-    #       additionalLabels:
-    #         prometheus.io/scrap-with: kube-prometheus-stack
+        serviceMonitor:
+          enabled: "true"
+          namespace: observability
+          additionalLabels:
+            prometheus.io/scrap-with: kube-prometheus-stack
 
-    #     persistence:
-    #       enabled: "true"
-    #       size: 1Gi
+        persistence:
+          enabled: "true"
+          size: 1Gi
 
-    #     # serviceAccount:
-    #     #   annotations:
-    #     #     iam.gke.io/gcp-service-account: tempo-storage@${ARGOCD_ENV_PROJECT}.iam.gserviceaccount.com
+        # serviceAccount:
+        #   annotations:
+        #     iam.gke.io/gcp-service-account: tempo-storage@${ARGOCD_ENV_PROJECT}.iam.gserviceaccount.com
 
   destination:
     server: "https://kubernetes.default.svc"
