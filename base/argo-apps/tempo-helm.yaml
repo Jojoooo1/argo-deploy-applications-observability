@@ -24,7 +24,7 @@ spec:
       # https://github.com/grafana/helm-charts/blob/main/charts/tempo/values.yaml
       valuesObject:
         tempo:
-          retention: 30d
+          retention: 720h # 30d
           resources:
             requests: 
               memory: 1Gi
