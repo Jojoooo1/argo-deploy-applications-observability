@@ -39,10 +39,10 @@ spec:
             replication_factor: 1
           storage:
             type: filesystem
-          write:
-            replicas: 1
-          read:
-            replicas: 1
+          # write:
+          #   replicas: 1
+          # read:
+          #   replicas: 1
 
 
         # serviceAccount:
