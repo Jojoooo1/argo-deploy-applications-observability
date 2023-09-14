@@ -23,6 +23,7 @@ spec:
 
       # https://github.com/grafana/helm-charts/blob/main/charts/tempo/values.yaml
       valuesObject:
+        fullnameOverride: tempo
         tempo:
           retention: 720h # 30d
           resources:

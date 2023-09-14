@@ -23,6 +23,7 @@ spec:
 
       # https://github.com/grafana/helm-charts/blob/main/charts/tempo/values.yaml
       valuesObject:
+        fullnameOverride: loki
         monitoring:
           serviceMonitor:
             namespace: observability
