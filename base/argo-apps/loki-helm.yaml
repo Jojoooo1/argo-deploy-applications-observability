@@ -16,9 +16,9 @@ spec:
       - PrunePropagationPolicy=foreground
 
   source:
-    chart: loki-simple-scalable
+    chart: loki
     repoURL: "https://grafana.github.io/helm-charts"
-    targetRevision: 1.8.11
+    targetRevision: 5.22.0
     helm:
 
       # https://grafana.com/docs/loki/latest/setup/install/helm/install-scalable/
@@ -32,8 +32,8 @@ spec:
               prometheus.io/scrap-with: kube-prometheus-stack
 
         loki:
-          config:
-            auth_enabled: false
+          # config:
+          #   auth_enabled: false
           
           # It is not possible to run the scalable mode with the filesystem storage.
           storage:
