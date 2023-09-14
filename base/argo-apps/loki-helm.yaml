@@ -16,11 +16,12 @@ spec:
       - PrunePropagationPolicy=foreground
 
   source:
-    chart: loki
+    chart: loki-simple-scalable
     repoURL: "https://grafana.github.io/helm-charts"
-    targetRevision: 5.22.0
+    targetRevision: 1.8.11
     helm:
 
+      # https://grafana.com/docs/loki/latest/setup/install/helm/install-scalable/
       # https://github.com/grafana/helm-charts/blob/main/charts/tempo/values.yaml
       valuesObject:
         fullnameOverride: loki
@@ -33,6 +34,8 @@ spec:
         loki:
           config:
             auth_enabled: false
+          
+          # It is not possible to run the scalable mode with the filesystem storage.
           storage:
             type: filesystem
           write:
