@@ -31,11 +31,12 @@ spec:
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
-        loki:
-          # config:
-          #   auth_enabled: false
-          
+        singleBinary:
+          replicas: 1
+        loki:         
           # It is not possible to run the scalable mode with the filesystem storage.
+          commonConfig:
+            replication_factor: 1
           storage:
             type: filesystem
           write:
