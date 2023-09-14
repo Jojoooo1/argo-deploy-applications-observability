@@ -18,7 +18,7 @@ spec:
   source:
     chart: tempo
     repoURL: "https://grafana.github.io/helm-charts"
-    targetRevision: 1.5.1
+    targetRevision: 1.6.1
     helm:
 
       # https://github.com/grafana/helm-charts/blob/main/charts/tempo/values.yaml
@@ -36,11 +36,11 @@ spec:
             # In high volume cenario we need to increase this value.
             max_traces_per_user: 20000
           # https://github.com/grafana/tempo/blob/main/docs/tempo/website/configuration/_index.md#storage
-          storage:
-            trace:
-              backend: gcs
-              gcs:
-                bucket_name: your_bucket_name
+          # storage:
+          #   trace:
+          #     backend: gcs
+          #     gcs:
+          #       bucket_name: your_bucket_name
 
         serviceMonitor:
           enabled: "true"

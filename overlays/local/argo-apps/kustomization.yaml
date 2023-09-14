@@ -9,5 +9,5 @@ resources:
   - ../../../base/argo-apps/postgres-exporter-helm.yaml
   - ../../../base/argo-apps/grafana-dashboards-app.yaml
   - ../../../base/argo-apps/prometheus-rules-app.yaml
-  # - ../../../base/argo-apps/tempo-helm.yaml
+  - ../../../base/argo-apps/tempo-helm.yaml
 
