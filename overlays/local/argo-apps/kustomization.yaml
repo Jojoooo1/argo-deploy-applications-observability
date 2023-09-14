@@ -6,6 +6,7 @@ namespace: argocd
 resources:
   - ../../../base/argo-apps/kube-prometheus-helm-crds.yaml
   - ../../../base/argo-apps/kube-prometheus-helm.yaml
+  - ../../../base/argo-apps/loki-helm.yaml
   - ../../../base/argo-apps/postgres-exporter-helm.yaml
   - ../../../base/argo-apps/grafana-dashboards-app.yaml
   - ../../../base/argo-apps/prometheus-rules-app.yaml

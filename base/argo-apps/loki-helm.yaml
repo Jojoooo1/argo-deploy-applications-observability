@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: observability-tempo
+  namespace: argocd
+
+  # Add this finalizer ONLY if you want these to cascade delete (A cascade delete, deletes both the app and its resources, rather than only the app.)
+  # finalizers:
+  #   - resources-finalizer.argocd.argoproj.io
+
+spec:
+  project: default
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+
+  source:
+    chart: loki
+    repoURL: "https://grafana.github.io/helm-charts"
+    targetRevision: 5.22.0
+    helm:
+
+      # https://github.com/grafana/helm-charts/blob/main/charts/tempo/values.yaml
+      valuesObject:
+        monitoring:
+          serviceMonitor:
+            namespace: observability
+            additionalLabels:
+              prometheus.io/scrap-with: kube-prometheus-stack
+
+        loki:
+          config:
+            auth_enabled: false
+          storage:
+            type: filesystem
+          write:
+            replicas: 1
+          read:
+            replicas: 1
+
+
+        # serviceAccount:
+        #   annotations:
+        #     iam.gke.io/gcp-service-account: tempo-storage@${ARGOCD_ENV_PROJECT}.iam.gserviceaccount.com
+
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: observability
