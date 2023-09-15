@@ -381,7 +381,6 @@ spec:
     #         kubernetesSystem: false
           
     #       disabled:
-    #         CPUThrottlingHigh: true
     #         KubeCPUOvercommit: true
     #         InfoInhibitor: true
 
