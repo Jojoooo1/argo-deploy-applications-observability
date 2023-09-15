@@ -15,8 +15,8 @@ spec:
       - CreateNamespace=true
       - PrunePropagationPolicy=foreground
 
-  sources:
-    - chart: loki
+  source:
+      chart: loki
       repoURL: "https://grafana.github.io/helm-charts"
       targetRevision: 5.22.0
       helm:
@@ -55,11 +55,6 @@ spec:
           #   annotations:
           #     iam.gke.io/gcp-service-account: tempo-storage@${ARGOCD_ENV_PROJECT}.iam.gserviceaccount.com
     
-    # - chart: promtail
-    #   repoURL: "https://grafana.github.io/helm-charts"
-    #   targetRevision: 6.15.1
-    #   helm:
-
   destination:
     server: "https://kubernetes.default.svc"
     namespace: observability
