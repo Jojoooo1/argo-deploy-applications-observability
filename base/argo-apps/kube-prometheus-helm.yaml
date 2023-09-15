@@ -151,7 +151,7 @@ spec:
                     datasourceUid: tempo
                     matcherRegex: ([A-Za-z0-9]{32})
                     name: TraceId
-                    url: "$${__value.raw}"
+                    url: "$$$${__value.raw}"
 
         prometheus:
           podDisruptionBudget:
