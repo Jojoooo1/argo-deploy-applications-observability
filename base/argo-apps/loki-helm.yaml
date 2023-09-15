@@ -29,7 +29,7 @@ spec:
             # scrape configs to scrape its own logs with the labels expected by the included dashboards.
             selfMonitoring:
               enabled: true
-            # auth_enabled: false
+            auth_enabled: false
             # dashboards:
             rules:
               namespace: observability
