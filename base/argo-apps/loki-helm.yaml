@@ -21,24 +21,24 @@ spec:
     targetRevision: 5.22.0
     helm:
 
-      # https://grafana.com/docs/loki/latest/setup/install/helm/install-scalable/
       # https://github.com/grafana/helm-charts/blob/main/charts/tempo/values.yaml
-      # valuesObject:
-      #   fullnameOverride: loki
-      #   monitoring:
-      #     serviceMonitor:
-      #       namespace: observability
-      #       additionalLabels:
-      #         prometheus.io/scrap-with: kube-prometheus-stack
+      valuesObject:
+        fullnameOverride: loki
+        monitoring:
+          serviceMonitor:
+            namespace: observability
+            additionalLabels:
+              prometheus.io/scrap-with: kube-prometheus-stack
 
-      #   singleBinary:
-      #     replicas: 1
-      #   loki:         
-      #     # It is not possible to run the scalable mode with the filesystem storage.
-      #     commonConfig:
-      #       replication_factor: 1
-      #     storage:
-      #       type: filesystem
+        # https://grafana.com/docs/loki/latest/setup/install/helm/install-scalable/
+        singleBinary:
+          replicas: 1
+        loki:         
+          # It is not possible to run the scalable mode with the filesystem storage.
+          commonConfig:
+            replication_factor: 1
+          storage:
+            type: filesystem
 
         # serviceAccount:
         #   annotations:
