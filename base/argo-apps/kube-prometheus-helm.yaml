@@ -114,7 +114,7 @@ spec:
                   filterByTraceID: false
                   filterBySpanID: false
                   customQuery: true
-                  query: 'trace_id="$$$${__span.traceId}"'
+                  query: '$$$${__tags} |="$$$${__span.traceId}"'
                 # tracesToMetrics:
                 #   datasourceUid: 'prom'
                 #   spanStartTimeShift: '1h'
