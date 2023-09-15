@@ -26,6 +26,9 @@ spec:
         fullnameOverride: loki
 
         monitoring:
+          # scrape configs to scrape its own logs with the labels expected by the included dashboards.
+          selfMonitoring:
+            enabled: false      
           serviceMonitor:
             namespace: observability
             additionalLabels:
@@ -35,9 +38,6 @@ spec:
         singleBinary:
           replicas: 1
         loki:
-          # scrape configs to scrape its own logs with the labels expected by the included dashboards.
-          selfMonitoring:
-            enabled: false      
           # It is not possible to run the scalable mode with the filesystem storage.
           commonConfig:
             replication_factor: 1
