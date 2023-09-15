@@ -19,30 +19,30 @@ spec:
     chart: loki
     repoURL: "https://grafana.github.io/helm-charts"
     targetRevision: 5.22.0
-    helm:
+    # helm:
 
-      # https://github.com/grafana/helm-charts/blob/main/charts/tempo/values.yaml
-      valuesObject:
-        fullnameOverride: loki
+    #   # https://github.com/grafana/helm-charts/blob/main/charts/tempo/values.yaml
+    #   valuesObject:
+    #     fullnameOverride: loki
 
-        monitoring:
-          serviceMonitor:
-            namespace: observability
-            additionalLabels:
-              prometheus.io/scrap-with: kube-prometheus-stack
+    #     monitoring:
+    #       serviceMonitor:
+    #         namespace: observability
+    #         additionalLabels:
+    #           prometheus.io/scrap-with: kube-prometheus-stack
 
-        # https://grafana.com/docs/loki/latest/setup/install/helm/install-scalable/
-        singleBinary:
-          replicas: 1
-        loki:
-          # scrape configs to scrape its own logs with the labels expected by the included dashboards.
-          selfMonitoring:
-            enabled: false      
-          # It is not possible to run the scalable mode with the filesystem storage.
-          commonConfig:
-            replication_factor: 1
-          storage:
-            type: filesystem
+    #     # https://grafana.com/docs/loki/latest/setup/install/helm/install-scalable/
+    #     singleBinary:
+    #       replicas: 1
+    #     loki:
+    #       # scrape configs to scrape its own logs with the labels expected by the included dashboards.
+    #       selfMonitoring:
+    #         enabled: false      
+    #       # It is not possible to run the scalable mode with the filesystem storage.
+    #       commonConfig:
+    #         replication_factor: 1
+    #       storage:
+    #         type: filesystem
 
         # serviceAccount:
         #   annotations:
