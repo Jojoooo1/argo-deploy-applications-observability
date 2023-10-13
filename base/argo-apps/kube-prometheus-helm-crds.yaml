@@ -21,7 +21,7 @@ spec:
   source:
     repoURL: https://github.com/prometheus-community/helm-charts.git
     path: charts/kube-prometheus-stack/charts/crds/
-    targetRevision: kube-prometheus-stack-51.2.0
+    targetRevision: kube-prometheus-stack-51.7.0
 
   destination:
     server: "https://kubernetes.default.svc"
