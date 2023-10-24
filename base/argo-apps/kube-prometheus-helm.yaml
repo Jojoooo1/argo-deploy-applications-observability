@@ -29,9 +29,7 @@ spec:
         grafana:
           fullnameOverride: grafana
           image:
-            tag: 10.1.1
-          plugins:
-           - grafana-piechart-panel
+            tag: 10.2.0
           admin:
             adminUser: admin
           adminPassword: password
