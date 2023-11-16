@@ -86,7 +86,7 @@ spec:
 
           grafana.ini:
             feature_toggles:
-              enable: prometheusMetricEncyclopedia scenes traceToMetrics newTraceViewHeader showTraceId traceqlSearch
+              enable: prometheusMetricEncyclopedia scenes traceToMetrics newTraceViewHeader showTraceId traceqlSearch extraThemes logsExploreTableVisualisation featureToggleAdminPage
             # https://grafana.com/docs/grafana/latest/administration/configuration/#dataproxy
             dataproxy:
               timeout: 1200
