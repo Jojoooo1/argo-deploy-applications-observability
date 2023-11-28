@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: observability-postgres-exporter
+  name: observability-postgres-exporter-helm
   namespace: argocd
 
   # Add this finalizer ONLY if you want these to cascade delete (A cascade delete, deletes both the app and its resources, rather than only the app.)
@@ -17,11 +17,11 @@ spec:
   source:
     chart: prometheus-postgres-exporter
     repoURL: "https://prometheus-community.github.io/helm-charts"
-    targetRevision: 5.1.0
-
+    targetRevision: 5.2.0
 
     helm:
       valuesObject:
+        fullnameOverride: postgres-exporter
 
         resources:
           requests: 

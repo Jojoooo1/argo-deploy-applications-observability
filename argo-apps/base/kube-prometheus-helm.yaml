@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: observability-kube-prometheus
+  name: observability-kube-prometheus-helm
   namespace: argocd
 
   # Add this finalizer ONLY if you want these to cascade delete (A cascade delete, deletes both the app and its resources, rather than only the app.)
@@ -18,7 +18,7 @@ spec:
   source:
     chart: kube-prometheus-stack
     repoURL: "https://prometheus-community.github.io/helm-charts"
-    targetRevision: 54.0.1
+    targetRevision: 54.2.2
     # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
     helm:
       skipCrds: true
