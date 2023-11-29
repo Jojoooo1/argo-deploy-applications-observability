@@ -24,7 +24,7 @@ spec:
       skipCrds: true
       valuesObject:
 
-        fullnameOverride: prometheus-stack
+        fullnameOverride: kube-prometheus-stack
 
         grafana:
           fullnameOverride: grafana
