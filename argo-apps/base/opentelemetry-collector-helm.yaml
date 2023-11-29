@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: opentelemetry-operator-helm
+  name: opentelemetry-collector-helm
   namespace: argocd
 
   # Add this finalizer ONLY if you want these to cascade delete (A cascade delete, deletes both the app and its resources, rather than only the app.)
@@ -14,22 +14,23 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - PrunePropagationPolicy=foreground
-    automated:
-      prune: true
-      selfHeal: true
+
+    # automated:
+    #   prune: true
+    #   selfHeal: true
 
   source:
-    chart: opentelemetry-operator
+    chart: opentelemetry-collector
     repoURL: https://open-telemetry.github.io/opentelemetry-helm-charts
-    targetRevision: 0.43.0
+    targetRevision: 0.75.0
 
-    # https://github.com/open-telemetry/opentelemetry-helm-charts/tree/main/charts/opentelemetry-operator
+    # https://github.com/open-telemetry/opentelemetry-helm-charts/tree/main/charts/opentelemetry-collector
     helm:
       valuesObject:
-        fullnameOverride: opentelemetry-operator
+        fullnameOverride: opentelemetry-collector
 
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: opentelemetry
+    namespace: observability
 
 
