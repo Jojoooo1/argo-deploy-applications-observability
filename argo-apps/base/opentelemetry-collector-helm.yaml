@@ -28,6 +28,7 @@ spec:
     helm:
       valuesObject:
         fullnameOverride: opentelemetry-collector
+        mode: daemonset
 
   destination:
     server: "https://kubernetes.default.svc"
