@@ -55,7 +55,7 @@ subjects:
     name: opentelemetry-targetallocator-sa
     apiGroup: ""
 
-clusterRoleRef:
+roleRef:
   kind: ClusterRole
   name: opentelemetry-targetallocator-clusterrole
   apiGroup: ""
