@@ -8,6 +8,7 @@ spec:
   # https://github.com/open-telemetry/opentelemetry-operator/blob/main/docs/api.md#opentelemetrycollectorspectargetallocator
   targetAllocator:
     enabled: true
+    serviceAccount: opentelemetry-targetallocator-sa
     prometheusCR:
       enabled: true
       # serviceMonitorSelector:
