@@ -1,7 +1,7 @@
 apiVersion: opentelemetry.io/v1alpha1
 kind: OpenTelemetryCollector
 metadata:
-  name: kube-prom-and-tempo-collector
+  name: otel-collector
 spec:
   mode: statefulset # Only allowed mode with targetAllocator
 
