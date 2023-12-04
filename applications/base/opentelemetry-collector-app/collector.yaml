@@ -48,7 +48,7 @@ spec:
         # tls:
         #   insecure: true
       otlp:
-        endpoint: tempo.tempo-0.observability:4317
+        endpoint: tempo-0.tempo.observability:4317
         tls:
           insecure: true
           
