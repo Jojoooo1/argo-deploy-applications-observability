@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: observability-kube-prometheus-helm
+  name: observability-kube-prometheus-stack-helm
   namespace: argocd
 
   # Add this finalizer ONLY if you want these to cascade delete (A cascade delete, deletes both the app and its resources, rather than only the app.)
@@ -24,8 +24,9 @@ spec:
       skipCrds: true
       valuesObject:
 
-        fullnameOverride: kube-prometheus-stack
+        fullnameOverride: kube-prom
 
+        ## Grafana ##
         grafana:
           fullnameOverride: grafana
           image:
@@ -151,6 +152,8 @@ spec:
                     name: TraceId
                     url: "$$$${__value.raw}"
 
+
+        ## Prometheus ##
         prometheus:
           podDisruptionBudget:
             enabled: true
@@ -228,6 +231,8 @@ spec:
               memory: 1.5Gi
               cpu: 200m
 
+
+        ## AlertManager ##
         alertmanager:
           serviceMonitor:
             additionalLabels:
@@ -318,6 +323,10 @@ spec:
                           {{- end -}}
                           alertname%3D"{{- .CommonLabels.alertname -}}"%7D
 
+
+        ## Stack ##
+        
+        # Daemonset: collects metrics from the host system
         prometheus-node-exporter:
           prometheus:
             monitor:
@@ -331,6 +340,7 @@ spec:
               memory: 64Mi
               cpu: 120m
 
+        # Deployment: Listens to the Kubernetes API server and generates metrics about the state of the objects such as deployments, nodes and pods.
         kube-state-metrics:
           prometheus:
             monitor:
@@ -343,42 +353,41 @@ spec:
             limits:
               memory: 64Mi
               cpu: 50m
-
+       
+        # Metrics: Manage the deployment of pods to Kubernetes nodes. It receives commands from the API server and instructs the container runtime to start or stop containers as needed
         kubelet:
           enabled: true
           serviceMonitor:
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
-        kubeApiserver:
+        # Metrics: Network proxy that runs on each node, it maintains network rules on nodes.
+        kubeProxy:
+          enabled: true
+          serviceMonitor:
+            additionalLabels:
+              prometheus.io/scrap-with: kube-prometheus-stack
+
+        # Metrics: Controle plane (master) components 
+        kubeApiserver: # Metrics of the Kubernetes API.
           enabled: false
-        kubeEtcd:
+        kubeControllerManager: # Runs controller processes.
           enabled: false
-        kubeControllerManager:
+        kubeScheduler: # Watches for newly created Pods with no assigned node, and selects a node for them to run on.
           enabled: false
-        kubeScheduler:
-          enabled: false
+        
         coreDns:
           enabled: false
-        kubeProxy:
+        kubeDns:
+          enabled: false
+        kubeEtcd:
           enabled: false
         
         defaultRules:
           labels:
             prometheus.io/scrap-with: kube-prometheus-stack
 
-          rules:
-            etcd: false
-            kubeApiserver: false
-            kubeApiserverAvailability: false
-            kubeApiserverBurnrate: false
-            kubeApiserverHistogram: false
-            kubeApiserverSlos: false
-            kubeProxy: false
-            kubeSchedulerAlerting: false
-            kubeSchedulerRecording: false
-            network: false
-            kubernetesSystem: false
+          # keep all rules by default.
           
           disabled:
             # CPUThrottlingHigh: true
