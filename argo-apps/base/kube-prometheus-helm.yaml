@@ -326,7 +326,7 @@ spec:
 
         ## Stack ##
         
-        # Daemonset: collects metrics from the host system
+        # type: Daemonset -> collects metrics from the host system
         prometheus-node-exporter:
           prometheus:
             monitor:
@@ -340,7 +340,7 @@ spec:
               memory: 64Mi
               cpu: 120m
 
-        # Deployment: Listens to the Kubernetes API server and generates metrics about the state of the objects such as deployments, nodes and pods.
+        # type: Deployment -> Listens to the Kubernetes API server and generates metrics about the state of the objects such as deployments, nodes and pods.
         kube-state-metrics:
           prometheus:
             monitor:
@@ -354,8 +354,9 @@ spec:
               memory: 64Mi
               cpu: 50m
        
-        # Metrics: Manage the deployment of pods to Kubernetes nodes. It receives commands from the API server and instructs the container runtime to start or stop containers as needed
-        kubelet:
+        # Metrics: Manage the deployment of pods to Kubernetes nodes. It receives commands from the API server and instructs the container runtime to start/stop containers
+        # It pulls node, pod, and container metrics
+        kubelet: 
           enabled: true
           serviceMonitor:
             additionalLabels:

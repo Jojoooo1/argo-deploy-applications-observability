@@ -22,7 +22,7 @@ spec:
   source:
     chart: opentelemetry-collector
     repoURL: https://open-telemetry.github.io/opentelemetry-helm-charts
-    targetRevision: 0.75.0
+    targetRevision: 0.75.1
 
     # https://github.com/open-telemetry/opentelemetry-helm-charts/tree/main/charts/opentelemetry-collector
     helm:
@@ -33,32 +33,42 @@ spec:
         presets:
 
           # Best used with mode = daemonset.
-          # See https://opentelemetry.io/docs/kubernetes/collector/components/#filelog-receiver for details on the receiver.
+          # See https://opentelemetry.io/docs/kubernetes/collector/components/#filelog-receiver
           logsCollection:
             enabled: false
 
           # Best used with mode = daemonset.
-          # See https://opentelemetry.io/docs/kubernetes/collector/components/#kubernetes-attributes-processor for details on the receiver.
+          # See https://opentelemetry.io/docs/kubernetes/collector/components/#kubernetes-attributes-processor
+          # https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/k8sattributesprocessor/README.md
           kubernetesAttributes:
             enabled: false
 
           # Best used with mode = daemonset.
-          # See https://opentelemetry.io/docs/kubernetes/collector/components/#host-metrics-receiver for details on the receiver.
+          # See https://opentelemetry.io/docs/kubernetes/collector/components/#host-metrics-receiver
+          # https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/hostmetricsreceiver
+          # metrics about the host system scraped from various sources
+          # Note: overlap with the kubeletMetrics
           hostMetrics:
             enabled: false
 
           # Best used with mode = daemonset.
-          # See https://opentelemetry.io/docs/kubernetes/collector/components/#kubeletstats-receiver for details on the receiver.
+          # See https://opentelemetry.io/docs/kubernetes/collector/components/#kubeletstats-receiver
+          # https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/kubeletstatsreceiver
+          # node, pod, container and volume metrics
+          # Note: overlap with the hostMetrics, to be preferred.
           kubeletMetrics:
             enabled: false
 
           # Best used with mode = deployment or statefulset / DaemonSet will result in duplicate data
-          # See https://opentelemetry.io/docs/kubernetes/collector/components/#kubernetes-objects-receiver for details on the receiver.
+          # See https://opentelemetry.io/docs/kubernetes/collector/components/#kubernetes-objects-receiver
+          # Equivalent to kube-state-metrics
           kubernetesEvents:
             enabled: false
             
           # Best used with mode = deployment or statefulset. / DaemonSet will result in duplicate data
-          # See https://opentelemetry.io/docs/kubernetes/collector/components/#kubernetes-cluster-receiver for details on the receiver.
+          # See https://opentelemetry.io/docs/kubernetes/collector/components/#kubernetes-cluster-receiver
+          # https://github.com/open-telemetry/OpenTelemetry-Collector-contrib/tree/main/receiver/k8sclusterreceiver
+          # Report pod phases, node conditions, and cluster-level resource usage.
           clusterMetrics:
               enabled: false
 
