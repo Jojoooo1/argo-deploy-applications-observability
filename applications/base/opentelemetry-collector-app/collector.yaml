@@ -49,7 +49,7 @@ spec:
         # tls:
         #   insecure: true
       otlp:
-        endpoint: http://tempo-0.observability:4317
+        endpoint: http://tempo.tempo-0.observability:4317
         # tls:
         #   insecure: true
           
