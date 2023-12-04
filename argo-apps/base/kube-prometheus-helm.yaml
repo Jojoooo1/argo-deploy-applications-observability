@@ -51,7 +51,7 @@ spec:
           
           serviceMonitor:
             labels:
-              prometheus.io/scrap-with: kube-prometheus-stack 
+              prometheus.io/scrap-with: kube-prometheus-stack
           sidecar: 
             dashboards: 
               provider:
@@ -178,30 +178,25 @@ spec:
                 prometheus.io/scrap-with: kube-prometheus-stack
             
             serviceMonitorSelectorNilUsesHelmValues: false
-            # serviceMonitorNamespaceSelector: {}
             serviceMonitorSelector:
               matchLabels:
                 prometheus.io/scrap-with: kube-prometheus-stack
 
             podMonitorNamespaceSelector: false
-            # podMonitorSelectorNilUsesHelmValues: {}
             podMonitorSelector:
               matchLabels:
                 prometheus.io/scrap-with: kube-prometheus-stack
 
             probeSelectorNilUsesHelmValues: false
-            # probeNamespaceSelector: {}
             probeSelector:
               matchLabels:
                 prometheus.io/scrap-with: kube-prometheus-stack
 
             scrapeConfigSelectorNilUsesHelmValues: false
-            # scrapeConfigNamespaceSelector: {}
             scrapeConfigSelector:
               matchLabels:
                 prometheus.io/scrap-with: kube-prometheus-stack  
 
-            # alertmanagerConfigNamespaceSelector: {}
             alertmanagerConfigSelector:
               matchLabels:
                 prometheus.io/scrap-with: kube-prometheus-stack

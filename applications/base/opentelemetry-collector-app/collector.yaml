@@ -37,6 +37,9 @@ spec:
           interval: 30s
           collector_id: "${POD_NAME}"
 
+    processors:
+      batch:
+
     exporters:
       debug:
 
