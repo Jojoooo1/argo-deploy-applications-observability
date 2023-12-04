@@ -1,18 +1,30 @@
 apiVersion: opentelemetry.io/v1alpha1
 kind: OpenTelemetryCollector
 metadata:
-  name: collector-with-ta
+  name: kube-prom-and-tempo-collector
 spec:
-  mode: statefulset
+  mode: deployment
+
   # https://github.com/open-telemetry/opentelemetry-operator/blob/main/docs/api.md#opentelemetrycollectorspectargetallocator
   targetAllocator:
     enabled: true
     prometheusCR:
       enabled: true
+      # serviceMonitorSelector:
+      #   matchLabels:
+      #     release: prometheus
+      # podMonitorSelector:
+      #   matchLabels:
+      #     release: prometheus
     # resources:
     replicas: 1
+
   config: |
     receivers:
+      otlp:
+        protocols:
+          grpc:
+          http:
       prometheus:
         config:
           scrape_configs:
@@ -26,11 +38,29 @@ spec:
           collector_id: "${POD_NAME}"
 
     exporters:
-      logging:
+      debug:
+
+      prometheusremotewrite:
+        endpoint: http://kube-prom-prometheus.observability:9411/api/prom/push
+      otlp:
+        endpoint: http://tempo.observability:4317
+        tls:
+          insecure: true
+          
+
+    extensions:
+      health_check:
+      pprof:
+      zpages:
 
     service:
+      extensions: [health_check, pprof, zpages]
       pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [debug, otlp]
         metrics:
           receivers: [prometheus]
-          processors: []
-          exporters: [logging]
+          processors: [batch]
+          exporters: [debug, prometheusremotewrite]
