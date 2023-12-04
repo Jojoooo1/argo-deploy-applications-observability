@@ -3,7 +3,7 @@ kind: OpenTelemetryCollector
 metadata:
   name: kube-prom-and-tempo-collector
 spec:
-  mode: deployment
+  mode: statefulset # Only allowed mode with targetAllocator
 
   # https://github.com/open-telemetry/opentelemetry-operator/blob/main/docs/api.md#opentelemetrycollectorspectargetallocator
   targetAllocator:
