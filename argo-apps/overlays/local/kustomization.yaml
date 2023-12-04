@@ -7,7 +7,7 @@ resources:
   - ../../../argo-apps/base/kube-prometheus-helm-crds.yaml
   - ../../../argo-apps/base/kube-prometheus-helm.yaml
   - ../../../argo-apps/base/grafana-dashboards-app.yaml
-  - ../../../argo-apps/base/opentelemetry-operator-app.yaml
+  - ../../../argo-apps/base/opentelemetry-collector-app.yaml
   - ../../../argo-apps/base/opentelemetry-operator-helm.yaml
 
   - ../../../argo-apps/base/opentelemetry-collector-helm.yaml
