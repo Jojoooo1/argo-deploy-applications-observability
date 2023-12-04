@@ -25,7 +25,6 @@ spec:
       otlp:
         protocols:
           grpc:
-          http:
       prometheus:
         config:
           scrape_configs:
@@ -49,9 +48,9 @@ spec:
         # tls:
         #   insecure: true
       otlp:
-        endpoint: http://tempo-0.observability:4317
-        # tls:
-        #   insecure: true
+        endpoint: tempo-0.observability:4317
+        tls:
+          insecure: true
           
 
     extensions:
