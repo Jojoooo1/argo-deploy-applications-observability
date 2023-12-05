@@ -23,11 +23,8 @@ spec:
   serviceAccount: opentelemetry-collector-sa
   volumes:
     - name: tls-assets
-      projected:
-        defaultMode: 420
-        sources:
-          - secret:
-              name: prometheus-kube-prometheus-tls-assets-0
+      secret:
+        secretName: prometheus-kube-prometheus-tls-assets-0
   volumeMounts:
     - mountPath: /etc
       name: tls-assets
