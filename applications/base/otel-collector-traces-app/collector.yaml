@@ -6,24 +6,31 @@ spec:
   # https://github.com/open-telemetry/opentelemetry-operator/blob/main/docs/api.md
   mode: deployment
   env:
-    - name: POD_IP
+    - name: MY_POD_IP
       valueFrom:
         fieldRef:
           apiVersion: v1
           fieldPath: status.podIP
   config: |
+    connectors:
+      spanmetrics:
+
     receivers:
       otlp:
         protocols:
           grpc:
+            endpoint: ${env:MY_POD_IP}:4317
+          http:
+            endpoint: ${env:MY_POD_IP}:4318
 
       prometheus: # Collect own metrics
+        trim_metric_suffixes: true
         config:
           scrape_configs:
             - job_name: 'otel-collector-traces'
               scrape_interval: 5s
               static_configs:
-                - targets: ["${env:POD_IP}:8888"]
+                - targets: ["${env:MY_POD_IP}:8888"]
 
     processors:
       batch:
@@ -53,6 +60,9 @@ spec:
       zpages:
 
     service:
+      telemetry:
+        metrics:
+          address: ${env:MY_POD_IP}:8888
       extensions: [health_check, pprof, zpages]
       pipelines:
         traces:
@@ -64,6 +74,40 @@ spec:
           # processors: [batch]
           exporters: [prometheusremotewrite, debug]
 
-      telemetry:
-        metrics:
-          address: ${env:POD_IP}:8888
+
+# HELP otelcol_exporter_queue_capacity Fixed capacity of the retry queue (in batches)
+# TYPE otelcol_exporter_queue_capacity gauge
+otelcol_exporter_queue_capacity{exporter="otlp",service_instance_id="a4c312f3-db57-470b-acc7-49ffaf5ed0fe",service_name="otelcol-contrib",service_version="0.89.0"} 1000
+otelcol_exporter_queue_capacity{exporter="prometheusremotewrite",service_instance_id="a4c312f3-db57-470b-acc7-49ffaf5ed0fe",service_name="otelcol-contrib",service_version="0.89.0"} 10000
+# HELP otelcol_exporter_queue_size Current size of the retry queue (in batches)
+# TYPE otelcol_exporter_queue_size gauge
+otelcol_exporter_queue_size{exporter="otlp",service_instance_id="a4c312f3-db57-470b-acc7-49ffaf5ed0fe",service_name="otelcol-contrib",service_version="0.89.0"} 0
+otelcol_exporter_queue_size{exporter="prometheusremotewrite",service_instance_id="a4c312f3-db57-470b-acc7-49ffaf5ed0fe",service_name="otelcol-contrib",service_version="0.89.0"} 0
+# HELP otelcol_exporter_sent_metric_points Number of metric points successfully sent to destination.
+# TYPE otelcol_exporter_sent_metric_points counter
+otelcol_exporter_sent_metric_points{exporter="debug",service_instance_id="a4c312f3-db57-470b-acc7-49ffaf5ed0fe",service_name="otelcol-contrib",service_version="0.89.0"} 3891
+otelcol_exporter_sent_metric_points{exporter="prometheusremotewrite",service_instance_id="a4c312f3-db57-470b-acc7-49ffaf5ed0fe",service_name="otelcol-contrib",service_version="0.89.0"} 3891
+# HELP otelcol_process_cpu_seconds Total CPU user and system time in seconds
+# TYPE otelcol_process_cpu_seconds counter
+otelcol_process_cpu_seconds{service_instance_id="a4c312f3-db57-470b-acc7-49ffaf5ed0fe",service_name="otelcol-contrib",service_version="0.89.0"} 2.16
+# HELP otelcol_process_memory_rss Total physical memory (resident set size)
+# TYPE otelcol_process_memory_rss gauge
+otelcol_process_memory_rss{service_instance_id="a4c312f3-db57-470b-acc7-49ffaf5ed0fe",service_name="otelcol-contrib",service_version="0.89.0"} 1.29421312e+08
+# HELP otelcol_process_runtime_heap_alloc_bytes Bytes of allocated heap objects (see 'go doc runtime.MemStats.HeapAlloc')
+# TYPE otelcol_process_runtime_heap_alloc_bytes gauge
+otelcol_process_runtime_heap_alloc_bytes{service_instance_id="a4c312f3-db57-470b-acc7-49ffaf5ed0fe",service_name="otelcol-contrib",service_version="0.89.0"} 4.21242e+07
+# HELP otelcol_process_runtime_total_alloc_bytes Cumulative bytes allocated for heap objects (see 'go doc runtime.MemStats.TotalAlloc')
+# TYPE otelcol_process_runtime_total_alloc_bytes counter
+otelcol_process_runtime_total_alloc_bytes{service_instance_id="a4c312f3-db57-470b-acc7-49ffaf5ed0fe",service_name="otelcol-contrib",service_version="0.89.0"} 9.1019952e+07
+# HELP otelcol_process_runtime_total_sys_memory_bytes Total bytes of memory obtained from the OS (see 'go doc runtime.MemStats.Sys')
+# TYPE otelcol_process_runtime_total_sys_memory_bytes gauge
+otelcol_process_runtime_total_sys_memory_bytes{service_instance_id="a4c312f3-db57-470b-acc7-49ffaf5ed0fe",service_name="otelcol-contrib",service_version="0.89.0"} 6.7998984e+07
+# HELP otelcol_process_uptime Uptime of the process
+# TYPE otelcol_process_uptime counter
+otelcol_process_uptime{service_instance_id="a4c312f3-db57-470b-acc7-49ffaf5ed0fe",service_name="otelcol-contrib",service_version="0.89.0"} 1026.53247945
+# HELP otelcol_receiver_accepted_metric_points Number of metric points successfully pushed into the pipeline.
+# TYPE otelcol_receiver_accepted_metric_points counter
+otelcol_receiver_accepted_metric_points{receiver="prometheus",service_instance_id="a4c312f3-db57-470b-acc7-49ffaf5ed0fe",service_name="otelcol-contrib",service_version="0.89.0",transport="http"} 3891
+# HELP otelcol_receiver_refused_metric_points Number of metric points that could not be pushed into the pipeline.
+# TYPE otelcol_receiver_refused_metric_points counter
+otelcol_receiver_refused_metric_points{receiver="prometheus",service_instance_id="a4c312f3-db57-470b-acc7-49ffaf5ed0fe",service_name="otelcol-contrib",service_version="0.89.0",transport="http"} 0
