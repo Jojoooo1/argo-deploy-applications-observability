@@ -24,7 +24,7 @@ spec:
       skipCrds: true
       valuesObject:
 
-        fullnameOverride: ''
+        fullnameOverride: 'kube'
 
         ## Grafana ##
         grafana:
