@@ -62,6 +62,7 @@ spec:
     service:
       telemetry:
         metrics:
+          level: detailed
           address: ${env:MY_POD_IP}:8888
       extensions: [health_check, pprof, zpages]
       pipelines:
