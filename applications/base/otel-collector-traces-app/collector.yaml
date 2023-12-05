@@ -1,0 +1,49 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: otel-collector-traces
+spec:
+  mode: deployment
+  config: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+      prometheus:
+        config:
+          scrape_configs:
+            - job_name: 'otel-collector'
+              scrape_interval: 10s
+              static_configs:
+                - targets: ['otel-collector-collector-0:8888']
+
+    processors:
+      batch:
+
+    exporters:
+      debug:
+      otlp:
+        endpoint: tempo.observability:4317
+        tls:
+          insecure: true
+      prometheusremotewrite:
+        endpoint: kube-prometheus.observability:9411/api/prom/push
+        tls:
+          insecure: true
+
+    extensions:
+      health_check:
+      pprof:
+      zpages:
+
+    service:
+      extensions: [health_check, pprof, zpages]
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [debug, otlp]
+        metrics:
+          receivers: [prometheus]
+          processors: [batch]
+          exporters: [debug, prometheusremotewrite]

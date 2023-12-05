@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: observability-otel-metrics-collector-app
+  name: observability-otel-traces-collector-app
   namespace: argocd
 
   # Add this finalizer ONLY if you want these to cascade delete (A cascade delete, deletes both the app and its resources, rather than only the app.)
@@ -18,7 +18,7 @@ spec:
   source: 
     repoURL: https://github.com/Jojoooo1/argo-deploy-applications-observability.git
     targetRevision: main
-    path: applications/overlays/local/otel-metrics-collector-app
+    path: applications/overlays/local/otel-collector-traces-app
 
   destination:
     server: "https://kubernetes.default.svc"

@@ -1,7 +1,7 @@
 apiVersion: opentelemetry.io/v1alpha1
 kind: OpenTelemetryCollector
 metadata:
-  name: otel-collector
+  name: otel-collector-metrics
 spec:
   mode: statefulset # Only allowed mode with targetAllocator
 
@@ -35,7 +35,7 @@ spec:
             - job_name: 'otel-collector'
               scrape_interval: 10s
               static_configs:
-                - targets: [ 'otel-collector-collector-0:8888' ]
+                - targets: ['otel-collector-collector-0:8888']
         target_allocator:
           endpoint: otel-collector-targetallocator
           interval: 30s
