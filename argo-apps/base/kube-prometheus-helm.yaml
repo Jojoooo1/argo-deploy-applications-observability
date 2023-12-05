@@ -324,6 +324,7 @@ spec:
         
         # type: Daemonset -> collects metrics from the host system
         prometheus-node-exporter:
+          fullnameOverride: kube-prom
           prometheus:
             monitor:
               additionalLabels:
@@ -338,6 +339,7 @@ spec:
 
         # type: Deployment -> Listens to the Kubernetes API server and generates metrics about the state of the objects such as deployments, nodes and pods.
         kube-state-metrics:
+          fullnameOverride: kube-prom
           prometheus:
             monitor:
               additionalLabels:
