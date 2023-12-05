@@ -46,4 +46,4 @@ spec:
         metrics:
           receivers: [prometheus]
           # processors: [batch]
-          exporters: [prometheusremotewrite]
+          exporters: [debug, prometheusremotewrite]
