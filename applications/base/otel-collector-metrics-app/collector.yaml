@@ -48,7 +48,7 @@ spec:
       debug:
 
       prometheusremotewrite:
-        endpoint: kube-prometheus.observability:9411/api/prom/push
+        endpoint: kube-prometheus.observability:9090/api/v1/write
         tls:
           insecure: true
       # otlp:
@@ -72,4 +72,4 @@ spec:
         metrics:
           receivers: [prometheus]
           processors: [batch]
-          exporters: [debug, prometheusremotewrite]
+          exporters: [prometheusremotewrite]
