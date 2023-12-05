@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: opentelemetry-collector-sa
+  namespace: observability
+---
+# https://github.com/open-telemetry/opentelemetry-operator/blob/main/cmd/otel-allocator/README.md#rbac
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: opentelemetry-collector-clusterrole
+  namespace: observability
+rules:
+  - apiGroups: [""]
+    resources:
+      - nodes/stats
+      - nodes/metrics
+    verbs: ["get", "list"]
+  - nonResourceURLs:
+      - /metrics
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+
+metadata:
+  name: opentelemetry-collector-clusterrolebinding
+  namespace: observability
+
+subjects:
+  - kind: ServiceAccount
+    name: opentelemetry-collector-sa
+    apiGroup: ""
+
+roleRef:
+  kind: ClusterRole
+  name: opentelemetry-collector-clusterrole
+  apiGroup: ""
