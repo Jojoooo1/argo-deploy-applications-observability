@@ -72,7 +72,7 @@ spec:
         metrics:
           receivers: [prometheus]
           # processors: [batch]
-          exporters: [prometheusremotewrite, debug]
+          exporters: [prometheusremotewrite, debug, logging]
 
 
 # # HELP otelcol_exporter_queue_capacity Fixed capacity of the retry queue (in batches)
