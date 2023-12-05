@@ -207,6 +207,7 @@ spec:
             - exemplar-storage
             - otlp-write-receiver
             - remote-write-receiver 
+            
             storageSpec: 
               volumeClaimTemplate:
                 spec:
