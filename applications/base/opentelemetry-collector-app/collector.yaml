@@ -22,12 +22,12 @@ spec:
 
   serviceAccount: opentelemetry-collector-sa
   volumes:
-    - name: tls-assets
+    - name: tls-assetss
       secret:
         secretName: prometheus-kube-prometheus-tls-assets-0
   volumeMounts:
     - mountPath: /var
-      name: tls-assets
+      name: tls-assetss
 
   additionalContainers:
   - name: debug-container
