@@ -28,9 +28,9 @@ spec:
           insecure: true
       prometheusremotewrite:
         endpoint: kube-prometheus.observability:9090/api/v1/write
-        insecure: true
-        # tls:
-        #   insecure: true
+        # insecure: true
+        tls:
+          insecure: true
         remote_write_queue:
           enabled: true
           queue_size: 100
