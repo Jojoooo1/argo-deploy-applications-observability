@@ -374,7 +374,8 @@ spec:
         # Runs controller processes.
         kubeControllerManager:
           enabled: false
-        kubeScheduler: # Watches for newly created Pods with no assigned node, and selects a node for them to run on.
+        # Watches for newly created Pods with no assigned node, and selects a node for them to run on.
+        kubeScheduler:
           enabled: false
         
         coreDns:
