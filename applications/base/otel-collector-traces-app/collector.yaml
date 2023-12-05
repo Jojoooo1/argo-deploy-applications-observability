@@ -27,7 +27,7 @@ spec:
         tls:
           insecure: true
       prometheusremotewrite:
-        endpoint: kube-prometheus.observability:9411/api/prom/push
+        endpoint: kube-prometheus.observability:9090/api/prom/push
         tls:
           insecure: true
 
