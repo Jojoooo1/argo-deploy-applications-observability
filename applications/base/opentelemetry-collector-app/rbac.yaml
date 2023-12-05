@@ -11,39 +11,38 @@ metadata:
   name: opentelemetry-targetallocator-clusterrole
   namespace: observability
   rules:
-    - apiGroups:
-      - monitoring.coreos.com
+    - apiGroups: 
+        - monitoring.coreos.com
       resources:
-      - servicemonitors
-      - podmonitors
-      verbs:
-      - '*'
+        - servicemonitors
+        - podmonitors
+      verbs: ['*']
       
     - apiGroups: [""]
       resources:
-      - nodes
-      - nodes/metrics
-      - services
-      - endpoints
-      - pods
+        - nodes
+        - nodes/metrics
+        - services
+        - endpoints
+        - pods
       verbs: ["get", "list", "watch"]
 
     - apiGroups: [""]
       resources:
-      - configmaps
-      - secrets
+        - configmaps
+        - secrets
       verbs: ["get"]
 
     - apiGroups:
-      - discovery.k8s.io
+        - discovery.k8s.io
       resources:
-      - endpointslices
+        - endpointslices
       verbs: ["get", "list", "watch"]
 
     - apiGroups:
-      - networking.k8s.io
+        - networking.k8s.io
       resources:
-      - ingresses
+        - ingresses
       verbs: ["get", "list", "watch"]
 
     - nonResourceURLs:
