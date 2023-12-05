@@ -6,6 +6,7 @@ spec:
   mode: statefulset # Only allowed mode with targetAllocator
 
   # https://github.com/open-telemetry/opentelemetry-operator/blob/main/docs/api.md#opentelemetrycollectorspectargetallocator
+  # Migration blocked, can not scrape all target because of https://github.com/open-telemetry/opentelemetry-operator/issues/1844
   targetAllocator:
     enabled: true
     serviceAccount: opentelemetry-targetallocator-sa
@@ -21,24 +22,6 @@ spec:
     replicas: 1
 
   serviceAccount: opentelemetry-collector-sa
-  volumes:
-    - name: tls-assetss
-      secret:
-        secretName: prometheus-kube-prometheus-tls-assets-0
-  volumeMounts:
-    - mountPath: /var
-      name: tls-assetss
-
-  additionalContainers:
-  - name: debug-container
-    image: busybox
-    command: ["/bin/sh", "-c"]
-    args:
-    - |
-      # Your debugging commands here
-      # For example, sleep for 3600 seconds
-      sleep 900600
-
   config: |
     receivers:
       otlp:
