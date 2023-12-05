@@ -155,6 +155,7 @@ spec:
 
         ## Prometheus ##
         prometheus:
+          fullnameOverride: prometheus
           podDisruptionBudget:
             enabled: true
           # serviceMonitor:
@@ -230,6 +231,7 @@ spec:
 
         ## AlertManager ##
         alertmanager:
+          fullnameOverride: alert-manager
           # serviceMonitor:
           #   additionalLabels:
           #     prometheus.io/scrap-with: kube-prometheus-stack
