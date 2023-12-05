@@ -47,3 +47,7 @@ spec:
           receivers: [prometheus]
           # processors: [batch]
           exporters: [debug, prometheusremotewrite]
+
+      telemetry:
+          logs:
+            level: "debug"
