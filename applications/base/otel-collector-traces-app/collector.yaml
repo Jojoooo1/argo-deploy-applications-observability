@@ -42,8 +42,8 @@ spec:
         traces:
           receivers: [otlp]
           processors: [batch]
-          exporters: [debug, otlp]
+          exporters: [otlp]
         metrics:
           receivers: [prometheus]
-          processors: [batch]
-          exporters: [debug, prometheusremotewrite]
+          # processors: [batch]
+          exporters: [prometheusremotewrite]
