@@ -5,6 +5,7 @@ metadata:
 spec:
   mode: statefulset # Only allowed mode with targetAllocator
 
+  
   # https://github.com/open-telemetry/opentelemetry-operator/blob/main/docs/api.md#opentelemetrycollectorspectargetallocator
   targetAllocator:
     enabled: true
@@ -20,6 +21,16 @@ spec:
     # resources:
     replicas: 1
 
+  volumes:
+    - name: config
+      configMap:
+        name: otel-collector-config
+        defaultMode: 420
+  volumeMounts:
+    - name: config
+      mountPath: /etc/otel/config.yaml
+      subPath: config.yaml
+      readOnly: true
   config: |
     receivers:
       otlp:
