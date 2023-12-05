@@ -21,6 +21,7 @@ spec:
     # resources:
     replicas: 1
 
+  serviceAccount: opentelemetry-targetallocator-sa
   config: |
     receivers:
       otlp:
