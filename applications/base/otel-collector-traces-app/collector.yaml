@@ -25,7 +25,7 @@ spec:
 
       # Collect own metrics
       prometheus:
-        trim_metric_suffixes: true
+        trim_metric_suffixes: true # try to remove _total but not working
         config:
           scrape_configs:
             - job_name: 'otel-collector-traces'
@@ -63,7 +63,7 @@ spec:
       telemetry:
         metrics:
           level: detailed
-          address: ${env:MY_POD_IP}:8888 # wget -O otel-collector-traces-collector-monitoring:8888/metrics
+          address: ${env:MY_POD_IP}:8888
       extensions: [health_check, pprof, zpages]
       pipelines:
         traces:
