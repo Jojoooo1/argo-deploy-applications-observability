@@ -24,8 +24,7 @@ spec:
         tls:
           insecure: true
         remote_write_queue:
-          enabled: true
-          queue_size: 100
+          enabled: false
 
     extensions:
       health_check:
