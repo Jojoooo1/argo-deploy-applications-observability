@@ -367,10 +367,12 @@ spec:
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
-        # Metrics: Controle plane (master) components 
-        kubeApiserver: # Metrics of the Kubernetes API.
+        # Metrics: Controle plane (master) components
+        # Metrics of the Kubernetes API.
+        kubeApiServer:
           enabled: false
-        kubeControllerManager: # Runs controller processes.
+        # Runs controller processes.
+        kubeControllerManager:
           enabled: false
         kubeScheduler: # Watches for newly created Pods with no assigned node, and selects a node for them to run on.
           enabled: false
