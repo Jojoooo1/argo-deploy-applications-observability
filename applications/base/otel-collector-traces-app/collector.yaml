@@ -14,6 +14,10 @@ spec:
   config: |
     receivers:
 
+      otlp:
+        protocols:
+          grpc:
+
       # Collect own metrics
       prometheus:
         config:
@@ -23,10 +27,7 @@ spec:
               static_configs:
                 - targets: ['${POD_IP}:8888']
 
-      # otlp:
-      #   protocols:
-      #     grpc:
-      #       endpoint: ${POD_IP}:55680
+
 
     processors:
       batch:
