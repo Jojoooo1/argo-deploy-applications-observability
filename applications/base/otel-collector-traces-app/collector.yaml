@@ -50,6 +50,6 @@ spec:
           # processors: [batch]
           exporters: [debug, prometheusremotewrite]
 
-      telemetry:
-          logs:
-            level: "debug"
+      # telemetry:
+      #     logs:
+      #       level: "debug"
