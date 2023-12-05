@@ -31,10 +31,10 @@ spec:
   volumeMounts:
     - mountPath: /etc/prometheus/certs
       name: tls-assets
-      
+
   initContainers:
   - name: debug-container
-    image: debug-image:tag
+    image: busybox
     command: ["/bin/sh", "-c"]
     args:
     - |
