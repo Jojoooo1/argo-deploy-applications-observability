@@ -157,9 +157,9 @@ spec:
         prometheus:
           podDisruptionBudget:
             enabled: true
-          # serviceMonitor:
-          #   additionalLabels:
-          #     prometheus.io/scrap-with: kube-prometheus-stack
+          serviceMonitor:
+            additionalLabels:
+              prometheus.io/scrap-with: kube-prometheus-stack
           ingress:
             enabled: true
             ingressClassName: nginx
@@ -216,9 +216,9 @@ spec:
                       storage: 1Gi
 
         prometheusOperator:
-          # serviceMonitor:
-          #   additionalLabels:
-          #     prometheus.io/scrap-with: kube-prometheus-stack
+          serviceMonitor:
+            additionalLabels:
+              prometheus.io/scrap-with: kube-prometheus-stack
           resources:
             requests: 
               memory: 512Mi
@@ -230,9 +230,9 @@ spec:
 
         ## AlertManager ##
         alertmanager:
-          # serviceMonitor:
-          #   additionalLabels:
-          #     prometheus.io/scrap-with: kube-prometheus-stack
+          serviceMonitor:
+            additionalLabels:
+              prometheus.io/scrap-with: kube-prometheus-stack
 
           ingress:
             enabled: true
@@ -356,16 +356,16 @@ spec:
         # It pulls node, pod, and container metrics
         kubelet: 
           enabled: true
-          # serviceMonitor:
-          #   additionalLabels:
-          #     prometheus.io/scrap-with: kube-prometheus-stack
+          serviceMonitor:
+            additionalLabels:
+              prometheus.io/scrap-with: kube-prometheus-stack
 
         # Metrics: Network proxy that runs on each node, it maintains network rules on nodes.
         kubeProxy:
           enabled: true
-          # serviceMonitor:
-          #   additionalLabels:
-          #     prometheus.io/scrap-with: kube-prometheus-stack
+          serviceMonitor:
+            additionalLabels:
+              prometheus.io/scrap-with: kube-prometheus-stack
 
         # Metrics: Controle plane (master) components 
         kubeApiserver: # Metrics of the Kubernetes API.
