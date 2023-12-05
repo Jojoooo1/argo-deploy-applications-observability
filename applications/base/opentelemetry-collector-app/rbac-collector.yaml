@@ -11,10 +11,13 @@ metadata:
   name: opentelemetry-collector-clusterrole
   namespace: observability
 rules:
+  - apiGroups: [""]
+    resources:
+      - nodes/stats
+      - nodes/metrics
+    verbs: ["get", "list", "watch"]
   - nonResourceURLs:
       - /metrics
-      - /metrics/cadvisor
-      - /metrics/probes
     verbs: ["get"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
