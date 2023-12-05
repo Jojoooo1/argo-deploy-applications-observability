@@ -361,8 +361,9 @@ spec:
               prometheus.io/scrap-with: kube-prometheus-stack
 
         # Metrics: Network proxy that runs on each node, it maintains network rules on nodes.
+        # Depending on managed provider can be accessed or not.
         kubeProxy:
-          enabled: true
+          enabled: false
           serviceMonitor:
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
