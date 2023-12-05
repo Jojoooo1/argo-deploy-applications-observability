@@ -33,7 +33,7 @@ spec:
             static_configs:
             - targets: [ 'otel-collector-collector-0:8888' ]
         target_allocator:
-          endpoint: http://otel-collector-targetallocator
+          endpoint: otel-collector-targetallocator
           interval: 30s
           collector_id: "${POD_NAME}"
 
@@ -44,7 +44,7 @@ spec:
       debug:
 
       prometheusremotewrite:
-        endpoint: http://kube-prometheus.observability:9411/api/prom/push
+        endpoint: kube-prometheus.observability:9411/api/prom/push
         tls:
           insecure: true
       otlp:
