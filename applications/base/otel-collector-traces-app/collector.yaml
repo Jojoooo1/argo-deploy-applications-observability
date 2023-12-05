@@ -8,8 +8,7 @@ spec:
     receivers:
       otlp:
         protocols:
-          grpc: 
-            endpoint: ${POD_IP}:4317
+          grpc:
 
     processors:
       batch:
