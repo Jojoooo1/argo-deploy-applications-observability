@@ -38,7 +38,6 @@ spec:
 
     exporters:
       debug:
-      logging:
 
       otlp:
         endpoint: tempo.observability:4317
@@ -72,8 +71,8 @@ spec:
           exporters: [otlp]
         metrics:
           receivers: [prometheus]
-          # processors: [batch]
-          exporters: [prometheusremotewrite, debug, logging]
+          processors: [batch]
+          exporters: [prometheusremotewrite, debug]
 
 
 # # HELP otelcol_exporter_queue_capacity Fixed capacity of the retry queue (in batches)
