@@ -32,7 +32,7 @@ spec:
     - mountPath: /etc/prometheus/certs
       name: tls-assets
 
-  initContainers:
+  additionalContainers:
   - name: debug-container
     image: busybox
     command: ["/bin/sh", "-c"]
