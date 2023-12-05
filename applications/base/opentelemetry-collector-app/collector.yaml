@@ -46,6 +46,8 @@ spec:
               scrape_interval: 10s
               static_configs:
                 - targets: [ 'otel-collector-collector-0:8888' ]
+              tls_config:
+                insecure_skip_verify: true
         target_allocator:
           endpoint: otel-collector-targetallocator
           interval: 30s
