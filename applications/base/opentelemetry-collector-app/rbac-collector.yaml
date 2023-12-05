@@ -15,7 +15,7 @@ rules:
     resources:
       - nodes/stats
       - nodes/metrics
-    verbs: ["get", "list", "watch"]
+    verbs: ["get", "list"]
   - nonResourceURLs:
       - /metrics
     verbs: ["get"]
