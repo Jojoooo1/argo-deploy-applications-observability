@@ -23,7 +23,8 @@ spec:
           http:
             endpoint: ${env:MY_POD_IP}:4318
 
-      prometheus: # Collect own metrics
+      # Collect own metrics
+      prometheus:
         trim_metric_suffixes: true
         config:
           scrape_configs:
