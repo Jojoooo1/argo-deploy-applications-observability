@@ -204,7 +204,8 @@ spec:
             # Necessary if using Otel collector.
             enableRemoteWriteReceiver: true
             enableFeatures:
-            - exemplar-storage
+              - exemplar-storage
+              - otlp-write-receiver # /api/v1/otlp
             
             storageSpec: 
               volumeClaimTemplate:

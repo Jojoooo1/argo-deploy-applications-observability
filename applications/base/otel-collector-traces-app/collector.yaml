@@ -19,13 +19,14 @@ spec:
           grpc:
 
       # Collect own metrics
+      
       prometheus:
         config:
           scrape_configs:
             - job_name: 'otel-collector-traces'
               scrape_interval: 5s
               static_configs:
-                - targets: ['otel-collector-traces-collector-monitoring:8888']
+                - targets: ["${env:MY_POD_IP}:8888:8888"]
 
     processors:
       batch:
@@ -36,15 +37,18 @@ spec:
         endpoint: tempo.observability:4317
         tls:
           insecure: true
+      
+      otlphttp/prometheus:
+        endpoint: http://kube-prometheus.observability:9090/api/v1/otlp
+        tls:
+          insecure: true
       prometheusremotewrite:
         endpoint: http://kube-prometheus.observability:9090/api/v1/write
         tls:
           insecure: true
-        # remote_write_queue:
-        #   enabled: false
 
     extensions:
-      health_check:
+      health_check:  {}
       pprof:
       zpages:
 
@@ -60,6 +64,6 @@ spec:
           # processors: [batch]
           exporters: [prometheusremotewrite, debug]
 
-      # telemetry:
-      #     logs:
-      #       level: "debug"
+      telemetry:
+        metrics:
+          address: ${env:MY_POD_IP}:8888
