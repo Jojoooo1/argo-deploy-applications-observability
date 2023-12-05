@@ -205,7 +205,6 @@ spec:
             enableRemoteWriteReceiver: true
             enableFeatures:
             - exemplar-storage
-            - otlp-write-receiver
             
             storageSpec: 
               volumeClaimTemplate:
