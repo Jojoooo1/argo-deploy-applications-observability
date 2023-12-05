@@ -40,8 +40,8 @@ spec:
         endpoint: http://kube-prometheus.observability:9090/api/v1/write
         tls:
           insecure: true
-        remote_write_queue:
-          enabled: false
+        # remote_write_queue:
+        #   enabled: false
 
     extensions:
       health_check:
