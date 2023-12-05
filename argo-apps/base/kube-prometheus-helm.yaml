@@ -201,11 +201,12 @@ spec:
               matchLabels:
                 prometheus.io/scrap-with: kube-prometheus-stack
 
-            # # necessary if used with otel collector
+            # Necessary if using Otel collector.
             enableRemoteWriteReceiver: true
             enableFeatures:
             - exemplar-storage
             - otlp-write-receiver
+            - remote-write-receiver 
             storageSpec: 
               volumeClaimTemplate:
                 spec:
