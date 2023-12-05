@@ -21,16 +21,6 @@ spec:
     # resources:
     replicas: 1
 
-  volumes:
-    - name: config
-      configMap:
-        name: otel-collector-config
-        defaultMode: 420
-  volumeMounts:
-    - name: config
-      mountPath: /etc/otel/config.yaml
-      subPath: config.yaml
-      readOnly: true
   config: |
     receivers:
       otlp:
