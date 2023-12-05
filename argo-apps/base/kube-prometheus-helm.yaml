@@ -386,8 +386,19 @@ spec:
           labels:
             prometheus.io/scrap-with: kube-prometheus-stack
 
-          # keep all rules by default.
-          
+          # Keep all rules by default.
+          rules:
+            # disable components that are not exposed in managed environment.
+            kubeApiserverAvailability: false
+            kubeApiserverBurnrate: false
+            kubeApiserverHistogram: false
+            kubeApiserverSlos: false
+            etcd: false
+            kubeControllerManager: false
+            kubeSchedulerAlerting: false
+            kubeSchedulerRecording: false
+            
+
           disabled:
             # CPUThrottlingHigh: true
             KubeCPUOvercommit: true
