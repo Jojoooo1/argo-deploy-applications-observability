@@ -24,7 +24,7 @@ spec:
       skipCrds: true
       valuesObject:
 
-        fullnameOverride: kube-prom
+        fullnameOverride: ''
 
         ## Grafana ##
         grafana:
