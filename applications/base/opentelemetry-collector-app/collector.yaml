@@ -26,7 +26,7 @@ spec:
       secret:
         secretName: prometheus-kube-prometheus-tls-assets-0
   volumeMounts:
-    - mountPath: /etc
+    - mountPath: /var/my-app
       name: tls-assets
 
   additionalContainers:
