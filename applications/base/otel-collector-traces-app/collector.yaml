@@ -8,7 +8,8 @@ spec:
     receivers:
       otlp:
         protocols:
-          grpc: otel-collector-traces-collector:4317
+          grpc: 
+            endpoint: otel-collector-traces-collector:4317
 
     processors:
       batch:
