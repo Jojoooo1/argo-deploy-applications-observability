@@ -9,7 +9,7 @@ spec:
       otlp:
         protocols:
           grpc: 
-            endpoint: otel-collector-traces-collector:4317
+            endpoint: ${POD_IP}:4317
 
     processors:
       batch:
