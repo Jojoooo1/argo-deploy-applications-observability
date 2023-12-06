@@ -31,9 +31,21 @@ spec:
           fullnameOverride: grafana
           image:
             tag: 10.2.2
-          admin:
-            adminUser: admin
+
+          # resources:
+          #   requests: 
+          #     memory: 128Mi
+          #     cpu: 50m
+          #   limits:
+          #     memory: 384Mi
+          #     cpu: 100m
+          
+          serviceMonitor.labels:
+              prometheus.io/scrap-with: kube-prometheus-stack
+
+          adminUser: admin
           adminPassword: password
+
           ingress:
             enabled: true
             ingressClassName: nginx
@@ -41,17 +53,7 @@ spec:
               - /
             hosts: 
               - grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
-          resources:
-            requests: 
-              memory: 128Mi
-              cpu: 50m
-            limits:
-              memory: 384Mi
-              cpu: 100m
-          
-          serviceMonitor:
-            labels:
-              prometheus.io/scrap-with: kube-prometheus-stack
+
           sidecar: 
             dashboards: 
               provider:
@@ -64,18 +66,15 @@ spec:
             dashboardproviders.yaml:
               apiVersion: 1
               providers:
-              - name: 'grafana-dashboards-kubernetes'
-                orgId: 1
-                folder: 'Kubernetes-v2'
-                type: file
-                options:
-                  path: /var/lib/grafana/dashboards/grafana-dashboards-kubernetes
+                - name: 'grafana-dashboards-kubernetes'
+                  orgId: 1
+                  folder: 'Kubernetes-v2'
+                  type: file
+                  options:
+                    path: /var/lib/grafana/dashboards/grafana-dashboards-kubernetes
+
           dashboards:
             grafana-dashboards-kubernetes:
-              k8s-system-api-server:
-                url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
-              k8s-system-coredns:
-                url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json
               k8s-views-global:
                 url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
               k8s-views-namespaces:
@@ -87,13 +86,8 @@ spec:
 
           grafana.ini:
             feature_toggles:
-              enable: prometheusMetricEncyclopedia scenes traceToMetrics newTraceViewHeader showTraceId traceqlSearch extraThemes logsExploreTableVisualisation featureToggleAdminPage
-            # https://grafana.com/docs/grafana/latest/administration/configuration/#dataproxy
-            dataproxy:
-              timeout: 1200
-              keep_alive_seconds: 1200
-              idle_conn_timeout_seconds: 1200
-            server:
+              enable: traceToMetrics metricsSummary traceQLStreaming correlations lokiFormatQuery lokiQuerySplitting lokiExperimentalStreaming scenes extraThemes logsExploreTableVisualisation featureToggleAdminPage showDashboardValidationWarnings panelTitleSearch nestedFolders dataSourcePageHeader dashgpt enableNativeHTTPHistogram httpSLOLevels
+            server: 
               domain: grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
               root_url: https://grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
 
@@ -104,24 +98,23 @@ spec:
               access: proxy
               url: http://tempo.observability.svc:3100
               jsonData:
-                tracesToLogsV2:
-                  datasourceUid: 'loki'
-                  spanStartTimeShift: '1h'
-                  spanEndTimeShift: '-1h'
-                  # tags: ['job', 'instance', 'pod', 'namespace']
-                  tags: [{ key: 'service.name', value: 'app' }]
-                  filterByTraceID: false
-                  filterBySpanID: false
-                  customQuery: true
-                  query: '{$$$${__tags}} |="$$$${__span.traceId}"'
-                # tracesToMetrics:
-                #   datasourceUid: 'prom'
+                # tracesToLogsV2:
+                #   datasourceUid: 'loki'
                 #   spanStartTimeShift: '1h'
                 #   spanEndTimeShift: '-1h'
-                #   tags: [{ key: 'service.name', value: 'service' }, { key: 'job' }]
-                #   queries:
-                #     - name: 'Sample query'
-                #       query: 'sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[5m]))'
+                #   tags: [{ key: 'service.name', value: 'app' }]
+                #   filterByTraceID: false
+                #   filterBySpanID: false
+                #   customQuery: true
+                #   query: '{$$$${__tags}} |="$$$${__span.traceId}"'
+                tracesToMetrics:
+                  datasourceUid: 'prom'
+                  spanStartTimeShift: '1h'
+                  spanEndTimeShift: '-1h'
+                  tags: [{ key: 'service.name', value: 'service' }, { key: 'job' }]
+                  queries:
+                    - name: 'Sample query'
+                      query: 'sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[5m]))'
                 serviceMap:
                   datasourceUid: 'prometheus'
                 nodeGraph:
@@ -138,28 +131,29 @@ spec:
                   type: 'Tag'
                   tag: 'http.path'
                   
-            - name: Loki
-              uid: loki
-              type: loki
-              access: proxy
-              url: http://loki-gateway.observability.svc
-              jsonData:
-                timeout: 1200
-                derivedFields:
-                  - datasourceName: Tempo
-                    datasourceUid: tempo
-                    matcherRegex: ([A-Za-z0-9]{32})
-                    name: TraceId
-                    url: "$$$${__value.raw}"
+            # - name: Loki
+            #   uid: loki
+            #   type: loki
+            #   access: proxy
+            #   url: http://loki-gateway.observability.svc
+            #   jsonData:
+            #     timeout: 1200
+            #     derivedFields:
+            #       - datasourceName: Tempo
+            #         datasourceUid: tempo
+            #         matcherRegex: ([A-Za-z0-9]{32})
+            #         name: TraceId
+            #         url: "$$$${__value.raw}"
+            #         urlDisplayLabel: 'View Trace'
 
 
         ## Prometheus ##
         prometheus:
-          podDisruptionBudget:
-            enabled: true
           serviceMonitor:
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
+          podDisruptionBudget:
+            enabled: true
           ingress:
             enabled: true
             ingressClassName: nginx
@@ -168,11 +162,26 @@ spec:
             hosts: 
               - prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
           prometheusSpec:
-            retention: "30d"
             externalUrl: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
+            retention: "30d"
+            storageSpec: 
+              volumeClaimTemplate:
+                spec:
+                  # storageClassName: standard-rwo
+                  accessModes:
+                  - ReadWriteOnce
+                  resources:
+                    requests: 
+                      storage: 10Gi
 
+            # Necessary if using Otel collector.
+            enableRemoteWriteReceiver: true
+            enableFeatures:
+              - exemplar-storage
+              - otlp-write-receiver # /api/v1/otlp
+
+            ## Prometheus CRD Selectors ##
             ruleSelectorNilUsesHelmValues: false
-            ruleNamespaceSelector: {}
             ruleSelector:
               matchLabels:
                 prometheus.io/scrap-with: kube-prometheus-stack
@@ -201,21 +210,9 @@ spec:
               matchLabels:
                 prometheus.io/scrap-with: kube-prometheus-stack
 
-            # Necessary if using Otel collector.
-            enableRemoteWriteReceiver: true
-            enableFeatures:
-              - exemplar-storage
-              - otlp-write-receiver # /api/v1/otlp
+
             
-            storageSpec: 
-              volumeClaimTemplate:
-                spec:
-                  # storageClassName: standard-rwo
-                  accessModes:
-                  - ReadWriteOnce
-                  resources:
-                    requests: 
-                      storage: 1Gi
+
 
         prometheusOperator:
           serviceMonitor:
