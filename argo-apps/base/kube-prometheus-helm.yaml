@@ -44,23 +44,30 @@ spec:
             labels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
-          adminUser: admin
-          adminPassword: password
-
           ingress:
             enabled: true
             ingressClassName: nginx
             hosts: 
               - grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
-
+          
+          # Configuration
+          adminUser: admin
+          adminPassword: password
+          grafana.ini:
+            feature_toggles:
+              enable: traceToMetrics metricsSummary traceQLStreaming correlations lokiFormatQuery lokiQuerySplitting lokiExperimentalStreaming scenes extraThemes logsExploreTableVisualisation featureToggleAdminPage showDashboardValidationWarnings panelTitleSearch nestedFolders dataSourcePageHeader dashgpt enableNativeHTTPHistogram httpSLOLevels
+            server: 
+              domain: grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
+              root_url: https://grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
+          
+          # Dashboards configurations
+          defaultDashboardsTimezone: browser
           sidecar: 
             dashboards: 
               provider:
                 foldersFromFilesStructure: true
               annotations:
                 k8s-sidecar-target-directory: /tmp/dashboards/Kubernetes
-
-          # Provision grafana-dashboards-kubernetes
           dashboardProviders:
             dashboardproviders.yaml:
               apiVersion: 1
@@ -71,7 +78,6 @@ spec:
                   type: file
                   options:
                     path: /var/lib/grafana/dashboards/grafana-dashboards-kubernetes
-
           dashboards:
             grafana-dashboards-kubernetes:
               k8s-views-global:
@@ -83,13 +89,12 @@ spec:
               k8s-views-pods:
                 url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
 
-          grafana.ini:
-            feature_toggles:
-              enable: traceToMetrics metricsSummary traceQLStreaming correlations lokiFormatQuery lokiQuerySplitting lokiExperimentalStreaming scenes extraThemes logsExploreTableVisualisation featureToggleAdminPage showDashboardValidationWarnings panelTitleSearch nestedFolders dataSourcePageHeader dashgpt enableNativeHTTPHistogram httpSLOLevels
-            server: 
-              domain: grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
-              root_url: https://grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
-
+          
+          # Datasources
+          datasources:
+            url: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
+            alertmanager:
+              url: http://alertmanager${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
           additionalDataSources:
             - name: Tempo
               uid: tempo
