@@ -92,16 +92,29 @@ spec:
           
           # Datasources
           datasources:
-            # url: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
-            url: 'http://prometheus-stack-prometheus:9090/'
-            exemplarTraceIdDestinations:
-              datasourceUid: tempo
-              traceIdLabelName: traceId
-
-            alertmanager:
-              url: http://alertmanager${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
-
+            defaultDatasourceEnabled: false
           additionalDataSources:
+            - name: Prometheus
+              type: prometheus
+              uid: prometheus
+              url: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
+              access: proxy
+              isDefault: true
+              jsonData:
+                exemplarTraceIdDestinations:
+                - datasourceUid: tempo
+                  name: traceID
+                - name: traceID
+                  url: http://grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}/explore?orgId=1&left=%5B%22now-1h%22,%22now%22,%22tempo%22,%7B%22query%22:%22$$$${__value.raw}%22%7D%5D'
+
+          - name: Alertmanager
+            type: alertmanager
+            uid: alertmanager
+            url: http://alertmanager${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
+            access: proxy
+            jsonData:
+              implementation: prometheus
+
             - name: Tempo
               uid: tempo
               type: tempo
