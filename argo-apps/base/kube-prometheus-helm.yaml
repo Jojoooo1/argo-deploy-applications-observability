@@ -50,8 +50,6 @@ spec:
           ingress:
             enabled: true
             ingressClassName: nginx
-            paths: 
-              - /
             hosts: 
               - grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
 
@@ -150,18 +148,20 @@ spec:
 
         ## Prometheus ##
         prometheus:
+
           serviceMonitor:
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
+
           podDisruptionBudget:
             enabled: true
+
           ingress:
             enabled: true
             ingressClassName: nginx
-            paths: 
-              - /
             hosts: 
               - prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
+
           prometheusSpec:
             externalUrl: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
             retention: "30d"
@@ -173,7 +173,7 @@ spec:
                   - ReadWriteOnce
                   resources:
                     requests: 
-                      storage: 10Gi
+                      storage: 1Gi
 
             # Necessary if using Otel collector.
             enableRemoteWriteReceiver: true
@@ -211,25 +211,30 @@ spec:
               matchLabels:
                 prometheus.io/scrap-with: kube-prometheus-stack
 
-
-            
-
-
         prometheusOperator:
+          # resources:
+          #   requests: 
+          #     memory: 512Mi
+          #     cpu: 100m
+          #   limits:
+          #     memory: 1.5Gi
+          #     cpu: 200m
+
           serviceMonitor:
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
-          resources:
-            requests: 
-              memory: 512Mi
-              cpu: 100m
-            limits:
-              memory: 1.5Gi
-              cpu: 200m
 
 
         ## AlertManager ##
         alertmanager:
+          # resources:
+          #   requests: 
+          #     memory: 64Mi
+          #     cpu: 50m
+          #   limits:
+          #     memory: 128Mi
+          #     cpu: 100m
+
           serviceMonitor:
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
@@ -237,8 +242,6 @@ spec:
           ingress:
             enabled: true
             ingressClassName: nginx
-            paths: 
-              - /
             hosts: 
               - alertmanager${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
           alertmanagerSpec:
@@ -253,13 +256,7 @@ spec:
                   resources:
                     requests: 
                       storage: 1Gi
-            resources:
-              requests: 
-                memory: 64Mi
-                cpu: 50m
-              limits:
-                memory: 128Mi
-                cpu: 100m
+
           config:
             global:
               resolve_timeout: 5m
@@ -325,34 +322,42 @@ spec:
         # type: Daemonset -> collects metrics from the host system
         prometheus-node-exporter:
           fullnameOverride: prometheus-node-exporter
+
+          # resources:
+          #   requests: 
+          #     memory: 32Mi
+          #     cpu: 60m
+          #   limits:
+          #     memory: 64Mi
+          #     cpu: 120m
+              
           prometheus:
             monitor:
               additionalLabels:
                 prometheus.io/scrap-with: kube-prometheus-stack
-          resources:
-            requests: 
-              memory: 32Mi
-              cpu: 60m
-            limits:
-              memory: 64Mi
-              cpu: 120m
+                
 
         # type: Deployment -> Listens to the Kubernetes API server and generates metrics about the state of the objects such as deployments, nodes and pods.
         kube-state-metrics:
           fullnameOverride: kube-state-metrics
+
+          # resources:
+          #   requests: 
+          #     memory: 32Mi
+          #     cpu: 25m
+          #   limits:
+          #     memory: 64Mi
+          #     cpu: 50m
+
           prometheus:
             monitor:
               additionalLabels:
                 prometheus.io/scrap-with: kube-prometheus-stack
-          resources:
-            requests: 
-              memory: 32Mi
-              cpu: 25m
-            limits:
-              memory: 64Mi
-              cpu: 50m
-       
-        # Metrics: Manage the deployment of pods to Kubernetes nodes. It receives commands from the API server and instructs the container runtime to start/stop containers
+
+
+        ## Node component ## Controle plane https://kubernetes.io/docs/concepts/overview/components/#control-plane-components ##  ## 
+        
+        # Manage deployment of pods to Kubernetes nodes. It receives commands from the API server and instructs the container runtime to start/stop containers
         # It pulls node, pod, and container metrics
         kubelet: 
           enabled: true
@@ -360,7 +365,7 @@ spec:
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
-        # Metrics: Network proxy that runs on each node, it maintains network rules on nodes.
+        # Network proxy that runs on each node, it maintains network rules on nodes.
         # Depending on managed provider can be accessed or not.
         kubeProxy:
           enabled: false
@@ -368,13 +373,17 @@ spec:
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
-        # Metrics: Controle plane (master) components
-        # Metrics of the Kubernetes API.
+
+        ## Controle plane https://kubernetes.io/docs/concepts/overview/components/#control-plane-components ## 
+
+        # kubernetes API
         kubeApiServer:
           enabled: false
-        # Runs controller processes.
+
+        # Runs controller processes, helps maintain the desired state of resources and reacts to changes in the cluster, ensuring that the actual state aligns with the declared configuration.
         kubeControllerManager:
           enabled: false
+
         # Watches for newly created Pods with no assigned node, and selects a node for them to run on.
         kubeScheduler:
           enabled: false
@@ -404,8 +413,6 @@ spec:
             
 
           disabled:
-            # CPUThrottlingHigh: true
-            KubeCPUOvercommit: true
             InfoInhibitor: true
 
   destination:
