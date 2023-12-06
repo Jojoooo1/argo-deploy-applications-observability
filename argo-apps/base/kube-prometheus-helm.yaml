@@ -62,12 +62,6 @@ spec:
           
           # Dashboards configurations
           defaultDashboardsTimezone: browser
-          sidecar: 
-            dashboards: 
-              provider:
-                foldersFromFilesStructure: true
-              annotations:
-                k8s-sidecar-target-directory: /tmp/dashboards/Kubernetes
           dashboardProviders:
             dashboardproviders.yaml:
               apiVersion: 1
@@ -77,7 +71,7 @@ spec:
                   folder: 'Kubernetes-v2'
                   type: file
                   options:
-                    path: /var/lib/grafana/dashboards/grafana-dashboards-kubernetes
+                    path: /var/lib/grafana/dashboards/grafana-dashboards-kubernetes        
           dashboards:
             grafana-dashboards-kubernetes:
               k8s-views-global:
@@ -89,34 +83,41 @@ spec:
               k8s-views-pods:
                 url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
 
-          
-          # Datasources
-          datasources:
-            enabled: true
-            defaultDatasourceEnabled: "false"
-            isDefaultDatasource: "false"
+          sidecar: 
+            dashboards: 
+              provider:
+                foldersFromFilesStructure: true
+              annotations:
+                k8s-sidecar-target-directory: /tmp/dashboards/Kubernetes
+            datasources:
+              url: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
+              alertmanager:
+                url: http://alertmanager${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
+              exemplarTraceIdDestinations:
+                datasourceUid: tempo
+                traceIdLabelName: traceId
 
           additionalDataSources:
-            - name: Prometheus
-              type: prometheus
-              uid: prometheus
-              url: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
-              access: proxy
-              isDefault: "true"
-              jsonData:
-                exemplarTraceIdDestinations:
-                - datasourceUid: tempo
-                  name: traceID
-                - name: traceID
-                  url: "http://grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}/explore?orgId=1&left=%5B%22now-1h%22,%22now%22,%22tempo%22,%7B%22query%22:%22$$$${__value.raw}%22%7D%5D"
+            # - name: Prometheus
+            #   type: prometheus
+            #   uid: prometheus
+            #   url: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
+            #   access: proxy
+            #   isDefault: "true"
+            #   jsonData:
+            #     exemplarTraceIdDestinations:
+            #     - datasourceUid: tempo
+            #       name: traceID
+            #     - name: traceID
+            #       url: "http://grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}/explore?orgId=1&left=%5B%22now-1h%22,%22now%22,%22tempo%22,%7B%22query%22:%22$$$${__value.raw}%22%7D%5D"
 
-            - name: Alertmanager
-              type: alertmanager
-              uid: alertmanager
-              url: http://alertmanager${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
-              access: proxy
-              jsonData:
-                implementation: prometheus
+            # - name: Alertmanager
+            #   type: alertmanager
+            #   uid: alertmanager
+            #   url: http://alertmanager${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
+            #   access: proxy
+            #   jsonData:
+            #     implementation: prometheus
 
             - name: Tempo
               uid: tempo
