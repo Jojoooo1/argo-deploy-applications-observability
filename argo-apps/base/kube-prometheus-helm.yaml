@@ -92,6 +92,7 @@ spec:
           
           # Datasources
           datasources:
+            enabled: true
             defaultDatasourceEnabled: "false"
             isDefaultDatasource: "false"
 
