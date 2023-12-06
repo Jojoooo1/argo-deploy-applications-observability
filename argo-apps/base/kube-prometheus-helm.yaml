@@ -92,8 +92,8 @@ spec:
           
           # Datasources
           datasources:
-            defaultDatasourceEnabled: false
-            isDefaultDatasource: false
+            defaultDatasourceEnabled: "false"
+            isDefaultDatasource: "false"
 
           additionalDataSources:
             - name: Prometheus
