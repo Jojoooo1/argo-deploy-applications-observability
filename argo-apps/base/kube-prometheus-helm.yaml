@@ -92,7 +92,7 @@ spec:
           
           # Datasources
           datasources:
-            defaultDatasourceEnabled: false
+            defaultDatasourceEnabled: "false"
 
           additionalDataSources:
             - name: Prometheus
@@ -100,7 +100,7 @@ spec:
               uid: prometheus
               url: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
               access: proxy
-              isDefault: true
+              isDefault: "true"
               jsonData:
                 exemplarTraceIdDestinations:
                 - datasourceUid: tempo
