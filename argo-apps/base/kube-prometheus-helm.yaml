@@ -40,7 +40,8 @@ spec:
           #     memory: 384Mi
           #     cpu: 100m
           
-          serviceMonitor.labels:
+          serviceMonitor:
+            labels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
           adminUser: admin
