@@ -93,7 +93,7 @@ spec:
           # Datasources
           datasources:
             # url: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
-            url: http://prometheus-stack-prometheus:9090/
+            url: "http://prometheus-stack-prometheus:9090/"
             exemplarTraceIdDestinations:
               datasourceUid: tempo
               traceIdLabelName: traceId
