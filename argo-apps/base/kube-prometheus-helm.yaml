@@ -93,6 +93,7 @@ spec:
           # Datasources
           datasources:
             defaultDatasourceEnabled: false
+
           additionalDataSources:
             - name: Prometheus
               type: prometheus
