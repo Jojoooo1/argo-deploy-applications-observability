@@ -92,7 +92,7 @@ spec:
           
           # Datasources
           datasources:
-            defaultDatasourceEnabled: "false"
+            defaultDatasourceEnabled: false
 
           additionalDataSources:
             - name: Prometheus
@@ -100,7 +100,7 @@ spec:
               uid: prometheus
               url: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
               access: proxy
-              isDefault: "true"
+              isDefault: true
               jsonData:
                 exemplarTraceIdDestinations:
                 - datasourceUid: tempo
@@ -108,67 +108,67 @@ spec:
                 - name: traceID
                   url: "http://grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}/explore?orgId=1&left=%5B%22now-1h%22,%22now%22,%22tempo%22,%7B%22query%22:%22$$$${__value.raw}%22%7D%5D"
 
-          - name: Alertmanager
-            type: alertmanager
-            uid: alertmanager
-            url: http://alertmanager${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
-            access: proxy
-            jsonData:
-              implementation: prometheus
-
-            - name: Tempo
-              uid: tempo
-              type: tempo
+            - name: Alertmanager
+              type: alertmanager
+              uid: alertmanager
+              url: http://alertmanager${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
               access: proxy
-              url: http://tempo.observability.svc:3100
               jsonData:
-                # tracesToLogsV2:
-                #   datasourceUid: 'loki'
-                #   spanStartTimeShift: '1h'
-                #   spanEndTimeShift: '-1h'
-                #   tags: [{ key: 'service.name', value: 'app' }]
-                #   filterByTraceID: false
-                #   filterBySpanID: false
-                #   customQuery: true
-                #   query: '{$$$${__tags}} |="$$$${__span.traceId}"'
-                tracesToMetrics:
-                  datasourceUid: 'prom'
-                  spanStartTimeShift: '1h'
-                  spanEndTimeShift: '-1h'
-                  tags: [{ key: 'service.name', value: 'service' }, { key: 'job' }]
-                  queries:
-                    - name: 'Sample query'
-                      query: 'sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[5m]))'
-                serviceMap:
-                  datasourceUid: 'prometheus'
-                nodeGraph:
-                  enabled: true
-                search:
-                  hide: false
-                lokiSearch:
-                  datasourceUid: 'loki'
-                traceQuery:
-                  timeShiftEnabled: true
-                  spanStartTimeShift: '1h'
-                  spanEndTimeShift: '-1h'
-                spanBar:
-                  type: 'Tag'
-                  tag: 'http.path'
-                  
-            # - name: Loki
-            #   uid: loki
-            #   type: loki
-            #   access: proxy
-            #   url: http://loki-gateway.observability.svc
-            #   jsonData:
-            #     timeout: 1200
-            #     derivedFields:
-            #       - datasourceName: Tempo
-            #         datasourceUid: tempo
-            #         matcherRegex: ([A-Za-z0-9]{32})
-            #         name: TraceId
-            #         url: "$$$${__value.raw}"
-            #         urlDisplayLabel: 'View Trace'
+                implementation: prometheus
+
+              - name: Tempo
+                uid: tempo
+                type: tempo
+                access: proxy
+                url: http://tempo.observability.svc:3100
+                jsonData:
+                  # tracesToLogsV2:
+                  #   datasourceUid: 'loki'
+                  #   spanStartTimeShift: '1h'
+                  #   spanEndTimeShift: '-1h'
+                  #   tags: [{ key: 'service.name', value: 'app' }]
+                  #   filterByTraceID: false
+                  #   filterBySpanID: false
+                  #   customQuery: true
+                  #   query: '{$$$${__tags}} |="$$$${__span.traceId}"'
+                  tracesToMetrics:
+                    datasourceUid: 'prom'
+                    spanStartTimeShift: '1h'
+                    spanEndTimeShift: '-1h'
+                    tags: [{ key: 'service.name', value: 'service' }, { key: 'job' }]
+                    queries:
+                      - name: 'Sample query'
+                        query: 'sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[5m]))'
+                  serviceMap:
+                    datasourceUid: 'prometheus'
+                  nodeGraph:
+                    enabled: true
+                  search:
+                    hide: false
+                  lokiSearch:
+                    datasourceUid: 'loki'
+                  traceQuery:
+                    timeShiftEnabled: true
+                    spanStartTimeShift: '1h'
+                    spanEndTimeShift: '-1h'
+                  spanBar:
+                    type: 'Tag'
+                    tag: 'http.path'
+                    
+              # - name: Loki
+              #   uid: loki
+              #   type: loki
+              #   access: proxy
+              #   url: http://loki-gateway.observability.svc
+              #   jsonData:
+              #     timeout: 1200
+              #     derivedFields:
+              #       - datasourceName: Tempo
+              #         datasourceUid: tempo
+              #         matcherRegex: ([A-Za-z0-9]{32})
+              #         name: TraceId
+              #         url: "$$$${__value.raw}"
+              #         urlDisplayLabel: 'View Trace'
 
 
         ## Prometheus ##
