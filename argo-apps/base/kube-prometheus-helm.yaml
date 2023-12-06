@@ -94,10 +94,8 @@ spec:
           datasources:
             url: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
             exemplarTraceIdDestinations:
-              - datasourceUid: tempo
-                name: traceId
-              - name: traceID
-                url: 'http://grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}/explore?orgId=1&left=%5B%22now-1h%22,%22now%22,%22Jaeger%22,%7B%22query%22:%22$$$${__value.raw}%22%7D%5D'
+              datasourceUid: tempo
+              traceIdLabelName: traceId
 
             alertmanager:
               url: http://alertmanager${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
