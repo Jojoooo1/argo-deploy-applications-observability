@@ -90,35 +90,11 @@ spec:
               annotations:
                 k8s-sidecar-target-directory: /tmp/dashboards/Kubernetes
             datasources:
-              url: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
-              alertmanager:
-                url: http://alertmanager${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
               exemplarTraceIdDestinations:
                 datasourceUid: tempo
                 traceIdLabelName: traceId
 
           additionalDataSources:
-            # - name: Prometheus
-            #   type: prometheus
-            #   uid: prometheus
-            #   url: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
-            #   access: proxy
-            #   isDefault: "true"
-            #   jsonData:
-            #     exemplarTraceIdDestinations:
-            #     - datasourceUid: tempo
-            #       name: traceID
-            #     - name: traceID
-            #       url: "http://grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}/explore?orgId=1&left=%5B%22now-1h%22,%22now%22,%22tempo%22,%7B%22query%22:%22$$$${__value.raw}%22%7D%5D"
-
-            # - name: Alertmanager
-            #   type: alertmanager
-            #   uid: alertmanager
-            #   url: http://alertmanager${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
-            #   access: proxy
-            #   jsonData:
-            #     implementation: prometheus
-
             - name: Tempo
               uid: tempo
               type: tempo
@@ -403,17 +379,21 @@ spec:
 
 
         ## Controle plane https://kubernetes.io/docs/concepts/overview/components/#control-plane-components ## 
+        ## k3s https://docs.k3s.io/installation/requirements#inbound-rules-for-k3s-server-nodes ##
 
         # kubernetes API
         kubeApiServer:
+          # k3s: sudo curl --insecure https://localhost:6443/metrics --cacert /var/lib/rancher/k3s/server/tls/server-ca.crt --cert /var/lib/rancher/k3s/server/tls/client-admin.crt --key /var/lib/rancher/k3s/server/tls/client-admin.key
           enabled: false
 
         # Runs controller processes, helps maintain the desired state of resources and reacts to changes in the cluster, ensuring that the actual state aligns with the declared configuration.
         kubeControllerManager:
+          # k3s: sudo curl --insecure https://localhost:10257/metrics --cacert /var/lib/rancher/k3s/server/tls/server-ca.crt --cert /var/lib/rancher/k3s/server/tls/client-admin.crt --key /var/lib/rancher/k3s/server/tls/client-admin.key
           enabled: false
 
         # Watches for newly created Pods with no assigned node, and selects a node for them to run on.
         kubeScheduler:
+          # k3s: sudo curl --insecure https://localhost:10259/metrics --cacert /var/lib/rancher/k3s/server/tls/server-ca.crt --cert /var/lib/rancher/k3s/server/tls/client-admin.crt --key /var/lib/rancher/k3s/server/tls/client-admin.key
           enabled: false
         
         coreDns:
