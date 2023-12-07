@@ -615,7 +615,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "system_load_average_1m{name=\"$name"\, pod=~\"$pod\"}",
+              "expr": "system_load_average_1m{name=\"$name\", pod=~\"$pod\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Load Average [1m]",
@@ -626,7 +626,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "system_cpu_count{name=\"$name"\, pod=~\"$pod\"}",
+              "expr": "system_cpu_count{name=\"$name\", pod=~\"$pod\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "CPU Core Size",
@@ -752,7 +752,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "irate(http_server_requests_seconds_count{name=\"$name"\, pod=~\"$pod\", uri!~\".*actuator.*\"}[5m]) > 0",
+              "expr": "irate(http_server_requests_seconds_count{name=\"$name\", pod=~\"$pod\", uri!~\".*actuator.*\"}[5m]) > 0",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{method}} [{{status}}] - {{uri}}",
@@ -764,7 +764,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "irate(graphql_datafetcher_seconds_count{name=\"$name"\, pod=~\"$pod\", outcome=\"SUCCESS\"}[5m]) > 0",
+              "expr": "irate(graphql_datafetcher_seconds_count{name=\"$name\", pod=~\"$pod\", outcome=\"SUCCESS\"}[5m]) > 0",
               "hide": false,
               "legendFormat": "[graphQL] - {{path}}",
               "range": true,
@@ -866,7 +866,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "irate(http_server_requests_seconds_sum{name=\"$name"\, pod=~\"$pod\", exception=\"None\", uri!~\".*actuator.*\"}[5m]) / irate(http_server_requests_seconds_count{name=\"$name"\, pod=~\"$pod\", exception=\"None\", uri!~\".*actuator.*\"}[5m]) > 0",
+              "expr": "irate(http_server_requests_seconds_sum{name=\"$name\", pod=~\"$pod\", exception=\"None\", uri!~\".*actuator.*\"}[5m]) / irate(http_server_requests_seconds_count{name=\"$name\", pod=~\"$pod\", exception=\"None\", uri!~\".*actuator.*\"}[5m]) > 0",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{method}} [{{status}}] - {{uri}}",
@@ -878,7 +878,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "irate(graphql_datafetcher_seconds_sum{name=\"$name"\, pod=~\"$pod\", outcome=\"SUCCESS\"}[5m]) / irate(graphql_datafetcher_seconds_count{name=\"$name"\, pod=~\"$pod\", outcome=\"SUCCESS\"}[5m]) > 0",
+              "expr": "irate(graphql_datafetcher_seconds_sum{name=\"$name\", pod=~\"$pod\", outcome=\"SUCCESS\"}[5m]) / irate(graphql_datafetcher_seconds_count{name=\"$name\", pod=~\"$pod\", outcome=\"SUCCESS\"}[5m]) > 0",
               "hide": false,
               "legendFormat": "[graphQL] - {{path}}",
               "range": true,
@@ -981,7 +981,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum by(uri) (http_server_requests_seconds_count{name=\"$name"\, pod=~\"$pod\", status=~\"2.*\", uri!~\".*actuator.*\", uri!~\"/management.*\"}) / sum by(uri) (http_server_requests_seconds_count{name=\"$name"\, pod=~\"$pod\", uri!~\".*actuator.*\", uri!~\"/management.*\"})",
+              "expr": "sum by(uri) (http_server_requests_seconds_count{name=\"$name\", pod=~\"$pod\", status=~\"2.*\", uri!~\".*actuator.*\", uri!~\"/management.*\"}) / sum by(uri) (http_server_requests_seconds_count{name=\"$name\", pod=~\"$pod\", uri!~\".*actuator.*\", uri!~\"/management.*\"})",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{uri}}",
@@ -1087,7 +1087,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "hikaricp_connections{name=\"$name"\, pod=~\"$pod\", pool=\"$hikaricp\"}",
+              "expr": "hikaricp_connections{name=\"$name\", pod=~\"$pod\", pool=\"$hikaricp\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "",
@@ -1188,7 +1188,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "hikaricp_connections_active{name=\"$name"\, pod=~\"$pod\", pool=\"$hikaricp\"}",
+              "expr": "hikaricp_connections_active{name=\"$name\", pod=~\"$pod\", pool=\"$hikaricp\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Active",
@@ -1199,7 +1199,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "hikaricp_connections_idle{name=\"$name"\, pod=~\"$pod\", pool=\"$hikaricp\"}",
+              "expr": "hikaricp_connections_idle{name=\"$name\", pod=~\"$pod\", pool=\"$hikaricp\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Idle",
@@ -1210,7 +1210,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "hikaricp_connections_pending{name=\"$name"\, pod=~\"$pod\", pool=\"$hikaricp\"}",
+              "expr": "hikaricp_connections_pending{name=\"$name\", pod=~\"$pod\", pool=\"$hikaricp\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Pending",
@@ -1289,7 +1289,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "hikaricp_connections_timeout_total{name=\"$name"\, pod=~\"$pod\", pool=\"$hikaricp\"}",
+              "expr": "hikaricp_connections_timeout_total{name=\"$name\", pod=~\"$pod\", pool=\"$hikaricp\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "",
@@ -1385,7 +1385,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "hikaricp_connections_creation_seconds_sum{name=\"$name"\, pod=~\"$pod\", pool=\"$hikaricp\"} / hikaricp_connections_creation_seconds_count{name=\"$name"\, pod=~\"$pod\", pool=\"$hikaricp\"}",
+              "expr": "hikaricp_connections_creation_seconds_sum{name=\"$name\", pod=~\"$pod\", pool=\"$hikaricp\"} / hikaricp_connections_creation_seconds_count{name=\"$name\", pod=~\"$pod\", pool=\"$hikaricp\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Creation Time",
@@ -1481,7 +1481,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "hikaricp_connections_usage_seconds_sum{name=\"$name"\, pod=~\"$pod\", pool=\"$hikaricp\"} / hikaricp_connections_usage_seconds_count{name=\"$name"\, pod=~\"$pod\", pool=\"$hikaricp\"}",
+              "expr": "hikaricp_connections_usage_seconds_sum{name=\"$name\", pod=~\"$pod\", pool=\"$hikaricp\"} / hikaricp_connections_usage_seconds_count{name=\"$name\", pod=~\"$pod\", pool=\"$hikaricp\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Usage Time",
@@ -1547,7 +1547,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "hikaricp_connections_acquire_seconds_sum{name=\"$name"\, pod=~\"$pod\", pool=\"$hikaricp\"} / hikaricp_connections_acquire_seconds_count{name=\"$name"\, pod=~\"$pod\", pool=\"$hikaricp\"}",
+              "expr": "hikaricp_connections_acquire_seconds_sum{name=\"$name\", pod=~\"$pod\", pool=\"$hikaricp\"} / hikaricp_connections_acquire_seconds_count{name=\"$name\", pod=~\"$pod\", pool=\"$hikaricp\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Acquire Time",
@@ -2464,7 +2464,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_used_bytes{name=\"$name"\, pod=~\"$pod\", id=\"$memory_pool_heap\"}",
+                  "expr": "jvm_memory_used_bytes{name=\"$name\", pod=~\"$pod\", id=\"$memory_pool_heap\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Used",
@@ -2475,7 +2475,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_committed_bytes{name=\"$name"\, pod=~\"$pod\", id=\"$memory_pool_heap\"}",
+                  "expr": "jvm_memory_committed_bytes{name=\"$name\", pod=~\"$pod\", id=\"$memory_pool_heap\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Commited",
@@ -2486,7 +2486,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_max_bytes{name=\"$name"\, pod=~\"$pod\", id=\"$memory_pool_heap\"}",
+                  "expr": "jvm_memory_max_bytes{name=\"$name\", pod=~\"$pod\", id=\"$memory_pool_heap\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Max",
@@ -2589,7 +2589,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_used_bytes{name=\"$name"\, pod=~\"$pod\", id=\"${memory_pool_nonheap:raw}\"}",
+                  "expr": "jvm_memory_used_bytes{name=\"$name\", pod=~\"$pod\", id=\"${memory_pool_nonheap:raw}\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Used",
@@ -2600,7 +2600,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_committed_bytes{name=\"$name"\, pod=~\"$pod\", id=\"${memory_pool_nonheap:raw}\"}",
+                  "expr": "jvm_memory_committed_bytes{name=\"$name\", pod=~\"$pod\", id=\"${memory_pool_nonheap:raw}\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Commited",
@@ -2611,7 +2611,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_max_bytes{name=\"$name"\, pod=~\"$pod\", id=\"${memory_pool_nonheap:raw}\"}",
+                  "expr": "jvm_memory_max_bytes{name=\"$name\", pod=~\"$pod\", id=\"${memory_pool_nonheap:raw}\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Max",
@@ -2706,7 +2706,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_buffer_memory_used_bytes{name=\"$name"\, pod=~\"$pod\", id=\"direct\"}",
+                  "expr": "jvm_buffer_memory_used_bytes{name=\"$name\", pod=~\"$pod\", id=\"direct\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Used Bytes",
@@ -2717,7 +2717,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_buffer_total_capacity_bytes{name=\"$name"\, pod=~\"$pod\", id=\"direct\"}",
+                  "expr": "jvm_buffer_total_capacity_bytes{name=\"$name\", pod=~\"$pod\", id=\"direct\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Capacity Bytes",
@@ -2812,7 +2812,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_buffer_memory_used_bytes{name=\"$name"\, pod=~\"$pod\", id=\"mapped\"}",
+                  "expr": "jvm_buffer_memory_used_bytes{name=\"$name\", pod=~\"$pod\", id=\"mapped\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Used Bytes",
@@ -2823,7 +2823,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_buffer_total_capacity_bytes{name=\"$name"\, pod=~\"$pod\", id=\"mapped\"}",
+                  "expr": "jvm_buffer_total_capacity_bytes{name=\"$name\", pod=~\"$pod\", id=\"mapped\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Capacity Bytes",
@@ -2924,7 +2924,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_classes_loaded_classes{name=\"$name"\, pod=~\"$pod\"}",
+                  "expr": "jvm_classes_loaded_classes{name=\"$name\", pod=~\"$pod\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Classes Loaded",
@@ -3019,7 +3019,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "irate(jvm_classes_unloaded_classes_total{name=\"$name"\, pod=~\"$pod\"}[5m])",
+                  "expr": "irate(jvm_classes_unloaded_classes_total{name=\"$name\", pod=~\"$pod\"}[5m])",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Classes Unloaded",
@@ -3114,7 +3114,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "irate(jvm_gc_memory_allocated_bytes_total{name=\"$name"\, pod=~\"$pod\"}[5m])",
+                  "expr": "irate(jvm_gc_memory_allocated_bytes_total{name=\"$name\", pod=~\"$pod\"}[5m])",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "allocated",
@@ -3125,7 +3125,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "irate(jvm_gc_memory_promoted_bytes_total{name=\"$name"\, pod=~\"$pod\"}[5m])",
+                  "expr": "irate(jvm_gc_memory_promoted_bytes_total{name=\"$name\", pod=~\"$pod\"}[5m])",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "promoted",
@@ -3225,7 +3225,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_threads_daemon_threads{name=\"$name"\, pod=~\"$pod\"}",
+                  "expr": "jvm_threads_daemon_threads{name=\"$name\", pod=~\"$pod\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Daemon",
@@ -3236,7 +3236,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_threads_live_threads{name=\"$name"\, pod=~\"$pod\"}",
+                  "expr": "jvm_threads_live_threads{name=\"$name\", pod=~\"$pod\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Live",
@@ -3247,7 +3247,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_threads_peak_threads{name=\"$name"\, pod=~\"$pod\"}",
+                  "expr": "jvm_threads_peak_threads{name=\"$name\", pod=~\"$pod\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Peak",
@@ -3343,7 +3343,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "irate(jvm_gc_pause_seconds_count{name=\"$name"\, pod=~\"$pod\"}[5m])",
+                  "expr": "irate(jvm_gc_pause_seconds_count{name=\"$name\", pod=~\"$pod\"}[5m])",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "{{action}} [{{cause}}]",
@@ -3439,7 +3439,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "irate(jvm_gc_pause_seconds_sum{name=\"$name"\, pod=~\"$pod\"}[5m])",
+                  "expr": "irate(jvm_gc_pause_seconds_sum{name=\"$name\", pod=~\"$pod\"}[5m])",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "{{action}} [{{cause}}]",
@@ -3608,7 +3608,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "irate(logback_events_total{name=\"$name"\, pod=~\"$pod\", level=\"info\"}[5m])",
+              "expr": "irate(logback_events_total{name=\"$name\", pod=~\"$pod\", level=\"info\"}[5m])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "info",
@@ -3712,7 +3712,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "irate(logback_events_total{name=\"$name"\, pod=~\"$pod\", level=\"warn\"}[5m])",
+              "expr": "irate(logback_events_total{name=\"$name\", pod=~\"$pod\", level=\"warn\"}[5m])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "warn",
@@ -3816,7 +3816,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "irate(logback_events_total{name=\"$name"\, pod=~\"$pod\", level=\"error\"}[5m])",
+              "expr": "irate(logback_events_total{name=\"$name\", pod=~\"$pod\", level=\"error\"}[5m])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "error",
@@ -3913,7 +3913,7 @@ data:
             "name": "hikaricp",
             "options": [],
             "query": {
-              "query": "label_values(hikaricp_connections{name=\"$name"\, pod=~\"$pod\"}, pool)",
+              "query": "label_values(hikaricp_connections{name=\"$name\", pod=~\"$pod\"}, pool)",
               "refId": "Prometheus-hikaricp-Variable-Query"
             },
             "refresh": 1,
