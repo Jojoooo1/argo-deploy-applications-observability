@@ -8,4 +8,4 @@ metadata:
   annotations:
     grafana_folder: "Ingress"
 data:
-  ingress-nginx-controllers.json: https://github.com/kubernetes/ingress-nginx/blob/main/deploy/grafana/dashboards/nginx.json
+  ingress-nginx-controllers.json: "https://github.com/kubernetes/ingress-nginx/blob/main/deploy/grafana/dashboards/nginx.json"
