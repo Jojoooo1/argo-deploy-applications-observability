@@ -54,7 +54,7 @@ spec:
           adminUser: admin
           adminPassword: password
           grafana.ini:
-            # nestedFolders
+            # nestedFolders -> not used for now has it break sidecar folders.
             feature_toggles:
               enable: traceToMetrics metricsSummary correlations lokiFormatQuery lokiQuerySplitting lokiExperimentalStreaming logsExploreTableVisualisation scenes extraThemes featureToggleAdminPage panelTitleSearch dataSourcePageHeader dashgpt enableNativeHTTPHistogram httpSLOLevels
 
