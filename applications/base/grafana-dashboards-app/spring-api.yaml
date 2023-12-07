@@ -992,6 +992,32 @@ data:
           "title": "Percent of 2xx Requests",
           "type": "timeseries"
         },
+                {
+          "collapsed": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 15
+          },
+          "id": 18,
+          "panels": [],
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "refId": "A"
+            }
+          ],
+          "title": "HTTP Statistics (server)",
+          "type": "row"
+        },
         {
           "datasource": {
             "type": "prometheus",
