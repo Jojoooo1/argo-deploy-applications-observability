@@ -6,7 +6,8 @@ namespace: observability
 resources:
   # - argocd.yaml
   # - cert-manager.yaml
-  - ingress-microservice.yaml
+  - ingress-nginx-request-performance.yaml
+  - ingress-nginx-services.yaml
   - ingress-nginx-controllers.yaml
   # - kafka-overview.yaml
   # - kafka-topics.yaml
