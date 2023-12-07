@@ -3840,9 +3840,6 @@ data:
         "list": [
           {
             "current": {
-              "selected": false,
-              "text": "spring-api",
-              "value": "spring-api"
             },
             "datasource": {
               "type": "prometheus",
