@@ -1818,7 +1818,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_used_bytes{name=\"$name\", pod=~\"$pod\", id=\"${memory_pool_nonheap:raw}\"}",
+                  "expr": "jvm_memory_used_bytes{name=\"$name\", pod=~\"$pod\", id=\"$${memory_pool_nonheap:raw}\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Used",
@@ -1829,7 +1829,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_committed_bytes{name=\"$name\", pod=~\"$pod\", id=\"${memory_pool_nonheap:raw}\"}",
+                  "expr": "jvm_memory_committed_bytes{name=\"$name\", pod=~\"$pod\", id=\"$${memory_pool_nonheap:raw}\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Commited",
@@ -1840,7 +1840,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_max_bytes{name=\"$name\", pod=~\"$pod\", id=\"${memory_pool_nonheap:raw}\"}",
+                  "expr": "jvm_memory_max_bytes{name=\"$name\", pod=~\"$pod\", id=\"$${memory_pool_nonheap:raw}\"}",
                   "format": "time_series",
                   "intervalFactor": 1,
                   "legendFormat": "Max",
