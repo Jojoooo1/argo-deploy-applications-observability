@@ -635,7 +635,7 @@ data:
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "width": 100
+              "width": "auto"
             },
             "tooltip": {
               "mode": "multi",
@@ -865,7 +865,7 @@ data:
               "displayMode": "table",
               "placement": "right",
               "showLegend": true,
-              "width": 100
+              "width": "auto"
             },
             "tooltip": {
               "mode": "multi",
