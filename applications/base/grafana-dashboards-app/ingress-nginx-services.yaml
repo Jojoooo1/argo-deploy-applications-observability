@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: dashboard-ingress-services
+  name: dashboard-ingress-nginx-services
   namespace: observability
   labels:
     grafana_dashboard: "1"
