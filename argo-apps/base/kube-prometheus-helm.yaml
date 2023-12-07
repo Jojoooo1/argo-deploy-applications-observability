@@ -54,8 +54,9 @@ spec:
           adminUser: admin
           adminPassword: password
           grafana.ini:
+            # nestedFolders
             feature_toggles:
-              enable: traceToMetrics metricsSummary correlations lokiFormatQuery lokiQuerySplitting lokiExperimentalStreaming logsExploreTableVisualisation scenes extraThemes nestedFolders featureToggleAdminPage panelTitleSearch dataSourcePageHeader dashgpt enableNativeHTTPHistogram httpSLOLevels
+              enable: traceToMetrics metricsSummary correlations lokiFormatQuery lokiQuerySplitting lokiExperimentalStreaming logsExploreTableVisualisation scenes extraThemes featureToggleAdminPage panelTitleSearch dataSourcePageHeader dashgpt enableNativeHTTPHistogram httpSLOLevels
 
           # Dashboards configurations
           defaultDashboardsTimezone: browser
