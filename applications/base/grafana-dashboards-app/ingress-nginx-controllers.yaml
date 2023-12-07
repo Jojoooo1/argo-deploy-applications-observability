@@ -1743,7 +1743,7 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "NGINX Ingress controller",
+      "title": "Ingress controller",
       "uid": "nginx",
       "version": 1,
       "weekStart": ""

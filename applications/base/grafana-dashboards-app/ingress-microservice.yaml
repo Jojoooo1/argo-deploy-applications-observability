@@ -45,7 +45,7 @@ data:
         ]
       },
       "uid": "Microservice-ingress-nginx",
-      "title": "Ingress",
+      "title": "Services",
       "description": "Dashboard for Microservice Ingress",
       "editable": true,
       "fiscalYearStartMonth": 0,
