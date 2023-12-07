@@ -631,11 +631,12 @@ data:
           "links": [],
           "options": {
             "legend": {
-              "calcs": [],
+              "calcs": [
+                "last"
+              ],
               "displayMode": "table",
               "placement": "right",
-              "showLegend": true,
-              "width": "auto"
+              "showLegend": true
             },
             "tooltip": {
               "mode": "multi",
@@ -757,7 +758,7 @@ data:
           "options": {
             "legend": {
               "calcs": [
-                "lastNotNull"
+                "last"
               ],
               "displayMode": "table",
               "placement": "right",
@@ -861,11 +862,12 @@ data:
           "links": [],
           "options": {
             "legend": {
-              "calcs": [],
+              "calcs": [
+                "last"
+              ],
               "displayMode": "table",
               "placement": "right",
-              "showLegend": true,
-              "width": "auto"
+              "showLegend": true
             },
             "tooltip": {
               "mode": "multi",
@@ -964,7 +966,7 @@ data:
           "options": {
             "legend": {
               "calcs": [
-                "lastNotNull"
+                "last"
               ],
               "displayMode": "table",
               "placement": "right",
@@ -1067,11 +1069,12 @@ data:
           "links": [],
           "options": {
             "legend": {
-              "calcs": [],
+              "calcs": [
+                "last"
+              ],
               "displayMode": "table",
               "placement": "right",
-              "showLegend": true,
-              "width": 100
+              "showLegend": true
             },
             "tooltip": {
               "mode": "multi",
@@ -1170,7 +1173,7 @@ data:
           "options": {
             "legend": {
               "calcs": [
-                "lastNotNull"
+                "last"
               ],
               "displayMode": "table",
               "placement": "right",
@@ -1275,7 +1278,7 @@ data:
             "definition": "label_values(keycloak_logins_total{container=\"$container\", provider=\"keycloak\", realm=~\"$realm\"}, client_id)",
             "hide": 0,
             "includeAll": true,
-            "label": "Client ID",
+            "label": "client_id",
             "multi": true,
             "name": "client_id",
             "options": [],
@@ -1292,7 +1295,7 @@ data:
         ]
       },
       "time": {
-        "from": "now-1h",
+        "from": "now-15m",
         "to": "now"
       },
       "timepicker": {
@@ -1324,6 +1327,6 @@ data:
       "timezone": "browser",
       "title": "Applications",
       "uid": "keycloak",
-      "version": 3,
+      "version": 5,
       "weekStart": ""
     }
