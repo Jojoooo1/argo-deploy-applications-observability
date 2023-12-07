@@ -90,7 +90,7 @@ spec:
               provider:
                 foldersFromFilesStructure: true
               annotations:
-                k8s-sidecar-target-directory: /tmp/dashboards/Kubernetes
+                grafana_folder: /tmp/dashboards/Kubernetes
             datasources:
               url: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
               alertmanager:
