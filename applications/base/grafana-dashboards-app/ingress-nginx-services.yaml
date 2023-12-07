@@ -1,14 +1,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: dashboard-microservice-ingress
+  name: dashboard-ingress-services
   namespace: observability
   labels:
     grafana_dashboard: "1"
   annotations:
     grafana_folder: "Ingress"
 data:
-  microservice-ingress.json: |
+  # inspired from: https://grafana.com/grafana/dashboards/14314-kubernetes-nginx-ingress-controller-nextgen-devops-nirvana/
+  ingress-services.json: |
     {
       "annotations": {
         "list": [
@@ -44,9 +45,9 @@ data:
           }
         ]
       },
-      "uid": "Microservice-ingress-nginx",
+      "uid": "ingress-service-nginx",
       "title": "Services",
-      "description": "Dashboard for Microservice Ingress",
+      "description": "Dashboard for Ingress services",
       "editable": true,
       "fiscalYearStartMonth": 0,
       "gnetId": 14314,
