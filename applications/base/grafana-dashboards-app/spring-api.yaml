@@ -866,7 +866,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "irate(http_server_requests_seconds_sum{name=\"$name\", pod=~\"$pod\", exception=\"None\", uri!~\".*actuator.*\"}[5m]) / irate(http_server_requests_seconds_count{name=\"$name\", pod=~\"$pod\", exception=\"None\", uri!~\".*actuator.*\"}[5m]) > 0",
+              "expr": "irate(http_server_requests_seconds_sum{name=\"$name\", pod=~\"$pod\", uri!~\".*actuator.*\"}[5m]) / irate(http_server_requests_seconds_count{name=\"$name\", pod=~\"$pod\", uri!~\".*actuator.*\"}[5m]) > 0",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{method}} [{{status}}] - {{uri}}",
