@@ -1275,7 +1275,7 @@ data:
             "definition": "label_values(keycloak_logins_total{container=\"$container\", provider=\"keycloak\", realm=~\"$realm\"}, client_id)",
             "hide": 0,
             "includeAll": true,
-            "label": "client_id",
+            "label": "Client ID",
             "multi": true,
             "name": "client_id",
             "options": [],
