@@ -3476,7 +3476,7 @@ data:
               "type": "prometheus",
               "uid": "prometheus"
             },
-            "definition": "label_values(jvm_classes_loaded_classes{application=\"$application\"}, pod)",
+            "definition": "label_values(jvm_classes_loaded_classes{application=\"$application\", component=\"api\"}, pod)",
             "hide": 0,
             "includeAll": true,
             "label": "pod",
@@ -3484,7 +3484,7 @@ data:
             "name": "pod",
             "options": [],
             "query": {
-              "query": "label_values(jvm_classes_loaded_classes{application=\"$application\"}, pod)",
+              "query": "label_values(jvm_classes_loaded_classes{application=\"$application\", component=\"api\"}, pod)",
               "refId": "StandardVariableQuery"
             },
             "refresh": 1,
