@@ -764,7 +764,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "irate(graphql_datafetcher_seconds_count{name=\"$name\", pod=~\"$pod\", outcome=\"SUCCESS\"}[5m]) > 0",
+              "expr": "irate(graphql_datafetcher_seconds_count{name=\"$name\", pod=~\"$pod\"}[5m]) > 0",
               "hide": false,
               "legendFormat": "[graphQL] - {{path}}",
               "range": true,
@@ -878,7 +878,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "irate(graphql_datafetcher_seconds_sum{name=\"$name\", pod=~\"$pod\", outcome=\"SUCCESS\"}[5m]) / irate(graphql_datafetcher_seconds_count{name=\"$name\", pod=~\"$pod\", outcome=\"SUCCESS\"}[5m]) > 0",
+              "expr": "irate(graphql_datafetcher_seconds_sum{name=\"$name\", pod=~\"$pod\"}[5m]) / irate(graphql_datafetcher_seconds_count{name=\"$name\", pod=~\"$pod\"}[5m]) > 0",
               "hide": false,
               "legendFormat": "[graphQL] - {{path}}",
               "range": true,
