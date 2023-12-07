@@ -82,7 +82,7 @@ spec:
 
           sidecar: 
             dashboards:
-              enabled: true
+              # enabled: true
               folderAnnotation: grafana_folder
               provider:
                 foldersFromFilesStructure: true
