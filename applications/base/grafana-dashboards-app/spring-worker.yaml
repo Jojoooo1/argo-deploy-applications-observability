@@ -659,7 +659,7 @@ data:
               "refId": "A"
             }
           ],
-          "title": "HTTP Statistics (clients)",
+          "title": "HTTP Clients",
           "type": "row"
         },
         {
