@@ -84,11 +84,13 @@ spec:
                 url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
 
           sidecar: 
-            dashboards: 
-              provider:
-                foldersFromFilesStructure: true
-              annotations:
-                k8s-sidecar-target-directory: /tmp/dashboards/Kubernetes
+            dashboards:
+              enabled: true
+              folderAnnotation: k8s-sidecar-target-directory
+              # provider:
+              #   foldersFromFilesStructure: true
+              # annotations:
+              #   k8s-sidecar-target-directory: /tmp/dashboards/Kubernetes
             datasources:
               exemplarTraceIdDestinations:
                 datasourceUid: tempo
