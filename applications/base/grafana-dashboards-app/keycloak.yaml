@@ -8,8 +8,8 @@ metadata:
   annotations:
     grafana_folder: "Keycloak" # need to be different from title
 data:
-  # https://grafana.com/api/dashboards/19659/revisions/1/download
-  keycloak-dashboard.json: |
+  # https://grafana.com/grafana/dashboards/10441-keycloak-metrics-dashboard/
+  keycloak-metrics-dashboard.json: |
     {
       "annotations": {
         "list": [
