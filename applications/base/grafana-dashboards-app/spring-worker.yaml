@@ -2428,8 +2428,8 @@ data:
       "style": "dark",
       "tags": [
         "spring",
-        "microservice",
-        "java"
+        "java",
+        "worker"
       ],
       "templating": {
         "list": [

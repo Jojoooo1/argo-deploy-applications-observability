@@ -2427,9 +2427,9 @@ data:
       "schemaVersion": 38,
       "style": "dark",
       "tags": [
-        "Middleware",
-        "api",
-        "java"
+        "spring",
+        "java",
+        "middleware"
       ],
       "templating": {
         "list": [

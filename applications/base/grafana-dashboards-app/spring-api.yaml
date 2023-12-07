@@ -3833,8 +3833,8 @@ data:
       "style": "dark",
       "tags": [
         "spring",
-        "api",
-        "java"
+        "java",
+        "api"
       ],
       "templating": {
         "list": [
