@@ -6,7 +6,7 @@ metadata:
   labels:
     grafana_dashboard: "1"
   annotations:
-    k8s-sidecar-target-directory: "/tmp/dashboards/Identity"
+    grafana_folder: "Keycloak"
 data:
   keycloak-dashboard.json: |
     {
