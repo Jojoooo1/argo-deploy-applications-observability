@@ -11,180 +11,66 @@ data:
   # https://grafana.com/api/dashboards/19659/revisions/1/download
   keycloak-dashboard.json: |
     {
-      "__inputs": [],
-      "__elements": {},
-      "__requires": [
-        {
-          "type": "panel",
-          "id": "gauge",
-          "name": "Gauge",
-          "version": ""
-        },
-        {
-          "type": "grafana",
-          "id": "grafana",
-          "name": "Grafana",
-          "version": "10.1.2"
-        },
-        {
-          "type": "panel",
-          "id": "heatmap",
-          "name": "Heatmap",
-          "version": ""
-        },
-        {
-          "type": "panel",
-          "id": "piechart",
-          "name": "Pie chart",
-          "version": ""
-        },
-        {
-          "type": "datasource",
-          "id": "prometheus",
-          "name": "Prometheus",
-          "version": "1.0.0"
-        },
-        {
-          "type": "panel",
-          "id": "timeseries",
-          "name": "Time series",
-          "version": ""
-        }
-      ],
       "annotations": {
         "list": [
           {
             "builtIn": 1,
-            "datasource": {
-              "type": "datasource",
-              "uid": "grafana"
-            },
+            "datasource": "-- Grafana --",
             "enable": true,
             "hide": true,
             "iconColor": "rgba(0, 211, 255, 1)",
             "name": "Annotations & Alerts",
             "type": "dashboard"
-          },
-          {
-            "datasource": {
-              "type": "datasource",
-              "uid": "grafana"
-            },
-            "enable": true,
-            "iconColor": "rgba(0, 211, 255, 1)",
-            "iconSize": 0,
-            "lineColor": "",
-            "name": "Annotations & Alerts",
-            "query": "",
-            "showLine": false,
-            "tagsField": "",
-            "textField": "",
-            "type": "dashboard"
           }
         ]
       },
-      "description": "Keycloak dashboard SPI v4.0.0",
+      "uid": "keycloak",
+      "title": "Applications",
+      "description": "Dashboard for Keycloak",
       "editable": true,
-      "fiscalYearStartMonth": 0,
-      "gnetId": 19659,
+      "gnetId": 10441,
       "graphTooltip": 1,
       "id": null,
+      "iteration": 1561464987828,
       "links": [],
-      "liveNow": false,
       "panels": [
+
         {
-          "CustomPanel": {
-            "datasource": "$Datasource",
-            "description": "Memory currently being used by Keycloak.",
-            "fieldConfig": {
-              "defaults": {
-                "color": {
-                  "mode": "thresholds"
-                },
-                "custom": {},
-                "mappings": [],
-                "max": 100,
-                "min": 0,
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green"
-                    },
-                    {
-                      "color": "#EAB839",
-                      "value": 80
-                    },
-                    {
-                      "color": "red",
-                      "value": 90
-                    }
-                  ]
-                },
-                "unit": "percent"
-              },
-              "overrides": []
-            },
-            "gridPos": {
-              "h": 7,
-              "w": 6,
-              "x": 0,
-              "y": 0
-            },
-            "hideTimeOverride": false,
-            "id": 5,
-            "links": [],
-            "options": {
-              "orientation": "auto",
-              "reduceOptions": {
-                "calcs": [
-                  "mean"
-                ],
-                "fields": "",
-                "values": false
-              },
-              "showThresholdLabels": false,
-              "showThresholdMarkers": true
-            },
-            "pluginVersion": "7.2.0",
-            "targets": [
-              {
-                "expr": "sum(jvm_memory_bytes_used{instance=\"$instance\", area=\"heap\"})*100/sum(jvm_memory_bytes_max{instance=\"$instance\", area=\"heap\"})\n",
-                "format": "time_series",
-                "hide": false,
-                "instant": false,
-                "intervalFactor": 1,
-                "legendFormat": "",
-                "refId": "B"
-              }
-            ],
-            "title": "Current Memory HEAP",
-            "type": "gauge"
-          },
           "datasource": {
             "type": "prometheus",
-            "uid": "$Datasource"
+            "uid": "prometheus"
           },
-          "editable": false,
-          "error": false,
           "fieldConfig": {
             "defaults": {
-              "mappings": [],
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "text": "N/A"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
               "max": 100,
               "min": 0,
               "thresholds": {
-                "mode": "percentage",
+                "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
+                    "color": "rgba(50, 172, 45, 0.97)",
                     "value": null
                   },
                   {
-                    "color": "#EAB839",
+                    "color": "rgba(237, 129, 40, 0.89)",
                     "value": 80
                   },
                   {
-                    "color": "red",
+                    "color": "rgba(245, 54, 54, 0.9)",
                     "value": 90
                   }
                 ]
@@ -199,13 +85,15 @@ data:
             "x": 0,
             "y": 0
           },
-          "hideTimeOverride": false,
-          "id": 5,
+          "id": 3,
+          "interval": "1m",
+          "links": [],
+          "maxDataPoints": 100,
           "options": {
-            "orientation": "auto",
+            "orientation": "horizontal",
             "reduceOptions": {
               "calcs": [
-                "mean"
+                "lastNotNull"
               ],
               "fields": "",
               "values": false
@@ -213,117 +101,57 @@ data:
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "10.1.2",
-          "span": 0,
+          "pluginVersion": "8.3.3",
           "targets": [
             {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum(jvm_memory_bytes_used{instance=\"$instance\", area=\"heap\"})*100/sum(jvm_memory_bytes_max{instance=\"$instance\", area=\"heap\"})",
-              "interval": "",
+              "expr": "sum(jvm_memory_bytes_used{instance=\"$instance\", area=\"heap\"})*100/sum(jvm_memory_bytes_max{instance=\"$instance\", area=\"heap\"})\n",
+              "format": "time_series",
+              "intervalFactor": 2,
               "legendFormat": "",
-              "range": true,
               "refId": "A"
             }
           ],
           "title": "Current Memory HEAP",
+          "description": "Memory currently being used by Keycloak.",
           "type": "gauge"
         },
+
         {
-          "CustomPanel": {
-            "datasource": "$Datasource",
-            "description": "Memory currently being used by Keycloak.",
-            "fieldConfig": {
-              "defaults": {
-                "color": {
-                  "mode": "thresholds"
-                },
-                "custom": {},
-                "mappings": [],
-                "max": 100,
-                "min": 0,
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green"
-                    },
-                    {
-                      "color": "#EAB839",
-                      "value": 80
-                    },
-                    {
-                      "color": "red",
-                      "value": 90
-                    }
-                  ]
-                },
-                "unit": "percent"
-              },
-              "overrides": []
-            },
-            "gridPos": {
-              "h": 7,
-              "w": 6,
-              "x": 6,
-              "y": 0
-            },
-            "hideTimeOverride": false,
-            "id": 23,
-            "links": [],
-            "options": {
-              "orientation": "auto",
-              "reduceOptions": {
-                "calcs": [
-                  "mean"
-                ],
-                "fields": "",
-                "values": false
-              },
-              "showThresholdLabels": false,
-              "showThresholdMarkers": true
-            },
-            "pluginVersion": "7.2.0",
-            "targets": [
-              {
-                "expr": "sum(jvm_memory_bytes_used{instance=\"$instance\", area=\"nonheap\"})*100/sum(jvm_memory_bytes_max{instance=\"$instance\", area=\"nonheap\"})",
-                "format": "time_series",
-                "hide": false,
-                "instant": false,
-                "intervalFactor": 1,
-                "legendFormat": "",
-                "refId": "B"
-              }
-            ],
-            "title": "Current Memory nonHEAP",
-            "type": "gauge"
-          },
           "datasource": {
             "type": "prometheus",
-            "uid": "$Datasource"
+            "uid": "prometheus"
           },
-          "editable": false,
-          "error": false,
           "fieldConfig": {
             "defaults": {
-              "mappings": [],
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "text": "N/A"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
               "max": 100,
               "min": 0,
               "thresholds": {
-                "mode": "percentage",
+                "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
+                    "color": "rgba(50, 172, 45, 0.97)",
                     "value": null
                   },
                   {
-                    "color": "#EAB839",
+                    "color": "rgba(237, 129, 40, 0.89)",
                     "value": 80
                   },
                   {
-                    "color": "red",
+                    "color": "rgba(245, 54, 54, 0.9)",
                     "value": 90
                   }
                 ]
@@ -338,13 +166,15 @@ data:
             "x": 6,
             "y": 0
           },
-          "hideTimeOverride": false,
-          "id": 23,
+          "id": 3,
+          "interval": "1m",
+          "links": [],
+          "maxDataPoints": 100,
           "options": {
-            "orientation": "auto",
+            "orientation": "horizontal",
             "reduceOptions": {
               "calcs": [
-                "mean"
+                "lastNotNull"
               ],
               "fields": "",
               "values": false
@@ -352,84 +182,31 @@ data:
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "10.1.2",
-          "span": 0,
+          "pluginVersion": "8.3.3",
           "targets": [
             {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
               "expr": "sum(jvm_memory_bytes_used{instance=\"$instance\", area=\"nonheap\"})*100/sum(jvm_memory_bytes_max{instance=\"$instance\", area=\"nonheap\"})",
-              "interval": "",
+              "format": "time_series",
+              "intervalFactor": 2,
               "legendFormat": "",
-              "range": true,
               "refId": "A"
             }
           ],
           "title": "Current Memory nonHEAP",
+          "description": "Memory currently being used by Keycloak.",
           "type": "gauge"
         },
+
         {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "$Datasource"
+            "uid": "prometheus"
           },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "bytes"
-            },
-            "overrides": []
-          },
+          "fill": 2,
           "gridPos": {
             "h": 7,
             "w": 12,
@@ -438,87 +215,112 @@ data:
           },
           "hideTimeOverride": false,
           "id": 12,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "right",
-              "showLegend": true,
-              "width": 70
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sideWidth": 70,
+            "total": false,
+            "values": false
           },
-          "pluginVersion": "10.1.2",
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": {},
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum(jvm_memory_bytes_max{instance=\"$instance\"})",
+              "expr": "sum(jvm_memory_bytes_max{instance=\"$instance\",job=\"keycloak\"})",
               "format": "time_series",
-              "interval": "",
+              "hide": false,
+              "instant": false,
               "intervalFactor": 1,
               "legendFormat": "Max",
-              "range": true,
               "refId": "A"
             },
             {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum(jvm_memory_bytes_committed{instance=\"$instance\"})",
+              "expr": "sum(jvm_memory_bytes_committed{instance=\"$instance\",job=\"keycloak\"})",
               "format": "time_series",
-              "interval": "",
               "intervalFactor": 1,
               "legendFormat": "Comitted",
-              "range": true,
               "refId": "C"
             },
             {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum(jvm_memory_bytes_used{instance=\"$instance\"})",
+              "expr": "sum(jvm_memory_bytes_used{instance=\"$instance\",job=\"keycloak\"})",
               "format": "time_series",
-              "interval": "",
+              "instant": false,
               "intervalFactor": 1,
               "legendFormat": "Used",
-              "range": true,
               "refId": "B"
             }
           ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
           "title": "Memory Usage",
-          "type": "timeseries"
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "bytes",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
         },
         {
+          "aliasColors": {},
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
           "datasource": {
             "type": "prometheus",
-            "uid": "$Datasource"
+            "uid": "prometheus"
           },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "decimals": 0,
-              "mappings": [],
-              "unit": "short"
-            },
-            "overrides": []
-          },
+          "fontSize": "80%",
+          "format": "none",
           "gridPos": {
             "h": 7,
             "w": 6,
@@ -527,211 +329,98 @@ data:
           },
           "hideTimeOverride": true,
           "id": 16,
-          "links": [],
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "values": [
-                "percent"
-              ]
-            },
-            "pieType": "pie",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
+          "interval": null,
+          "legend": {
+            "percentage": true,
+            "percentageDecimals": 0,
+            "show": true,
+            "values": false
           },
+          "legendType": "Under graph",
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "options": {},
+          "pieType": "donut",
+          "strokeWidth": "",
           "targets": [
             {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum by (realm)(increase(keycloak_logins_total[24h]))",
-              "interval": "",
+              "expr": "sum(keycloak_logins_total{instance=\"$instance\"}) by (realm)",
+              "format": "time_series",
+              "intervalFactor": 1,
               "legendFormat": "{{realm}}",
-              "range": true,
-              "refId": "A"
+              "refId": "B"
             }
           ],
-          "title": "Logins Per REALM for past 24h",
-          "type": "piechart"
+          "timeFrom": null,
+          "title": "Logins Per REALM",
+          "type": "grafana-piechart-panel",
+          "valueName": "current"
         },
         {
+          "aliasColors": {},
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
           "datasource": {
             "type": "prometheus",
-            "uid": "$Datasource"
+            "uid": "prometheus"
           },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "decimals": 0,
-              "mappings": [],
-              "unit": "short"
-            },
-            "overrides": []
-          },
+          "fontSize": "80%",
+          "format": "none",
           "gridPos": {
             "h": 7,
-            "w": 6,
+            "w": 12,
             "x": 6,
-            "y": 7
-          },
-          "id": 44,
-          "links": [],
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "values": [
-                "percent"
-              ]
-            },
-            "pieType": "pie",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "7.2.0",
-          "targets": [
-            {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum by (realm)(increase(keycloak_registrations_total[24h]))",
-              "interval": "",
-              "legendFormat": "{{realm}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Registrations Per REALM for past 24h",
-          "type": "piechart"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$Datasource"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "decimals": 0,
-              "mappings": [],
-              "unit": "short"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 6,
-            "x": 12,
             "y": 7
           },
           "hideTimeOverride": true,
           "id": 20,
-          "links": [],
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "values": [
-                "percent"
-              ]
-            },
-            "pieType": "pie",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
+          "interval": null,
+          "legend": {
+            "percentage": true,
+            "percentageDecimals": 0,
+            "show": true,
+            "values": false
           },
+          "legendType": "Right side",
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "options": {},
+          "pieType": "donut",
+          "strokeWidth": "",
           "targets": [
             {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum by (client_id)(increase(keycloak_logins_total[24h]))",
-              "interval": "",
+              "expr": "sum(keycloak_logins_total{instance=\"$instance\"}) by (client_id)",
+              "format": "time_series",
+              "intervalFactor": 1,
               "legendFormat": "{{client_id}}",
-              "range": true,
-              "refId": "A"
+              "refId": "B"
             }
           ],
-          "title": "Logins Per CLIENT for past 24h",
-          "type": "piechart"
+          "timeFrom": null,
+          "title": "Logins Per CLIENT",
+          "type": "grafana-piechart-panel",
+          "valueName": "current"
         },
         {
+          "aliasColors": {},
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
           "datasource": {
             "type": "prometheus",
-            "uid": "$Datasource"
+            "uid": "prometheus"
           },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "decimals": 0,
-              "mappings": [],
-              "unit": "short"
-            },
-            "overrides": []
-          },
+          "fontSize": "80%",
+          "format": "none",
           "gridPos": {
             "h": 7,
             "w": 6,
@@ -740,200 +429,241 @@ data:
           },
           "hideTimeOverride": true,
           "id": 17,
-          "links": [],
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "values": [
-                "percent"
-              ]
-            },
-            "pieType": "pie",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
+          "interval": null,
+          "legend": {
+            "percentage": true,
+            "percentageDecimals": 0,
+            "show": true,
+            "values": false
           },
+          "legendType": "Under graph",
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "options": {},
+          "pieType": "donut",
+          "strokeWidth": "",
           "targets": [
             {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum by (client_id)(increase(keycloak_registrations_total[24h]))",
-              "interval": "",
+              "expr": "sum(keycloak_registrations{instance=\"$instance\"}) by (client_id)",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "intervalFactor": 1,
               "legendFormat": "{{client_id}}",
-              "range": true,
               "refId": "A"
             }
           ],
-          "title": "Registrations Per CLIENT for past 24h",
-          "type": "piechart"
+          "timeFrom": null,
+          "title": "Registrations Per CLIENT",
+          "type": "grafana-piechart-panel",
+          "valueName": "current"
         },
         {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "$Datasource"
+            "uid": "prometheus"
           },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 10,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": []
-          },
+          "fill": 1,
           "gridPos": {
             "h": 8,
             "w": 12,
-            "x": 6,
+            "x": 0,
             "y": 14
           },
-          "id": 46,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
+          "hideTimeOverride": false,
+          "id": 1,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sideWidth": 100,
+            "total": false,
+            "values": false
           },
-          "pluginVersion": "10.1.2",
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": {},
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum by (code)(increase(keycloak_response_errors_total[30m]))",
+              "expr": "sum by (realm)(increase(keycloak_logins_total{instance=\"$instance\",job=\"keycloak\"}[1h]))",
+              "format": "time_series",
+              "hide": false,
               "interval": "",
-              "legendFormat": "{{code}}",
-              "range": true,
+              "intervalFactor": 1,
+              "legendFormat": "{{realm}}",
               "refId": "A"
             }
           ],
-          "title": "4xx and 5xx Responses",
-          "type": "timeseries"
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Logins per REALM",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
         },
         {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "$Datasource"
+            "uid": "prometheus"
           },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 10,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "none"
+          "fill": 1,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 14
+          },
+          "hideTimeOverride": false,
+          "id": 7,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "hideEmpty": false,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sideWidth": null,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": {},
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "increase(keycloak_failed_login_attempts_total{instance=\"$instance\",job=\"keycloak\",provider=\"keycloak\",realm=~\"$realm\"}[1h])",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "{{error}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Login Errors on realm $realm",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
             },
-            "overrides": []
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
           },
+          "fill": 1,
           "gridPos": {
             "h": 8,
             "w": 12,
@@ -941,119 +671,95 @@ data:
             "y": 22
           },
           "hideTimeOverride": false,
-          "id": 1,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "width": 100
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
+          "id": 18,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sideWidth": 100,
+            "total": false,
+            "values": false
           },
-          "pluginVersion": "10.1.2",
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": {},
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum by (realm)(increase(keycloak_logins_total[30m]))",
+              "expr": "increase(keycloak_logins_total{instance=\"$instance\",job=\"keycloak\",realm=~\"$realm\",provider=\"keycloak\"}[1h])",
               "format": "time_series",
+              "hide": false,
               "interval": "",
-              "intervalFactor": 1,
-              "legendFormat": "{{realm}}",
-              "range": true,
+              "intervalFactor": 2,
+              "legendFormat": "{{client_id}}",
               "refId": "A"
             }
           ],
-          "title": "Logins per REALM",
-          "type": "timeseries"
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Logins per CLIENT on realm $realm",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
         },
         {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "$Datasource"
+            "uid": "prometheus"
           },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 10,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byValue",
-                  "options": {
-                    "op": "gte",
-                    "reducer": "allIsZero",
-                    "value": 0
-                  }
-                },
-                "properties": [
-                  {
-                    "id": "custom.hideFrom",
-                    "value": {
-                      "legend": true,
-                      "tooltip": true,
-                      "viz": false
-                    }
-                  }
-                ]
-              }
-            ]
-          },
+          "fill": 1,
           "gridPos": {
             "h": 8,
             "w": 12,
@@ -1061,110 +767,96 @@ data:
             "y": 22
           },
           "hideTimeOverride": false,
-          "id": 7,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
+          "id": 19,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "hideEmpty": false,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sideWidth": null,
+            "total": false,
+            "values": true
           },
-          "pluginVersion": "10.1.2",
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": {},
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum by (error) (increase(keycloak_failed_login_attempts_total{provider=~\"keycloak/*\",realm=\"$realm\"}[30m]))",
+              "expr": "increase(keycloak_failed_login_attempts_total{instance=\"$instance\",job=\"keycloak\",provider=\"keycloak\",realm=~\"$realm\",client_id=~\"$ClientId\"}[1h])",
               "format": "time_series",
+              "hide": false,
               "interval": "",
-              "intervalFactor": 1,
-              "legendFormat": "{{$realm }} {{error}}",
-              "range": true,
+              "intervalFactor": 2,
+              "legendFormat": "{{error}}",
               "refId": "A"
-            },
-            {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum by (realm) (increase(keycloak_failed_login_attempts_total{provider=~\"keycloak/*\",realm=\"dialog-test\"} [30m]))",
-              "interval": "",
-              "legendFormat": "{{sum by $realm}}",
-              "range": true,
-              "refId": "B"
             }
           ],
-          "title": "Login Errors on realm $realm",
-          "type": "timeseries"
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Login Errors for $ClientId",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
         },
         {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "$Datasource"
+            "uid": "prometheus"
           },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 10,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
+          "fill": 1,
           "gridPos": {
             "h": 8,
             "w": 12,
@@ -1172,97 +864,95 @@ data:
             "y": 30
           },
           "hideTimeOverride": false,
-          "id": 18,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "width": 100
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
+          "id": 22,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sideWidth": 100,
+            "total": false,
+            "values": false
           },
-          "pluginVersion": "10.1.2",
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": {},
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum by (client_id)(increase(keycloak_logins_total{realm=\"$realm\",provider=~\"keycloak/*\"}[30m]))",
+              "expr": "increase(keycloak_registrations{instance=\"$instance\",job=\"keycloak\",realm=~\"$realm\",provider=\"keycloak\"}[1h])",
               "format": "time_series",
+              "hide": false,
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "{{client_id}}",
-              "range": true,
               "refId": "A"
             }
           ],
-          "title": "Logins per CLIENT on realm $realm",
-          "type": "timeseries"
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Registrations per CLIENT on realm $realm",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
         },
         {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "$Datasource"
+            "uid": "prometheus"
           },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 10,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": []
-          },
+          "fill": 1,
           "gridPos": {
             "h": 8,
             "w": 12,
@@ -1271,1295 +961,163 @@ data:
           },
           "hideTimeOverride": false,
           "id": 21,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "hideEmpty": false,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sideWidth": null,
+            "total": false,
+            "values": true
           },
-          "pluginVersion": "10.1.2",
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": {},
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
           "targets": [
             {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum by (realm) (increase(keycloak_registrations_errors_total{provider=~\"keycloak/*\",realm=\"$realm\"} [30m]))",
+              "expr": "increase(keycloak_registrations_errors{instance=\"$instance\",job=\"keycloak\",provider=\"keycloak\",realm=~\"$realm\",client_id=~\"$ClientId\"}[1h])",
               "format": "time_series",
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "Sum by {{realm}}",
-              "range": true,
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum by (error) (increase(keycloak_registrations_errors_total{provider=~\"keycloak/*\",realm=\"$realm\"} [30m]))",
-              "interval": "",
-              "legendFormat": "{{error}}",
-              "range": true,
-              "refId": "B"
-            }
-          ],
-          "title": "Registration Errors on realm $realm",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$Datasource"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 10,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 38
-          },
-          "hideTimeOverride": false,
-          "id": 33,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "width": 100
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "10.1.2",
-          "targets": [
-            {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum by (realm)(increase(keycloak_registrations_total[30m]))",
-              "format": "time_series",
-              "interval": "",
-              "intervalFactor": 1,
-              "legendFormat": "{{realm}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Registrations per REALM",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$Datasource"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 10,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 38
-          },
-          "hideTimeOverride": false,
-          "id": 19,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "10.1.2",
-          "targets": [
-            {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum by (error) (increase(keycloak_failed_login_attempts_total{provider=~\"keycloak/*\",realm=\"$realm\",client_id=\"$ClientId\"}[30m]))",
-              "format": "time_series",
+              "hide": false,
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "{{error}}",
-              "range": true,
               "refId": "A"
             }
           ],
-          "title": "Login Errors for $ClientId",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$Datasource"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 10,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 46
-          },
-          "hideTimeOverride": false,
-          "id": 22,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "width": 100
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "10.1.2",
-          "targets": [
-            {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum by (client_id)(increase(keycloak_registrations_total{realm=\"$realm\",provider=~\"keycloak/*\"}[30m]))",
-              "format": "time_series",
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{client_id}}",
-              "range": true,
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum by (realm)(increase(keycloak_registrations_total{provider=~\"keycloak/*\",realm=\"$realm\"} [30m]))",
-              "interval": "",
-              "legendFormat": "Sum by {{realm}}",
-              "range": true,
-              "refId": "B"
-            }
-          ],
-          "title": "Registrations per CLIENT on relm $realm",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$Datasource"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 10,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 46
-          },
-          "hideTimeOverride": false,
-          "id": 34,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "10.1.2",
-          "targets": [
-            {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum by (error) (increase(keycloak_registrations_errors_total{provider=~\"keycloak/*\",realm=\"$realm\",client_id=\"$ClientId\"}[30m]))",
-              "format": "time_series",
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "{{error}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
           "title": "Registration Errors for $ClientId",
-          "type": "timeseries"
-        },
-        {
-          "cards": {},
-          "color": {
-            "cardColor": "#73BF69",
-            "colorScale": "sqrt",
-            "colorScheme": "interpolateGreens",
-            "exponent": 0.4,
-            "mode": "opacity"
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
           },
-          "dataFormat": "tsbuckets",
-          "datasource": {
-            "uid": "$Datasource"
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 54
-          },
-          "heatmap": {},
-          "hideTimeOverride": false,
-          "hideZeroBuckets": true,
-          "highlightCards": true,
-          "id": 35,
-          "legend": {
-            "show": true
-          },
-          "options": {
-            "calculate": false,
-            "calculation": {},
-            "cellGap": 2,
-            "cellValues": {},
-            "color": {
-              "exponent": 0.5,
-              "fill": "#73BF69",
-              "mode": "opacity",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "Oranges",
-              "steps": 128
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
               "show": true
             },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "showValue": "never",
-            "tooltip": {
-              "show": true,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": false,
-              "unit": "ms"
-            }
-          },
-          "pluginVersion": "10.1.2",
-          "reverseYBuckets": false,
-          "targets": [
             {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "expr": "sum(increase(keycloak_request_duration_bucket{method=\"GET\"}[30m])) by (le)",
-              "format": "heatmap",
-              "interval": "",
-              "intervalFactor": 4,
-              "legendFormat": "{{ le }}",
-              "refId": "A"
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
             }
           ],
-          "title": "Request duration method = \"GET\" Heatmap",
-          "tooltip": {
-            "show": true,
-            "showHistogram": false
-          },
-          "type": "heatmap",
-          "xAxis": {
-            "show": true
-          },
-          "yAxis": {
-            "format": "ms",
-            "logBase": 1,
-            "show": true
-          },
-          "yBucketBound": "auto"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$Datasource"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "mappings": [],
-              "max": 100,
-              "min": 0,
-              "thresholds": {
-                "mode": "percentage",
-                "steps": [
-                  {
-                    "color": "red"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 90
-                  },
-                  {
-                    "color": "green",
-                    "value": 98
-                  }
-                ]
-              },
-              "unit": "percent"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 54
-          },
-          "hideTimeOverride": false,
-          "id": 39,
-          "options": {
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "mean"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true
-          },
-          "pluginVersion": "10.1.2",
-          "targets": [
-            {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "editorMode": "code",
-              "expr": "sum(rate(keycloak_request_duration_bucket{method=\"GET\", le=\"100.0\"}[30m])) / sum(rate(keycloak_request_duration_count{method=\"GET\"}[30m])) * 100",
-              "format": "time_series",
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Percentage of requests \"GET\"  method  was served in 100ms or below",
-          "type": "gauge"
-        },
-        {
-          "cards": {},
-          "color": {
-            "cardColor": "#73BF69",
-            "colorScale": "sqrt",
-            "colorScheme": "interpolateGreens",
-            "exponent": 0.4,
-            "mode": "opacity"
-          },
-          "dataFormat": "tsbuckets",
-          "datasource": {
-            "uid": "$Datasource"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 62
-          },
-          "heatmap": {},
-          "hideTimeOverride": false,
-          "hideZeroBuckets": true,
-          "highlightCards": true,
-          "id": 36,
-          "legend": {
-            "show": true
-          },
-          "options": {
-            "calculate": false,
-            "calculation": {},
-            "cellGap": 2,
-            "cellValues": {},
-            "color": {
-              "exponent": 0.5,
-              "fill": "#73BF69",
-              "mode": "opacity",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "Oranges",
-              "steps": 128
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": true
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "showValue": "never",
-            "tooltip": {
-              "show": true,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": false,
-              "unit": "ms"
-            }
-          },
-          "pluginVersion": "10.1.2",
-          "reverseYBuckets": false,
-          "targets": [
-            {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "expr": "sum(increase(keycloak_request_duration_bucket{method=\"POST\"}[30m])) by (le)",
-              "format": "heatmap",
-              "interval": "",
-              "intervalFactor": 4,
-              "legendFormat": "{{ le }}",
-              "refId": "A"
-            }
-          ],
-          "title": "Request duration method = \"POST\" Heatmap",
-          "tooltip": {
-            "show": true,
-            "showHistogram": false
-          },
-          "type": "heatmap",
-          "xAxis": {
-            "show": true
-          },
-          "yAxis": {
-            "format": "ms",
-            "logBase": 1,
-            "show": true
-          },
-          "yBucketBound": "auto"
-        },
-        {
-          "datasource": {
-            "uid": "$Datasource"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "mappings": [],
-              "max": 100,
-              "min": 0,
-              "thresholds": {
-                "mode": "percentage",
-                "steps": [
-                  {
-                    "color": "red"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 90
-                  },
-                  {
-                    "color": "green",
-                    "value": 98
-                  }
-                ]
-              },
-              "unit": "percent"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 62
-          },
-          "hideTimeOverride": false,
-          "id": 40,
-          "options": {
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "mean"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true
-          },
-          "pluginVersion": "10.1.2",
-          "targets": [
-            {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "expr": "sum(rate(keycloak_request_duration_bucket{method=\"POST\", le=\"100.0\"}[30m])) / sum(rate(keycloak_request_duration_count{method=\"POST\"}[30m])) * 100",
-              "format": "time_series",
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "title": "Percentage of requests \"POST\"  method  was served in 100ms or below",
-          "type": "gauge"
-        },
-        {
-          "cards": {},
-          "color": {
-            "cardColor": "#73BF69",
-            "colorScale": "sqrt",
-            "colorScheme": "interpolateGreens",
-            "exponent": 0.4,
-            "mode": "opacity"
-          },
-          "dataFormat": "tsbuckets",
-          "datasource": {
-            "uid": "$Datasource"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 70
-          },
-          "heatmap": {},
-          "hideTimeOverride": false,
-          "hideZeroBuckets": true,
-          "highlightCards": true,
-          "id": 37,
-          "legend": {
-            "show": true
-          },
-          "options": {
-            "calculate": false,
-            "calculation": {},
-            "cellGap": 2,
-            "cellValues": {},
-            "color": {
-              "exponent": 0.5,
-              "fill": "#73BF69",
-              "mode": "opacity",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "Oranges",
-              "steps": 128
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": true
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "showValue": "never",
-            "tooltip": {
-              "show": true,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": false,
-              "unit": "ms"
-            }
-          },
-          "pluginVersion": "10.1.2",
-          "reverseYBuckets": false,
-          "targets": [
-            {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "expr": "sum(increase(keycloak_request_duration_bucket{method=\"HEAD\"}[30m])) by (le)",
-              "format": "heatmap",
-              "interval": "",
-              "intervalFactor": 4,
-              "legendFormat": "{{ le }}",
-              "refId": "A"
-            }
-          ],
-          "title": "Request duration method = \"HEAD\" Heatmap",
-          "tooltip": {
-            "show": true,
-            "showHistogram": false
-          },
-          "type": "heatmap",
-          "xAxis": {
-            "show": true
-          },
-          "yAxis": {
-            "format": "ms",
-            "logBase": 1,
-            "show": true
-          },
-          "yBucketBound": "auto"
-        },
-        {
-          "datasource": {
-            "uid": "$Datasource"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "mappings": [],
-              "max": 100,
-              "min": 0,
-              "thresholds": {
-                "mode": "percentage",
-                "steps": [
-                  {
-                    "color": "red"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 90
-                  },
-                  {
-                    "color": "green",
-                    "value": 98
-                  }
-                ]
-              },
-              "unit": "percent"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 70
-          },
-          "hideTimeOverride": false,
-          "id": 41,
-          "options": {
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "mean"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true
-          },
-          "pluginVersion": "10.1.2",
-          "targets": [
-            {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "expr": "sum(rate(keycloak_request_duration_bucket{method=\"HEAD\", le=\"100.0\"}[30m])) / sum(rate(keycloak_request_duration_count{method=\"HEAD\"}[30m])) * 100",
-              "format": "time_series",
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "title": "Percentage of requests \"HEAD\"  method  was served in 100ms or below",
-          "type": "gauge"
-        },
-        {
-          "cards": {},
-          "color": {
-            "cardColor": "#73BF69",
-            "colorScale": "sqrt",
-            "colorScheme": "interpolateGreens",
-            "exponent": 0.4,
-            "mode": "opacity"
-          },
-          "dataFormat": "tsbuckets",
-          "datasource": {
-            "uid": "$Datasource"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 78
-          },
-          "heatmap": {},
-          "hideTimeOverride": false,
-          "hideZeroBuckets": true,
-          "highlightCards": true,
-          "id": 38,
-          "legend": {
-            "show": true
-          },
-          "options": {
-            "calculate": false,
-            "calculation": {},
-            "cellGap": 2,
-            "cellValues": {},
-            "color": {
-              "exponent": 0.5,
-              "fill": "#73BF69",
-              "mode": "opacity",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "Oranges",
-              "steps": 128
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": true
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "showValue": "never",
-            "tooltip": {
-              "show": true,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": false,
-              "unit": "ms"
-            }
-          },
-          "pluginVersion": "10.1.2",
-          "reverseYBuckets": false,
-          "targets": [
-            {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "expr": "sum(increase(keycloak_request_duration_bucket{method=\"PUT\"}[30m])) by (le)",
-              "format": "heatmap",
-              "interval": "",
-              "intervalFactor": 4,
-              "legendFormat": "{{ le }}",
-              "refId": "A"
-            }
-          ],
-          "title": "Request duration method = \"PUT\" Heatmap",
-          "tooltip": {
-            "show": true,
-            "showHistogram": false
-          },
-          "type": "heatmap",
-          "xAxis": {
-            "show": true
-          },
-          "yAxis": {
-            "format": "ms",
-            "logBase": 1,
-            "show": true
-          },
-          "yBucketBound": "auto"
-        },
-        {
-          "datasource": {
-            "uid": "$Datasource"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "mappings": [],
-              "max": 100,
-              "min": 0,
-              "thresholds": {
-                "mode": "percentage",
-                "steps": [
-                  {
-                    "color": "red"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 90
-                  },
-                  {
-                    "color": "green",
-                    "value": 98
-                  }
-                ]
-              },
-              "unit": "percent"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 78
-          },
-          "hideTimeOverride": false,
-          "id": 42,
-          "options": {
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "mean"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true
-          },
-          "pluginVersion": "10.1.2",
-          "targets": [
-            {
-              "datasource": {
-                "uid": "$Datasource"
-              },
-              "expr": "sum(rate(keycloak_request_duration_bucket{method=\"PUT\", le=\"100.0\"}[30m])) / sum(rate(keycloak_request_duration_count{method=\"PUT\"}[30m])) * 100",
-              "format": "time_series",
-              "interval": "",
-              "intervalFactor": 2,
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "title": "Percentage of requests \"PUT\"  method  was served in 100ms or below",
-          "type": "gauge"
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
         }
       ],
-      "refresh": "",
-      "schemaVersion": 38,
+      "refresh": "5s",
+      "schemaVersion": 18,
       "style": "dark",
-      "tags": [
-        "keycloak"
-      ],
+      "tags": [],
       "templating": {
         "list": [
           {
-            "current": {
-              "selected": false,
-              "text": "Prometheus Local",
-              "value": "e4e68c2e-7ee3-4bfe-b0ce-ce31cf04ec95"
-            },
-            "hide": 0,
-            "includeAll": false,
-            "multi": false,
-            "name": "Datasource",
-            "options": [],
-            "query": "prometheus",
-            "queryValue": "",
-            "refresh": 1,
-            "regex": "",
-            "skipUrlSync": false,
-            "type": "datasource"
-          },
-          {
-            "allFormat": "",
-            "allValue": "",
+            "allValue": null,
             "current": {},
             "datasource": {
-              "uid": "$Datasource"
+              "type": "prometheus",
+              "uid": "prometheus"
             },
-            "definition": "label_values(keycloak_response_total,instance)",
+            "definition": "",
             "hide": 0,
             "includeAll": false,
             "label": "Instance",
             "multi": false,
-            "multiFormat": "",
             "name": "instance",
             "options": [],
-            "query": {
-              "query": "label_values(keycloak_response_total,instance)",
-              "refId": "PrometheusVariableQueryEditor-VariableQuery"
-            },
+            "query": "label_values(keycloak_logins_total,instance)",
             "refresh": 1,
             "regex": "",
             "skipUrlSync": false,
             "sort": 0,
             "tagValuesQuery": "",
+            "tags": [],
             "tagsQuery": "",
             "type": "query",
             "useTags": false
           },
           {
-            "allFormat": "",
-            "allValue": "",
+            "allValue": ".*",
             "current": {},
             "datasource": {
-              "uid": "$Datasource"
+              "type": "prometheus",
+              "uid": "prometheus"
             },
-            "definition": "label_values(keycloak_logins_total{provider=~\"keycloak/*\"},realm)",
+            "definition": "",
             "hide": 0,
-            "includeAll": false,
+            "includeAll": true,
             "label": "Realm",
-            "multi": false,
-            "multiFormat": "",
+            "multi": true,
             "name": "realm",
             "options": [],
-            "query": {
-              "query": "label_values(keycloak_logins_total{provider=~\"keycloak/*\"},realm)",
-              "refId": "PrometheusVariableQueryEditor-VariableQuery"
-            },
+            "query": "label_values(keycloak_logins_total{instance=\"$instance\",job=\"keycloak\",provider=\"keycloak\"},realm)",
             "refresh": 1,
             "regex": "",
             "skipUrlSync": false,
             "sort": 0,
             "tagValuesQuery": "",
+            "tags": [],
             "tagsQuery": "",
             "type": "query",
             "useTags": false
           },
           {
-            "allFormat": "",
-            "allValue": "",
+            "allValue": ".*",
             "current": {},
-            "datasource": {
-              "uid": "$Datasource"
+              "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
             },
-            "definition": "label_values(keycloak_logins_total{provider=~\"keycloak/*\", realm=\"$realm\"},client_id)",
+            "definition": "label_values(keycloak_logins_total{instance=\"$instance\",job=\"keycloak\",provider=\"keycloak\",realm=~\"$realm\"},client_id)",
             "hide": 0,
-            "includeAll": false,
+            "includeAll": true,
             "label": "ClientId",
-            "multi": false,
-            "multiFormat": "",
+            "multi": true,
             "name": "ClientId",
             "options": [],
-            "query": {
-              "query": "label_values(keycloak_logins_total{provider=~\"keycloak/*\", realm=\"$realm\"},client_id)",
-              "refId": "PrometheusVariableQueryEditor-VariableQuery"
-            },
+            "query": "label_values(keycloak_logins_total{instance=\"$instance\",job=\"keycloak\",provider=\"keycloak\",realm=~\"$realm\"},client_id)",
             "refresh": 1,
             "regex": "",
             "skipUrlSync": false,
             "sort": 0,
             "tagValuesQuery": "",
+            "tags": [],
             "tagsQuery": "",
             "type": "query",
             "useTags": false
@@ -2567,10 +1125,11 @@ data:
         ]
       },
       "time": {
-        "from": "now-12h",
+        "from": "now-1h",
         "to": "now"
       },
       "timepicker": {
+        "hidden": false,
         "refresh_intervals": [
           "5s",
           "10s",
@@ -2595,1157 +1154,6 @@ data:
           "30d"
         ]
       },
-      "timezone": "",
-      "title": "Keycloak Metrics Dashboard",
-      "uid": "keycloak-dashboard",
-      "version": 15,
-      "weekStart": ""
+      "timezone": "browser",
+      "version": 1
     }
-
-  #   {
-  #     "annotations": {
-  #       "list": [
-  #         {
-  #           "builtIn": 1,
-  #           "datasource": "-- Grafana --",
-  #           "enable": true,
-  #           "hide": true,
-  #           "iconColor": "rgba(0, 211, 255, 1)",
-  #           "name": "Annotations & Alerts",
-  #           "type": "dashboard"
-  #         }
-  #       ]
-  #     },
-  #     "uid": "keycloak",
-  #     "title": "Applications",
-  #     "description": "Dashboard for Keycloak",
-  #     "editable": true,
-  #     "gnetId": 10441,
-  #     "graphTooltip": 1,
-  #     "id": null,
-  #     "iteration": 1561464987828,
-  #     "links": [],
-  #     "panels": [
-
-  #       {
-  #         "datasource": {
-  #           "type": "prometheus",
-  #           "uid": "prometheus"
-  #         },
-  #         "fieldConfig": {
-  #           "defaults": {
-  #             "color": {
-  #               "mode": "thresholds"
-  #             },
-  #             "mappings": [
-  #               {
-  #                 "options": {
-  #                   "match": "null",
-  #                   "result": {
-  #                     "text": "N/A"
-  #                   }
-  #                 },
-  #                 "type": "special"
-  #               }
-  #             ],
-  #             "max": 100,
-  #             "min": 0,
-  #             "thresholds": {
-  #               "mode": "absolute",
-  #               "steps": [
-  #                 {
-  #                   "color": "rgba(50, 172, 45, 0.97)",
-  #                   "value": null
-  #                 },
-  #                 {
-  #                   "color": "rgba(237, 129, 40, 0.89)",
-  #                   "value": 80
-  #                 },
-  #                 {
-  #                   "color": "rgba(245, 54, 54, 0.9)",
-  #                   "value": 90
-  #                 }
-  #               ]
-  #             },
-  #             "unit": "percent"
-  #           },
-  #           "overrides": []
-  #         },
-  #         "gridPos": {
-  #           "h": 7,
-  #           "w": 6,
-  #           "x": 0,
-  #           "y": 0
-  #         },
-  #         "id": 3,
-  #         "interval": "1m",
-  #         "links": [],
-  #         "maxDataPoints": 100,
-  #         "options": {
-  #           "orientation": "horizontal",
-  #           "reduceOptions": {
-  #             "calcs": [
-  #               "lastNotNull"
-  #             ],
-  #             "fields": "",
-  #             "values": false
-  #           },
-  #           "showThresholdLabels": false,
-  #           "showThresholdMarkers": true
-  #         },
-  #         "pluginVersion": "8.3.3",
-  #         "targets": [
-  #           {
-  #             "expr": "sum(jvm_memory_bytes_used{instance=\"$instance\", area=\"heap\"})*100/sum(jvm_memory_bytes_max{instance=\"$instance\", area=\"heap\"})\n",
-  #             "format": "time_series",
-  #             "intervalFactor": 2,
-  #             "legendFormat": "",
-  #             "refId": "A"
-  #           }
-  #         ],
-  #         "title": "Current Memory HEAP",
-  #         "description": "Memory currently being used by Keycloak.",
-  #         "type": "gauge"
-  #       },
-
-  #       {
-  #         "datasource": {
-  #           "type": "prometheus",
-  #           "uid": "prometheus"
-  #         },
-  #         "fieldConfig": {
-  #           "defaults": {
-  #             "color": {
-  #               "mode": "thresholds"
-  #             },
-  #             "mappings": [
-  #               {
-  #                 "options": {
-  #                   "match": "null",
-  #                   "result": {
-  #                     "text": "N/A"
-  #                   }
-  #                 },
-  #                 "type": "special"
-  #               }
-  #             ],
-  #             "max": 100,
-  #             "min": 0,
-  #             "thresholds": {
-  #               "mode": "absolute",
-  #               "steps": [
-  #                 {
-  #                   "color": "rgba(50, 172, 45, 0.97)",
-  #                   "value": null
-  #                 },
-  #                 {
-  #                   "color": "rgba(237, 129, 40, 0.89)",
-  #                   "value": 80
-  #                 },
-  #                 {
-  #                   "color": "rgba(245, 54, 54, 0.9)",
-  #                   "value": 90
-  #                 }
-  #               ]
-  #             },
-  #             "unit": "percent"
-  #           },
-  #           "overrides": []
-  #         },
-  #         "gridPos": {
-  #           "h": 7,
-  #           "w": 6,
-  #           "x": 6,
-  #           "y": 0
-  #         },
-  #         "id": 3,
-  #         "interval": "1m",
-  #         "links": [],
-  #         "maxDataPoints": 100,
-  #         "options": {
-  #           "orientation": "horizontal",
-  #           "reduceOptions": {
-  #             "calcs": [
-  #               "lastNotNull"
-  #             ],
-  #             "fields": "",
-  #             "values": false
-  #           },
-  #           "showThresholdLabels": false,
-  #           "showThresholdMarkers": true
-  #         },
-  #         "pluginVersion": "8.3.3",
-  #         "targets": [
-  #           {
-  #             "expr": "sum(jvm_memory_bytes_used{instance=\"$instance\", area=\"nonheap\"})*100/sum(jvm_memory_bytes_max{instance=\"$instance\", area=\"nonheap\"})",
-  #             "format": "time_series",
-  #             "intervalFactor": 2,
-  #             "legendFormat": "",
-  #             "refId": "A"
-  #           }
-  #         ],
-  #         "title": "Current Memory nonHEAP",
-  #         "description": "Memory currently being used by Keycloak.",
-  #         "type": "gauge"
-  #       },
-
-  #       {
-  #         "aliasColors": {},
-  #         "bars": false,
-  #         "dashLength": 10,
-  #         "dashes": false,
-  #         "datasource": {
-  #           "type": "prometheus",
-  #           "uid": "prometheus"
-  #         },
-  #         "fill": 2,
-  #         "gridPos": {
-  #           "h": 7,
-  #           "w": 12,
-  #           "x": 12,
-  #           "y": 0
-  #         },
-  #         "hideTimeOverride": false,
-  #         "id": 12,
-  #         "legend": {
-  #           "avg": false,
-  #           "current": false,
-  #           "max": false,
-  #           "min": false,
-  #           "rightSide": true,
-  #           "show": true,
-  #           "sideWidth": 70,
-  #           "total": false,
-  #           "values": false
-  #         },
-  #         "lines": true,
-  #         "linewidth": 1,
-  #         "links": [],
-  #         "nullPointMode": "connected",
-  #         "options": {},
-  #         "percentage": false,
-  #         "pointradius": 5,
-  #         "points": false,
-  #         "renderer": "flot",
-  #         "seriesOverrides": [],
-  #         "spaceLength": 10,
-  #         "stack": false,
-  #         "steppedLine": false,
-  #         "targets": [
-  #           {
-  #             "expr": "sum(jvm_memory_bytes_max{instance=\"$instance\",job=\"keycloak\"})",
-  #             "format": "time_series",
-  #             "hide": false,
-  #             "instant": false,
-  #             "intervalFactor": 1,
-  #             "legendFormat": "Max",
-  #             "refId": "A"
-  #           },
-  #           {
-  #             "expr": "sum(jvm_memory_bytes_committed{instance=\"$instance\",job=\"keycloak\"})",
-  #             "format": "time_series",
-  #             "intervalFactor": 1,
-  #             "legendFormat": "Comitted",
-  #             "refId": "C"
-  #           },
-  #           {
-  #             "expr": "sum(jvm_memory_bytes_used{instance=\"$instance\",job=\"keycloak\"})",
-  #             "format": "time_series",
-  #             "instant": false,
-  #             "intervalFactor": 1,
-  #             "legendFormat": "Used",
-  #             "refId": "B"
-  #           }
-  #         ],
-  #         "thresholds": [],
-  #         "timeFrom": null,
-  #         "timeRegions": [],
-  #         "timeShift": null,
-  #         "title": "Memory Usage",
-  #         "tooltip": {
-  #           "shared": true,
-  #           "sort": 0,
-  #           "value_type": "individual"
-  #         },
-  #         "type": "graph",
-  #         "xaxis": {
-  #           "buckets": null,
-  #           "mode": "time",
-  #           "name": null,
-  #           "show": true,
-  #           "values": []
-  #         },
-  #         "yaxes": [
-  #           {
-  #             "decimals": null,
-  #             "format": "bytes",
-  #             "label": "",
-  #             "logBase": 1,
-  #             "max": null,
-  #             "min": "0",
-  #             "show": true
-  #           },
-  #           {
-  #             "format": "short",
-  #             "label": null,
-  #             "logBase": 1,
-  #             "max": null,
-  #             "min": null,
-  #             "show": false
-  #           }
-  #         ],
-  #         "yaxis": {
-  #           "align": false,
-  #           "alignLevel": null
-  #         }
-  #       },
-  #       {
-  #         "aliasColors": {},
-  #         "breakPoint": "50%",
-  #         "cacheTimeout": null,
-  #         "combine": {
-  #           "label": "Others",
-  #           "threshold": 0
-  #         },
-  #         "datasource": {
-  #           "type": "prometheus",
-  #           "uid": "prometheus"
-  #         },
-  #         "fontSize": "80%",
-  #         "format": "none",
-  #         "gridPos": {
-  #           "h": 7,
-  #           "w": 6,
-  #           "x": 0,
-  #           "y": 7
-  #         },
-  #         "hideTimeOverride": true,
-  #         "id": 16,
-  #         "interval": null,
-  #         "legend": {
-  #           "percentage": true,
-  #           "percentageDecimals": 0,
-  #           "show": true,
-  #           "values": false
-  #         },
-  #         "legendType": "Under graph",
-  #         "links": [],
-  #         "maxDataPoints": 3,
-  #         "nullPointMode": "connected",
-  #         "options": {},
-  #         "pieType": "donut",
-  #         "strokeWidth": "",
-  #         "targets": [
-  #           {
-  #             "expr": "sum(keycloak_logins_total{instance=\"$instance\"}) by (realm)",
-  #             "format": "time_series",
-  #             "intervalFactor": 1,
-  #             "legendFormat": "{{realm}}",
-  #             "refId": "B"
-  #           }
-  #         ],
-  #         "timeFrom": null,
-  #         "title": "Logins Per REALM",
-  #         "type": "grafana-piechart-panel",
-  #         "valueName": "current"
-  #       },
-  #       {
-  #         "aliasColors": {},
-  #         "breakPoint": "50%",
-  #         "cacheTimeout": null,
-  #         "combine": {
-  #           "label": "Others",
-  #           "threshold": 0
-  #         },
-  #         "datasource": {
-  #           "type": "prometheus",
-  #           "uid": "prometheus"
-  #         },
-  #         "fontSize": "80%",
-  #         "format": "none",
-  #         "gridPos": {
-  #           "h": 7,
-  #           "w": 12,
-  #           "x": 6,
-  #           "y": 7
-  #         },
-  #         "hideTimeOverride": true,
-  #         "id": 20,
-  #         "interval": null,
-  #         "legend": {
-  #           "percentage": true,
-  #           "percentageDecimals": 0,
-  #           "show": true,
-  #           "values": false
-  #         },
-  #         "legendType": "Right side",
-  #         "links": [],
-  #         "maxDataPoints": 3,
-  #         "nullPointMode": "connected",
-  #         "options": {},
-  #         "pieType": "donut",
-  #         "strokeWidth": "",
-  #         "targets": [
-  #           {
-  #             "expr": "sum(keycloak_logins_total{instance=\"$instance\"}) by (client_id)",
-  #             "format": "time_series",
-  #             "intervalFactor": 1,
-  #             "legendFormat": "{{client_id}}",
-  #             "refId": "B"
-  #           }
-  #         ],
-  #         "timeFrom": null,
-  #         "title": "Logins Per CLIENT",
-  #         "type": "grafana-piechart-panel",
-  #         "valueName": "current"
-  #       },
-  #       {
-  #         "aliasColors": {},
-  #         "breakPoint": "50%",
-  #         "cacheTimeout": null,
-  #         "combine": {
-  #           "label": "Others",
-  #           "threshold": 0
-  #         },
-  #         "datasource": {
-  #           "type": "prometheus",
-  #           "uid": "prometheus"
-  #         },
-  #         "fontSize": "80%",
-  #         "format": "none",
-  #         "gridPos": {
-  #           "h": 7,
-  #           "w": 6,
-  #           "x": 18,
-  #           "y": 7
-  #         },
-  #         "hideTimeOverride": true,
-  #         "id": 17,
-  #         "interval": null,
-  #         "legend": {
-  #           "percentage": true,
-  #           "percentageDecimals": 0,
-  #           "show": true,
-  #           "values": false
-  #         },
-  #         "legendType": "Under graph",
-  #         "links": [],
-  #         "maxDataPoints": 3,
-  #         "nullPointMode": "connected",
-  #         "options": {},
-  #         "pieType": "donut",
-  #         "strokeWidth": "",
-  #         "targets": [
-  #           {
-  #             "expr": "sum(keycloak_registrations{instance=\"$instance\"}) by (client_id)",
-  #             "format": "time_series",
-  #             "hide": false,
-  #             "instant": false,
-  #             "intervalFactor": 1,
-  #             "legendFormat": "{{client_id}}",
-  #             "refId": "A"
-  #           }
-  #         ],
-  #         "timeFrom": null,
-  #         "title": "Registrations Per CLIENT",
-  #         "type": "grafana-piechart-panel",
-  #         "valueName": "current"
-  #       },
-  #       {
-  #         "aliasColors": {},
-  #         "bars": false,
-  #         "dashLength": 10,
-  #         "dashes": false,
-  #         "datasource": {
-  #           "type": "prometheus",
-  #           "uid": "prometheus"
-  #         },
-  #         "fill": 1,
-  #         "gridPos": {
-  #           "h": 8,
-  #           "w": 12,
-  #           "x": 0,
-  #           "y": 14
-  #         },
-  #         "hideTimeOverride": false,
-  #         "id": 1,
-  #         "legend": {
-  #           "alignAsTable": true,
-  #           "avg": false,
-  #           "current": false,
-  #           "max": false,
-  #           "min": false,
-  #           "rightSide": true,
-  #           "show": true,
-  #           "sideWidth": 100,
-  #           "total": false,
-  #           "values": false
-  #         },
-  #         "lines": true,
-  #         "linewidth": 1,
-  #         "links": [],
-  #         "nullPointMode": "connected",
-  #         "options": {},
-  #         "percentage": false,
-  #         "pointradius": 5,
-  #         "points": false,
-  #         "renderer": "flot",
-  #         "seriesOverrides": [],
-  #         "spaceLength": 10,
-  #         "stack": false,
-  #         "steppedLine": false,
-  #         "targets": [
-  #           {
-  #             "expr": "sum by (realm)(increase(keycloak_logins_total{instance=\"$instance\",job=\"keycloak\"}[1h]))",
-  #             "format": "time_series",
-  #             "hide": false,
-  #             "interval": "",
-  #             "intervalFactor": 1,
-  #             "legendFormat": "{{realm}}",
-  #             "refId": "A"
-  #           }
-  #         ],
-  #         "thresholds": [],
-  #         "timeFrom": null,
-  #         "timeRegions": [],
-  #         "timeShift": null,
-  #         "title": "Logins per REALM",
-  #         "tooltip": {
-  #           "shared": true,
-  #           "sort": 0,
-  #           "value_type": "individual"
-  #         },
-  #         "type": "graph",
-  #         "xaxis": {
-  #           "buckets": null,
-  #           "mode": "time",
-  #           "name": null,
-  #           "show": true,
-  #           "values": []
-  #         },
-  #         "yaxes": [
-  #           {
-  #             "decimals": 0,
-  #             "format": "none",
-  #             "label": null,
-  #             "logBase": 1,
-  #             "max": null,
-  #             "min": "0",
-  #             "show": true
-  #           },
-  #           {
-  #             "format": "short",
-  #             "label": null,
-  #             "logBase": 1,
-  #             "max": null,
-  #             "min": null,
-  #             "show": false
-  #           }
-  #         ],
-  #         "yaxis": {
-  #           "align": false,
-  #           "alignLevel": null
-  #         }
-  #       },
-  #       {
-  #         "aliasColors": {},
-  #         "bars": false,
-  #         "dashLength": 10,
-  #         "dashes": false,
-  #         "datasource": {
-  #           "type": "prometheus",
-  #           "uid": "prometheus"
-  #         },
-  #         "fill": 1,
-  #         "gridPos": {
-  #           "h": 8,
-  #           "w": 12,
-  #           "x": 12,
-  #           "y": 14
-  #         },
-  #         "hideTimeOverride": false,
-  #         "id": 7,
-  #         "legend": {
-  #           "alignAsTable": true,
-  #           "avg": false,
-  #           "current": true,
-  #           "hideEmpty": false,
-  #           "hideZero": true,
-  #           "max": false,
-  #           "min": false,
-  #           "rightSide": true,
-  #           "show": true,
-  #           "sideWidth": null,
-  #           "total": false,
-  #           "values": true
-  #         },
-  #         "lines": true,
-  #         "linewidth": 1,
-  #         "links": [],
-  #         "nullPointMode": "connected",
-  #         "options": {},
-  #         "percentage": false,
-  #         "pointradius": 5,
-  #         "points": false,
-  #         "renderer": "flot",
-  #         "seriesOverrides": [],
-  #         "spaceLength": 10,
-  #         "stack": false,
-  #         "steppedLine": false,
-  #         "targets": [
-  #           {
-  #             "expr": "increase(keycloak_failed_login_attempts_total{instance=\"$instance\",job=\"keycloak\",provider=\"keycloak\",realm=~\"$realm\"}[1h])",
-  #             "format": "time_series",
-  #             "hide": false,
-  #             "instant": false,
-  #             "interval": "",
-  #             "intervalFactor": 1,
-  #             "legendFormat": "{{error}}",
-  #             "refId": "A"
-  #           }
-  #         ],
-  #         "thresholds": [],
-  #         "timeFrom": null,
-  #         "timeRegions": [],
-  #         "timeShift": null,
-  #         "title": "Login Errors on realm $realm",
-  #         "tooltip": {
-  #           "shared": true,
-  #           "sort": 0,
-  #           "value_type": "individual"
-  #         },
-  #         "type": "graph",
-  #         "xaxis": {
-  #           "buckets": null,
-  #           "mode": "time",
-  #           "name": null,
-  #           "show": true,
-  #           "values": []
-  #         },
-  #         "yaxes": [
-  #           {
-  #             "decimals": null,
-  #             "format": "none",
-  #             "label": null,
-  #             "logBase": 1,
-  #             "max": null,
-  #             "min": "0",
-  #             "show": true
-  #           },
-  #           {
-  #             "format": "short",
-  #             "label": null,
-  #             "logBase": 1,
-  #             "max": null,
-  #             "min": null,
-  #             "show": false
-  #           }
-  #         ],
-  #         "yaxis": {
-  #           "align": false,
-  #           "alignLevel": null
-  #         }
-  #       },
-  #       {
-  #         "aliasColors": {},
-  #         "bars": false,
-  #         "dashLength": 10,
-  #         "dashes": false,
-  #         "datasource": {
-  #           "type": "prometheus",
-  #           "uid": "prometheus"
-  #         },
-  #         "fill": 1,
-  #         "gridPos": {
-  #           "h": 8,
-  #           "w": 12,
-  #           "x": 0,
-  #           "y": 22
-  #         },
-  #         "hideTimeOverride": false,
-  #         "id": 18,
-  #         "legend": {
-  #           "alignAsTable": true,
-  #           "avg": false,
-  #           "current": false,
-  #           "max": false,
-  #           "min": false,
-  #           "rightSide": true,
-  #           "show": true,
-  #           "sideWidth": 100,
-  #           "total": false,
-  #           "values": false
-  #         },
-  #         "lines": true,
-  #         "linewidth": 1,
-  #         "links": [],
-  #         "nullPointMode": "connected",
-  #         "options": {},
-  #         "percentage": false,
-  #         "pointradius": 5,
-  #         "points": false,
-  #         "renderer": "flot",
-  #         "seriesOverrides": [],
-  #         "spaceLength": 10,
-  #         "stack": false,
-  #         "steppedLine": false,
-  #         "targets": [
-  #           {
-  #             "expr": "increase(keycloak_logins_total{instance=\"$instance\",job=\"keycloak\",realm=~\"$realm\",provider=\"keycloak\"}[1h])",
-  #             "format": "time_series",
-  #             "hide": false,
-  #             "interval": "",
-  #             "intervalFactor": 2,
-  #             "legendFormat": "{{client_id}}",
-  #             "refId": "A"
-  #           }
-  #         ],
-  #         "thresholds": [],
-  #         "timeFrom": null,
-  #         "timeRegions": [],
-  #         "timeShift": null,
-  #         "title": "Logins per CLIENT on realm $realm",
-  #         "tooltip": {
-  #           "shared": true,
-  #           "sort": 0,
-  #           "value_type": "individual"
-  #         },
-  #         "type": "graph",
-  #         "xaxis": {
-  #           "buckets": null,
-  #           "mode": "time",
-  #           "name": null,
-  #           "show": true,
-  #           "values": []
-  #         },
-  #         "yaxes": [
-  #           {
-  #             "decimals": 0,
-  #             "format": "none",
-  #             "label": null,
-  #             "logBase": 1,
-  #             "max": null,
-  #             "min": "0",
-  #             "show": true
-  #           },
-  #           {
-  #             "format": "short",
-  #             "label": null,
-  #             "logBase": 1,
-  #             "max": null,
-  #             "min": null,
-  #             "show": false
-  #           }
-  #         ],
-  #         "yaxis": {
-  #           "align": false,
-  #           "alignLevel": null
-  #         }
-  #       },
-  #       {
-  #         "aliasColors": {},
-  #         "bars": false,
-  #         "dashLength": 10,
-  #         "dashes": false,
-  #         "datasource": {
-  #           "type": "prometheus",
-  #           "uid": "prometheus"
-  #         },
-  #         "fill": 1,
-  #         "gridPos": {
-  #           "h": 8,
-  #           "w": 12,
-  #           "x": 12,
-  #           "y": 22
-  #         },
-  #         "hideTimeOverride": false,
-  #         "id": 19,
-  #         "legend": {
-  #           "alignAsTable": true,
-  #           "avg": false,
-  #           "current": true,
-  #           "hideEmpty": false,
-  #           "max": false,
-  #           "min": false,
-  #           "rightSide": true,
-  #           "show": true,
-  #           "sideWidth": null,
-  #           "total": false,
-  #           "values": true
-  #         },
-  #         "lines": true,
-  #         "linewidth": 1,
-  #         "links": [],
-  #         "nullPointMode": "connected",
-  #         "options": {},
-  #         "percentage": false,
-  #         "pointradius": 5,
-  #         "points": false,
-  #         "renderer": "flot",
-  #         "seriesOverrides": [],
-  #         "spaceLength": 10,
-  #         "stack": false,
-  #         "steppedLine": false,
-  #         "targets": [
-  #           {
-  #             "expr": "increase(keycloak_failed_login_attempts_total{instance=\"$instance\",job=\"keycloak\",provider=\"keycloak\",realm=~\"$realm\",client_id=~\"$ClientId\"}[1h])",
-  #             "format": "time_series",
-  #             "hide": false,
-  #             "interval": "",
-  #             "intervalFactor": 2,
-  #             "legendFormat": "{{error}}",
-  #             "refId": "A"
-  #           }
-  #         ],
-  #         "thresholds": [],
-  #         "timeFrom": null,
-  #         "timeRegions": [],
-  #         "timeShift": null,
-  #         "title": "Login Errors for $ClientId",
-  #         "tooltip": {
-  #           "shared": true,
-  #           "sort": 0,
-  #           "value_type": "individual"
-  #         },
-  #         "type": "graph",
-  #         "xaxis": {
-  #           "buckets": null,
-  #           "mode": "time",
-  #           "name": null,
-  #           "show": true,
-  #           "values": []
-  #         },
-  #         "yaxes": [
-  #           {
-  #             "decimals": null,
-  #             "format": "none",
-  #             "label": null,
-  #             "logBase": 1,
-  #             "max": null,
-  #             "min": "0",
-  #             "show": true
-  #           },
-  #           {
-  #             "format": "short",
-  #             "label": null,
-  #             "logBase": 1,
-  #             "max": null,
-  #             "min": null,
-  #             "show": false
-  #           }
-  #         ],
-  #         "yaxis": {
-  #           "align": false,
-  #           "alignLevel": null
-  #         }
-  #       },
-  #       {
-  #         "aliasColors": {},
-  #         "bars": false,
-  #         "dashLength": 10,
-  #         "dashes": false,
-  #         "datasource": {
-  #           "type": "prometheus",
-  #           "uid": "prometheus"
-  #         },
-  #         "fill": 1,
-  #         "gridPos": {
-  #           "h": 8,
-  #           "w": 12,
-  #           "x": 0,
-  #           "y": 30
-  #         },
-  #         "hideTimeOverride": false,
-  #         "id": 22,
-  #         "legend": {
-  #           "alignAsTable": true,
-  #           "avg": false,
-  #           "current": false,
-  #           "max": false,
-  #           "min": false,
-  #           "rightSide": true,
-  #           "show": true,
-  #           "sideWidth": 100,
-  #           "total": false,
-  #           "values": false
-  #         },
-  #         "lines": true,
-  #         "linewidth": 1,
-  #         "links": [],
-  #         "nullPointMode": "connected",
-  #         "options": {},
-  #         "percentage": false,
-  #         "pointradius": 5,
-  #         "points": false,
-  #         "renderer": "flot",
-  #         "seriesOverrides": [],
-  #         "spaceLength": 10,
-  #         "stack": false,
-  #         "steppedLine": false,
-  #         "targets": [
-  #           {
-  #             "expr": "increase(keycloak_registrations{instance=\"$instance\",job=\"keycloak\",realm=~\"$realm\",provider=\"keycloak\"}[1h])",
-  #             "format": "time_series",
-  #             "hide": false,
-  #             "interval": "",
-  #             "intervalFactor": 2,
-  #             "legendFormat": "{{client_id}}",
-  #             "refId": "A"
-  #           }
-  #         ],
-  #         "thresholds": [],
-  #         "timeFrom": null,
-  #         "timeRegions": [],
-  #         "timeShift": null,
-  #         "title": "Registrations per CLIENT on realm $realm",
-  #         "tooltip": {
-  #           "shared": true,
-  #           "sort": 0,
-  #           "value_type": "individual"
-  #         },
-  #         "type": "graph",
-  #         "xaxis": {
-  #           "buckets": null,
-  #           "mode": "time",
-  #           "name": null,
-  #           "show": true,
-  #           "values": []
-  #         },
-  #         "yaxes": [
-  #           {
-  #             "decimals": 0,
-  #             "format": "none",
-  #             "label": null,
-  #             "logBase": 1,
-  #             "max": null,
-  #             "min": "0",
-  #             "show": true
-  #           },
-  #           {
-  #             "format": "short",
-  #             "label": null,
-  #             "logBase": 1,
-  #             "max": null,
-  #             "min": null,
-  #             "show": false
-  #           }
-  #         ],
-  #         "yaxis": {
-  #           "align": false,
-  #           "alignLevel": null
-  #         }
-  #       },
-  #       {
-  #         "aliasColors": {},
-  #         "bars": false,
-  #         "dashLength": 10,
-  #         "dashes": false,
-  #         "datasource": {
-  #           "type": "prometheus",
-  #           "uid": "prometheus"
-  #         },
-  #         "fill": 1,
-  #         "gridPos": {
-  #           "h": 8,
-  #           "w": 12,
-  #           "x": 12,
-  #           "y": 30
-  #         },
-  #         "hideTimeOverride": false,
-  #         "id": 21,
-  #         "legend": {
-  #           "alignAsTable": true,
-  #           "avg": false,
-  #           "current": true,
-  #           "hideEmpty": false,
-  #           "max": false,
-  #           "min": false,
-  #           "rightSide": true,
-  #           "show": true,
-  #           "sideWidth": null,
-  #           "total": false,
-  #           "values": true
-  #         },
-  #         "lines": true,
-  #         "linewidth": 1,
-  #         "links": [],
-  #         "nullPointMode": "connected",
-  #         "options": {},
-  #         "percentage": false,
-  #         "pointradius": 5,
-  #         "points": false,
-  #         "renderer": "flot",
-  #         "seriesOverrides": [],
-  #         "spaceLength": 10,
-  #         "stack": false,
-  #         "steppedLine": false,
-  #         "targets": [
-  #           {
-  #             "expr": "increase(keycloak_registrations_errors{instance=\"$instance\",job=\"keycloak\",provider=\"keycloak\",realm=~\"$realm\",client_id=~\"$ClientId\"}[1h])",
-  #             "format": "time_series",
-  #             "hide": false,
-  #             "interval": "",
-  #             "intervalFactor": 2,
-  #             "legendFormat": "{{error}}",
-  #             "refId": "A"
-  #           }
-  #         ],
-  #         "thresholds": [],
-  #         "timeFrom": null,
-  #         "timeRegions": [],
-  #         "timeShift": null,
-  #         "title": "Registration Errors for $ClientId",
-  #         "tooltip": {
-  #           "shared": true,
-  #           "sort": 0,
-  #           "value_type": "individual"
-  #         },
-  #         "type": "graph",
-  #         "xaxis": {
-  #           "buckets": null,
-  #           "mode": "time",
-  #           "name": null,
-  #           "show": true,
-  #           "values": []
-  #         },
-  #         "yaxes": [
-  #           {
-  #             "decimals": null,
-  #             "format": "none",
-  #             "label": null,
-  #             "logBase": 1,
-  #             "max": null,
-  #             "min": "0",
-  #             "show": true
-  #           },
-  #           {
-  #             "format": "short",
-  #             "label": null,
-  #             "logBase": 1,
-  #             "max": null,
-  #             "min": null,
-  #             "show": false
-  #           }
-  #         ],
-  #         "yaxis": {
-  #           "align": false,
-  #           "alignLevel": null
-  #         }
-  #       }
-  #     ],
-  #     "refresh": "5s",
-  #     "schemaVersion": 18,
-  #     "style": "dark",
-  #     "tags": [],
-  #     "templating": {
-  #       "list": [
-  #         {
-  #           "allValue": null,
-  #           "current": {},
-  #           "datasource": {
-  #             "type": "prometheus",
-  #             "uid": "prometheus"
-  #           },
-  #           "definition": "",
-  #           "hide": 0,
-  #           "includeAll": false,
-  #           "label": "Instance",
-  #           "multi": false,
-  #           "name": "instance",
-  #           "options": [],
-  #           "query": "label_values(keycloak_logins_total,instance)",
-  #           "refresh": 1,
-  #           "regex": "",
-  #           "skipUrlSync": false,
-  #           "sort": 0,
-  #           "tagValuesQuery": "",
-  #           "tags": [],
-  #           "tagsQuery": "",
-  #           "type": "query",
-  #           "useTags": false
-  #         },
-  #         {
-  #           "allValue": ".*",
-  #           "current": {},
-  #           "datasource": {
-  #             "type": "prometheus",
-  #             "uid": "prometheus"
-  #           },
-  #           "definition": "",
-  #           "hide": 0,
-  #           "includeAll": true,
-  #           "label": "Realm",
-  #           "multi": true,
-  #           "name": "realm",
-  #           "options": [],
-  #           "query": "label_values(keycloak_logins_total{instance=\"$instance\",job=\"keycloak\",provider=\"keycloak\"},realm)",
-  #           "refresh": 1,
-  #           "regex": "",
-  #           "skipUrlSync": false,
-  #           "sort": 0,
-  #           "tagValuesQuery": "",
-  #           "tags": [],
-  #           "tagsQuery": "",
-  #           "type": "query",
-  #           "useTags": false
-  #         },
-  #         {
-  #           "allValue": ".*",
-  #           "current": {},
-  #             "datasource": {
-  #             "type": "prometheus",
-  #             "uid": "prometheus"
-  #           },
-  #           "definition": "label_values(keycloak_logins_total{instance=\"$instance\",job=\"keycloak\",provider=\"keycloak\",realm=~\"$realm\"},client_id)",
-  #           "hide": 0,
-  #           "includeAll": true,
-  #           "label": "ClientId",
-  #           "multi": true,
-  #           "name": "ClientId",
-  #           "options": [],
-  #           "query": "label_values(keycloak_logins_total{instance=\"$instance\",job=\"keycloak\",provider=\"keycloak\",realm=~\"$realm\"},client_id)",
-  #           "refresh": 1,
-  #           "regex": "",
-  #           "skipUrlSync": false,
-  #           "sort": 0,
-  #           "tagValuesQuery": "",
-  #           "tags": [],
-  #           "tagsQuery": "",
-  #           "type": "query",
-  #           "useTags": false
-  #         }
-  #       ]
-  #     },
-  #     "time": {
-  #       "from": "now-1h",
-  #       "to": "now"
-  #     },
-  #     "timepicker": {
-  #       "hidden": false,
-  #       "refresh_intervals": [
-  #         "5s",
-  #         "10s",
-  #         "30s",
-  #         "1m",
-  #         "5m",
-  #         "15m",
-  #         "30m",
-  #         "1h",
-  #         "2h",
-  #         "1d"
-  #       ],
-  #       "time_options": [
-  #         "5m",
-  #         "15m",
-  #         "1h",
-  #         "6h",
-  #         "12h",
-  #         "24h",
-  #         "2d",
-  #         "7d",
-  #         "30d"
-  #       ]
-  #     },
-  #     "timezone": "browser",
-  #     "version": 1
-  #   }
