@@ -55,7 +55,8 @@ spec:
           adminPassword: password
           grafana.ini:
             feature_toggles:
-              enable: traceToMetrics metricsSummary correlations lokiFormatQuery lokiQuerySplitting lokiExperimentalStreaming scenes extraThemes logsExploreTableVisualisation featureToggleAdminPage showDashboardValidationWarnings panelTitleSearch nestedFolders dataSourcePageHeader dashgpt enableNativeHTTPHistogram httpSLOLevels
+              # nestedFolders
+              enable: traceToMetrics metricsSummary correlations lokiFormatQuery lokiQuerySplitting lokiExperimentalStreaming scenes extraThemes logsExploreTableVisualisation featureToggleAdminPage panelTitleSearch dataSourcePageHeader dashgpt enableNativeHTTPHistogram httpSLOLevels
             server: 
               domain: grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
               root_url: https://grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
