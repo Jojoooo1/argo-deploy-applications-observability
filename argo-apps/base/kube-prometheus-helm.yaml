@@ -86,11 +86,9 @@ spec:
           sidecar: 
             dashboards:
               enabled: true
-              folderAnnotation: k8s-sidecar-target-directory
-              # provider:
-              #   foldersFromFilesStructure: true
-              # annotations:
-              #   k8s-sidecar-target-directory: /tmp/dashboards/Kubernetes
+              folderAnnotation: grafana_folder
+              provider:
+                foldersFromFilesStructure: true
             datasources:
               exemplarTraceIdDestinations:
                 datasourceUid: tempo
