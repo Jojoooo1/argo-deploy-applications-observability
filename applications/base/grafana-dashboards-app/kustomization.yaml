@@ -15,4 +15,4 @@ resources:
   - rabbitmq-quorum.yaml
   - spring-api.yaml
   - spring-middleware.yaml
-  - spring-webhook.yaml
+  - spring-worker.yaml
