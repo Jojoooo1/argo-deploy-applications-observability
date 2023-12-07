@@ -3857,7 +3857,7 @@ data:
               "refId": "StandardVariableQuery"
             },
             "refresh": 1,
-            "regex": "spring-api",
+            "regex": "",
             "skipUrlSync": false,
             "sort": 1,
             "tagValuesQuery": "",
