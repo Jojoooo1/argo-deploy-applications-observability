@@ -87,7 +87,7 @@ spec:
               provider:
                 foldersFromFilesStructure: true
               annotations:
-                grafana_folder: /tmp/dashboards/Kubernetes
+                grafana_folder: /tmp/dashboards/kubernetes
             datasources:
               exemplarTraceIdDestinations:
                 datasourceUid: tempo
