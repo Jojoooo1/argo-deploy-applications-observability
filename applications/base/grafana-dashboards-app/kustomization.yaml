@@ -4,8 +4,8 @@ kind: Kustomization
 namespace: observability
 
 resources:
-  - argocd.yaml
-  - cert-manager.yaml
+  # - argocd.yaml
+  # - cert-manager.yaml
   - ingress-microservice.yaml
   - ingress-nginx-controllers.yaml
   # - kafka-overview.yaml
