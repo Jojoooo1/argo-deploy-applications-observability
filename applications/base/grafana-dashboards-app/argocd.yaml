@@ -8,4 +8,5 @@ metadata:
   annotations:
     grafana_folder: "ArgoCD"
 data:
+  # https://grafana.com/grafana/dashboards/14584-argocd/
   argocd.json: "https://raw.githubusercontent.com/argoproj/argo-cd/master/examples/dashboard.json"
