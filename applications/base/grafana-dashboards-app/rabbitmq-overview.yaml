@@ -9,4 +9,4 @@ metadata:
     grafana_folder: "RabbitMQ"
 data:
   # https://grafana.com/grafana/dashboards/10991
-  rabbitmq-overview-dashboard.json.url: "https://github.com/rabbitmq/rabbitmq-server/raw/e57c579d1a71b283469defdd0d6d45313e6d6daf/deps/rabbitmq_prometheus/docker/grafana/dashboards/RabbitMQ-Overview.json"
+  rabbitmq-overview-dashboard.json.url: "https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/main/deps/rabbitmq_prometheus/docker/grafana/dashboards/RabbitMQ-Overview.json"
