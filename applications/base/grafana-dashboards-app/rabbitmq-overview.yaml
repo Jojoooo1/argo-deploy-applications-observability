@@ -8170,9 +8170,9 @@ data:
             },
             "definition": "label_values(rabbitmq_identity_info{namespace=\"$namespace\"}, rabbitmq_cluster)",
             "hide": 0,
-            "includeAll": false,
+            "includeAll": true,
             "label": "RabbitMQ Cluster",
-            "multi": false,
+            "multi": true,
             "name": "rabbitmq_cluster",
             "options": [],
             "query": {
@@ -8188,32 +8188,6 @@ data:
             "type": "query",
             "useTags": false
           },
-          {
-            "current": {},
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "definition": "label_values(rabbitmq_identity_info{namespace=\"$namespace\", rabbitmq_cluster=\"$rabbitmq_cluster\"}, rabbitmq_node)",
-            "hide": 0,
-            "includeAll": false,
-            "label": "RabbitMQ Node",
-            "multi": false,
-            "name": "rabbitmq_bode",
-            "options": [],
-            "query": {
-              "query": "label_values(rabbitmq_identity_info{namespace=\"$namespace\", rabbitmq_cluster=\"$rabbitmq_cluster\"}, rabbitmq_node)",
-              "refId": "Prometheus-rabbitmq_node-Variable-Query"
-            },
-            "refresh": 2,
-            "regex": "",
-            "skipUrlSync": false,
-            "sort": 1,
-            "tagValuesQuery": "",
-            "tagsQuery": "",
-            "type": "query",
-            "useTags": false
-          }
         ]
       },
       "time": {
