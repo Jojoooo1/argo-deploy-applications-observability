@@ -46,7 +46,7 @@ data:
           }
         ]
       },
-      "description": "Ingress-nginx controller dashboard",
+      "description": "Nginx Ingress Controller dashboard",
       "editable": true,
       "fiscalYearStartMonth": 0,
       "gnetId": 9614,

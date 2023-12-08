@@ -28,7 +28,7 @@ data:
           }
         ]
       },
-      "description": "Nginx Ingress Controller Requests Handling Performance Dashboard",
+      "description": "Nginx Ingress Controller requests performance Dashboard",
       "editable": true,
       "fiscalYearStartMonth": 0,
       "gnetId": 12680,
@@ -1056,7 +1056,7 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "Request Handling Performance",
+      "title": "Kubernetes Service",
       "uid": "4GFbkOsZk",
       "version": 1,
       "weekStart": ""
