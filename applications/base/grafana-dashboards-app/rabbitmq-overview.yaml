@@ -8187,7 +8187,7 @@ data:
             "tagsQuery": "",
             "type": "query",
             "useTags": false
-          },
+          }
         ]
       },
       "time": {
