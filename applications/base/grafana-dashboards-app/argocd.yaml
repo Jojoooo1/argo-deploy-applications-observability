@@ -4785,7 +4785,7 @@ data:
       ],
       "refresh": "",
       "schemaVersion": 38,
-      "tags": [],
+      "tags": ["argocd","infra"],
       "templating": {
         "list": [
           {
