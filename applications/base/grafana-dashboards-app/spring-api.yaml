@@ -522,7 +522,6 @@ data:
                 "type": "prometheus",
                 "uid": ""
               },
-              "exemplar": true,
               "expr": "sum(rate(container_cpu_usage_seconds_total{pod=~\"$pod\", image!=\"\", container!=\"POD\"}[$__rate_interval])) by (pod)",
               "exemplar": true,
               "interval": "$resolution",
@@ -872,7 +871,7 @@ data:
               "intervalFactor": 1,
               "legendFormat": "{{method}} [{{status}}] - {{uri}}",
               "refId": "A"
-            },
+            }
           ],
           "title": "Response Time",
           "type": "timeseries"
