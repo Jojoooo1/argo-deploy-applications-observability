@@ -18,20 +18,17 @@ spec:
     serviceAccount: opentelemetry-targetallocator-sa
     prometheusCR:
       enabled: true
-      # serviceMonitorSelector:
-      #   matchLabels:
-      #     release: prometheus
-      # podMonitorSelector:
-      #   matchLabels:
-      #     release: prometheus
+      serviceMonitorSelector:
+        matchLabels:
+          prometheus.io/scrap-with: otel-collector-metrics
+      podMonitorSelector:
+        matchLabels:
+          prometheus.io/scrap-with: otel-collector-metrics
     # resources:
     replicas: 1
 
   serviceAccount: opentelemetry-collector-sa
   config: |
-    connectors:
-      spanmetrics:
-
     receivers:
       otlp:
         protocols:
