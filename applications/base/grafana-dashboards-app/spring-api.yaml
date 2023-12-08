@@ -8,6 +8,7 @@ metadata:
   annotations:
     grafana_folder: "Spring"
 data:
+  # Migrated to timeseries, add exemplar
   spring-api.json: |
     {
       "annotations": {
@@ -640,32 +641,6 @@ data:
           "type": "timeseries"
         },
         {
-          "collapsed": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "gridPos": {
-            "h": 1,
-            "w": 24,
-            "x": 0,
-            "y": 15
-          },
-          "id": 18,
-          "panels": [],
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "prometheus"
-              },
-              "refId": "A"
-            }
-          ],
-          "title": "HTTP Controllers",
-          "type": "row"
-        },
-        {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
@@ -707,6 +682,7 @@ data:
                   "mode": "off"
                 }
               },
+              "decimals": 2,
               "links": [],
               "mappings": [],
               "thresholds": {
@@ -722,7 +698,7 @@ data:
                   }
                 ]
               },
-              "unit": "none"
+              "unit": "reqps"
             },
             "overrides": []
           },
@@ -756,14 +732,14 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "irate(http_server_requests_seconds_count{application=\"$application\", pod=~\"$pod\", uri!~\".*actuator.*\"}[5m]) > 0",
               "exemplar": true,
+              "expr": "irate(http_server_requests_seconds_count{application=\"$application\", pod=~\"$pod\", uri!~\".*actuator.*\"}[5m]) > 0",
               "intervalFactor": 1,
               "legendFormat": "{{method}} [{{status}}] - {{uri}}",
               "refId": "A"
             }
           ],
-          "title": "Request Count",
+          "title": "Request Per Sec",
           "type": "timeseries"
         },
         {
