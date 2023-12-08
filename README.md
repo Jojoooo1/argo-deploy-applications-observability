@@ -1,6 +1,6 @@
 # ArgoCD Observability labs
 
-## Applications
+## Apps
 
 | Applications  | DNS | Username  | Password | Links |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
