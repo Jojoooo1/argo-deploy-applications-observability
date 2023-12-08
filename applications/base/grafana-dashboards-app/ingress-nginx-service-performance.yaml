@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: dashboard-ingress-nginx-request-performance
+  name: dashboard-ingress-nginx-service-performance
   namespace: observability
   labels:
     grafana_dashboard: "1"
@@ -10,7 +10,7 @@ metadata:
 data:
   # ingress-nginx-request-performance.json: "https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/grafana/dashboards/request-handling-performance.json"
   # Migrated to timeseries
-  ingress-nginx-request-performance.json: |
+  ingress-nginx-service-performance.json: |
     {
       "annotations": {
         "list": [
@@ -28,7 +28,7 @@ data:
           }
         ]
       },
-      "description": "Nginx Ingress Controller requests performance Dashboard",
+      "description": "Nginx Ingress Controller service performance Dashboard",
       "editable": true,
       "fiscalYearStartMonth": 0,
       "gnetId": 12680,
@@ -1056,7 +1056,7 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "Ingress services",
+      "title": "Service performance",
       "uid": "4GFbkOsZk",
       "version": 1,
       "weekStart": ""
