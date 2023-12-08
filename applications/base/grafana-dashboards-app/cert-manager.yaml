@@ -9,7 +9,7 @@ metadata:
     grafana_folder: "CertManager"
 data:
   # https://grafana.com/grafana/dashboards/11001-cert-manager/
-  cert-manager.json: 
+  cert-manager.json: |
     {
       "annotations": {
         "list": [
