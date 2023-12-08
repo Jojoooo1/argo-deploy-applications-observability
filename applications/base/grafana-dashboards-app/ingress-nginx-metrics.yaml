@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: dashboard-ingress-nginx-services
+  name: dashboard-ingress-nginx-metrics
   namespace: observability
   labels:
     grafana_dashboard: "1"
@@ -10,7 +10,7 @@ metadata:
 data:
   # inspired from: https://grafana.com/grafana/dashboards/14314-kubernetes-nginx-ingress-controller-nextgen-devops-nirvana/
   # Migrated to timeseries
-  ingress-services.json: |
+  ingress-metrics.json: |
     {
       "annotations": {
         "list": [
@@ -28,7 +28,7 @@ data:
           }
         ]
       },
-      "description": "Nginx Ingress Controller & Services",
+      "description": "Nginx Ingress metrics",
       "editable": true,
       "fiscalYearStartMonth": 0,
       "gnetId": 14314,
@@ -2391,8 +2391,8 @@ data:
         ]
       },
       "timezone": "",
-      "title": "Ingress controller detailed",
-      "uid": "k8s-nginx-ingress-detailed",
+      "title": "Metrics",
+      "uid": "k8s-nginx-ingress-metrics",
       "version": 1,
       "weekStart": ""
     }
