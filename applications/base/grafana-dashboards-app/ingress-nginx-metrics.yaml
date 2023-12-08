@@ -2378,7 +2378,7 @@ data:
             "multi": false,
             "name": "service",
             "options": [],
-            "query": "label_values(nginx_ingress_controller_config_hash{namespace=~\"$namespace\",controller_class=~\"$controller_class\",controller_pod=~\"$pod\"}, exported_service) ",
+            "query": "label_values(nginx_ingress_controller_requests{namespace=~\"$namespace\",controller_class=~\"$controller_class\",controller_pod=~\"$pod\"}, exported_service) ",
             "refresh": 1,
             "regex": "",
             "skipUrlSync": false,
