@@ -1420,35 +1420,7 @@ data:
             "type": "query",
             "useTags": false
           },
-          {
-            "allValue": ".*",
-            "current": {
-              "selected": false,
-              "text": "All",
-              "value": "$__all"
-            },
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "definition": "",
-            "hide": 0,
-            "includeAll": true,
-            "label": "Controller",
-            "multi": false,
-            "name": "controller",
-            "options": [],
-            "query": "label_values(nginx_ingress_controller_config_hash{namespace=~\"$namespace\",controller_class=~\"$controller_class\"}, controller_pod) ",
-            "refresh": 1,
-            "regex": "",
-            "skipUrlSync": false,
-            "sort": 0,
-            "tagValuesQuery": "",
-            "tagsQuery": "",
-            "type": "query",
-            "useTags": false
-          },
-          {
+                    {
             "allValue": ".*",
             "current": {
               "selected": false,
@@ -1471,6 +1443,34 @@ data:
             "regex": "",
             "skipUrlSync": false,
             "sort": 2,
+            "tagValuesQuery": "",
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          },
+          {
+            "allValue": ".*",
+            "current": {
+              "selected": false,
+              "text": "All",
+              "value": "$__all"
+            },
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "definition": "",
+            "hide": 0,
+            "includeAll": true,
+            "label": "Ingress Pod",
+            "multi": false,
+            "name": "controller",
+            "options": [],
+            "query": "label_values(nginx_ingress_controller_config_hash{namespace=~\"$namespace\",controller_class=~\"$controller_class\"}, controller_pod) ",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 0,
             "tagValuesQuery": "",
             "tagsQuery": "",
             "type": "query",
