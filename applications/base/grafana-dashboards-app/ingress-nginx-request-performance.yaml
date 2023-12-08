@@ -1056,7 +1056,7 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "Kubernetes Service",
+      "title": "Ingress services",
       "uid": "4GFbkOsZk",
       "version": 1,
       "weekStart": ""

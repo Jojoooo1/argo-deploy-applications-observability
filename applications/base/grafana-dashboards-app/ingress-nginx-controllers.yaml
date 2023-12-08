@@ -1508,7 +1508,7 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "Ingress controller",
+      "title": "Ingress controllers",
       "uid": "nginx",
       "version": 1,
       "weekStart": ""
