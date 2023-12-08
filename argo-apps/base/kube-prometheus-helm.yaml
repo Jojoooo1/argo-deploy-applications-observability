@@ -92,7 +92,7 @@ spec:
             datasources:
               exemplarTraceIdDestinations:
                 datasourceUid: tempo
-                traceIdLabelName: traceId
+                traceIdLabelName: trace_id
 
           additionalDataSources:
             - name: Tempo
