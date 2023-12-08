@@ -9,7 +9,7 @@ metadata:
     grafana_folder: "Ingress"
 data:
   # inspired from: https://grafana.com/grafana/dashboards/14314-kubernetes-nginx-ingress-controller-nextgen-devops-nirvana/
-  # Migrated to timeseries
+  # Migrated to timeseries and added service filter
   ingress-metrics.json: |
     {
       "annotations": {
