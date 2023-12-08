@@ -757,6 +757,7 @@ data:
               "sort": "none"
             }
           },
+          "pluginVersion": "9.0.7",
           "targets": [
             {
               "datasource": {
@@ -872,6 +873,7 @@ data:
               "sort": "none"
             }
           },
+          "pluginVersion": "9.0.7",
           "targets": [
             {
               "datasource": {
@@ -987,6 +989,7 @@ data:
               "sort": "none"
             }
           },
+          "pluginVersion": "9.0.7",
           "targets": [
             {
               "datasource": {
@@ -1327,6 +1330,7 @@ data:
               "sort": "none"
             }
           },
+          "pluginVersion": "9.0.7",
           "targets": [
             {
               "datasource": {
