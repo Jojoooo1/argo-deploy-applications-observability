@@ -12,21 +12,21 @@
 
 ### Applications
 
-#### Base
+#### applications/base
 
-- **grafana-dashboards-app**: Contains Grafana observability dashboards.
-- **prometheus-rules-app**: Contains Prometheus Alerting Rules.
+- **grafana-dashboards-app**: Grafana dashboards.
+- **prometheus-rules-app**: Prometheus Alerting Rules.
 
-#### Overlay
+#### applications/overlay
 
 Environments folders that inherit from base folder. It uses [kustomize](https://github.com/kubernetes-sigs/kustomize) to allow environment based customization.
 
 ### ArgoCD Applications
 
-#### Base
+#### argo-app/base
 
-- **base**: Contains ArgoCD Observability Applications
+- **base**: ArgoCD Applications
 
-#### Overlay
+#### argo-app/overlay
 
 Environments folders that inherit from base folder. It uses [kustomize](https://github.com/kubernetes-sigs/kustomize) to allow environment based customization.
