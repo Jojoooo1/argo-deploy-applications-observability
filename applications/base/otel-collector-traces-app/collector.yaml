@@ -45,12 +45,12 @@ spec:
           insecure: true
 
       otlphttp/prometheus:
-        endpoint: http://kube-prometheus.observability:9090/api/v1/otlp
+        endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
         tls:
           insecure: true
 
       prometheusremotewrite:
-        endpoint: http://kube-prometheus.observability:9090/api/v1/write
+        endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
         tls:
           insecure: true
 
