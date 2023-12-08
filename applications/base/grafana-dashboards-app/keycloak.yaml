@@ -9,6 +9,7 @@ metadata:
     grafana_folder: "Keycloak" # need to be different from title
 data:
   # adapted from: https://grafana.com/grafana/dashboards/10441-keycloak-metrics-dashboard/
+  # Migrated to timeseries and fixed metrics name.
   keycloak-metrics-dashboard.json: |
     {
       "annotations": {

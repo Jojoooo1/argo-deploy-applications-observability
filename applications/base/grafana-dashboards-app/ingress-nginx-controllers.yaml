@@ -9,7 +9,7 @@ metadata:
     grafana_folder: "Ingress"
 data:
   # ingress-nginx-controllers.json: "https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/grafana/dashboards/nginx.json"
-  # Migrated to timeseries
+  # Migrated to timeseries.
   ingress-nginx-controllers.json: |
     {
       "annotations": {
