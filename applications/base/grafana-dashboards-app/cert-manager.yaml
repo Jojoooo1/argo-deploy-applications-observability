@@ -8,4 +8,4 @@ metadata:
   annotations:
     grafana_folder: "CertManager"
 data:
-  cert-manager.json: "https://gitlab.com/uneeq-oss/cert-manager-mixin/-/raw/master/dashboards/cert-manager.json?ref_type=heads"
+  cert-manager.json: "https://gitlab.com/uneeq-oss/cert-manager-mixin/-/raw/master/dashboards/cert-manager.json"
