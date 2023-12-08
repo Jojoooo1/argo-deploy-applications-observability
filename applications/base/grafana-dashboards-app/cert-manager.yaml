@@ -9,6 +9,7 @@ metadata:
     grafana_folder: "CertManager"
 data:
   # https://grafana.com/grafana/dashboards/11001-cert-manager/
+  # Migrated to timeseries and fixed container name.
   cert-manager.json: |
     {
       "annotations": {
@@ -745,7 +746,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg by (pod) (rate(container_cpu_usage_seconds_total{container=\"cert-manager\"}[$__rate_interval]))",
+              "expr": "avg by (pod) (rate(container_cpu_usage_seconds_total{container=\"cert-manager-controller\"}[$__rate_interval]))",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -754,7 +755,7 @@ data:
               "refId": "A"
             },
             {
-              "expr": "avg by (pod) (kube_pod_container_resource_limits_cpu_cores{container=\"cert-manager\"})",
+              "expr": "avg by (pod) (kube_pod_container_resource_limits_cpu_cores{container=\"cert-manager-controller\"})",
               "format": "time_series",
               "hide": true,
               "interval": "",
@@ -763,7 +764,7 @@ data:
               "refId": "B"
             },
             {
-              "expr": "avg by (pod) (kube_pod_container_resource_requests_cpu_cores{container=\"cert-manager\"})",
+              "expr": "avg by (pod) (kube_pod_container_resource_requests_cpu_cores{container=\"cert-manager-controller\"})",
               "format": "time_series",
               "hide": true,
               "interval": "",
@@ -877,7 +878,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg by (pod) (\n  rate(container_cpu_cfs_throttled_periods_total{container=\"cert-manager\"}[$__rate_interval])\n  /\n  rate(container_cpu_cfs_periods_total{container=\"cert-manager\"}[$__rate_interval])\n)",
+              "expr": "avg by (pod) (\n  rate(container_cpu_cfs_throttled_periods_total{container=\"cert-manager-controller\"}[$__rate_interval])\n  /\n  rate(container_cpu_cfs_periods_total{container=\"cert-manager-controller\"}[$__rate_interval])\n)",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -1001,7 +1002,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg by (pod) (container_memory_usage_bytes{container=\"cert-manager\"})",
+              "expr": "avg by (pod) (container_memory_usage_bytes{container=\"cert-manager-controller\"})",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -1010,7 +1011,7 @@ data:
               "refId": "A"
             },
             {
-              "expr": "avg by (pod) (kube_pod_container_resource_limits_memory_bytes{container=\"cert-manager\"})",
+              "expr": "avg by (pod) (kube_pod_container_resource_limits_memory_bytes{container=\"cert-manager-controller\"})",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -1018,7 +1019,7 @@ data:
               "refId": "B"
             },
             {
-              "expr": "avg by (pod) (kube_pod_container_resource_requests_memory_bytes{container=\"cert-manager\"})",
+              "expr": "avg by (pod) (kube_pod_container_resource_requests_memory_bytes{container=\"cert-manager-controller\"})",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,

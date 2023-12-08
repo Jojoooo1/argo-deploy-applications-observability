@@ -9,7 +9,7 @@ metadata:
     grafana_folder: "ArgoCD"
 data:
   # https://grafana.com/grafana/dashboards/14584-argocd/
-  # Migrated to timeseries
+  # Migrated to timeseries and fixed job name.
   argocd.json: |
     {
       "annotations": {
