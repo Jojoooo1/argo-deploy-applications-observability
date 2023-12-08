@@ -24,7 +24,7 @@ spec:
       skipCrds: true
       valuesObject:
 
-        fullnameOverride: 'kube'
+        fullnameOverride: "kube-prometheus-stack"
 
         ## Grafana ##
         grafana:
@@ -229,7 +229,7 @@ spec:
               prometheus.io/scrap-with: kube-prometheus-stack
 
 
-        ## AlertManager ##
+        ## Alertmanager ##
         alertmanager:
           # resources:
           #   requests: 
