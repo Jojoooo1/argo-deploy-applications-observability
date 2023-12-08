@@ -1018,6 +1018,7 @@ data:
                   "mode": "off"
                 }
               },
+              "decimals": 2,
               "links": [],
               "mappings": [],
               "thresholds": {
@@ -1033,7 +1034,7 @@ data:
                   }
                 ]
               },
-              "unit": "none"
+              "unit": "reqps"
             },
             "overrides": []
           },
@@ -1070,15 +1071,15 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "irate(http_client_requests_seconds_count{pod=~\"$pod\", application=\"$application\", uri!~\".*actuator.*\"}[5m])",
               "exemplar": true,
+              "expr": "irate(http_client_requests_seconds_count{pod=~\"$pod\", application=\"$application\", uri!~\".*actuator.*\"}[5m])",
               "intervalFactor": 1,
               "legendFormat": "{{method}} [{{status}}] - {{uri}}",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "Request Count",
+          "title": "Request Per Sec",
           "type": "timeseries"
         },
         {
