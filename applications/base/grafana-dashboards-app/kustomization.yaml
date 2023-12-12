@@ -6,14 +6,10 @@ namespace: observability
 resources:
   - argocd.yaml
   - cert-manager.yaml
-  # - ingress-nginx-services-performance.yaml
   - ingress-nginx-metrics.yaml
   - ingress-nginx-controllers.yaml
-  # - kafka-overview.yaml
-  # - kafka-topics.yaml
   - keycloak.yaml
   - rabbitmq-overview.yaml
-  - rabbitmq-quorum.yaml
   - spring-api.yaml
   - spring-middleware.yaml
   - spring-worker.yaml
