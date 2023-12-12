@@ -16,7 +16,7 @@ spec:
       - PrunePropagationPolicy=foreground
 
   source: 
-    repoURL: https://github.com/${ARGOCD_ENV_GITHUB_REPO}/argo-deploy-applications-observability.git
+    repoURL: ${ARGOCD_ENV_GITHUB_REPO}/argo-deploy-applications-observability.git
     targetRevision: main
     path: applications/overlays/local/grafana-dashboards-app
 
