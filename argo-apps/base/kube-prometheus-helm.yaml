@@ -83,10 +83,11 @@ spec:
 
           sidecar: 
             dashboards:
-              # enabled: true
+              enabled: true
               folderAnnotation: grafana_folder
               provider:
                 foldersFromFilesStructure: true
+              label: grafana_dashboard
               annotations:
                 grafana_folder: /tmp/dashboards/Kubernetes
             datasources:
