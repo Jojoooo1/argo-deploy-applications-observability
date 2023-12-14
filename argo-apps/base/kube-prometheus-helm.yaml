@@ -131,9 +131,9 @@ spec:
                   timeShiftEnabled: true
                   spanStartTimeShift: '1h'
                   spanEndTimeShift: '-1h'
-                spanBar:
-                  type: 'Tag'
-                  tag: 'http.path'
+                # spanBar:
+                #   type: 'Tag'
+                #   tag: 'http.path'
                   
             # - name: Loki
             #   uid: loki
