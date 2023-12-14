@@ -40,6 +40,7 @@ spec:
           global_overrides:
             # In high volume cenario we need to increase this value.
             max_traces_per_user: 20000
+            metrics_generator_processors: [ service-graphs, span-metrics, 'local-blocks' ]
           
           # https://github.com/grafana/tempo/blob/main/docs/tempo/website/configuration/_index.md#storage
           # storage:
@@ -79,7 +80,6 @@ spec:
                 metrics_generator_processors:
                 - 'service-graphs'
                 - 'span-metrics'
-                - 'local-blocks'
           metrics_generator:
                 storage:
                   path: "/tmp/tempo/generator/wal"
