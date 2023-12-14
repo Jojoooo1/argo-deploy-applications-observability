@@ -28,13 +28,15 @@ spec:
 
         tempo:
           retention: 720h # 30d
+          # memBallastSizeMbs: 1024 # usually recommended to be around 40% of the memory limit
           resources:
             requests: 
               memory: 1Gi
               cpu: 150m
             limits:
-              memory: 1Gi # 7Gi for production is pretty good
-              cpu: 150m # 1 for production is pretty good
+              memory: 1Gi # 7Gi for production
+              cpu: 150m # 1 for production
+            
           global_overrides:
             # In high volume cenario we need to increase this value.
             max_traces_per_user: 20000
@@ -47,17 +49,17 @@ spec:
           #       bucket_name: <bucket_name>
 
           metricsGenerator:
-            enabled: "true"
+            enabled: true
             remoteWriteUrl: "http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write"
 
         serviceMonitor:
-          enabled: "true"
+          enabled: true
           namespace: observability
           additionalLabels:
             prometheus.io/scrap-with: kube-prometheus-stack
 
         persistence:
-          enabled: "true"
+          enabled: true
           size: 1Gi
 
         # serviceAccount:

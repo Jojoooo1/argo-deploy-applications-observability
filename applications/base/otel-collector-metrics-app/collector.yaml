@@ -10,6 +10,11 @@ spec:
         fieldRef:
           apiVersion: v1
           fieldPath: status.podIP
+          env:
+
+    # Should be set to 80% of the memory limit. # https://github.com/open-telemetry/opentelemetry-collector/issues/8343
+    # - name: GOMEMLIMIT
+    #   value: 156MiB
 
   # https://github.com/open-telemetry/opentelemetry-operator/blob/main/docs/api.md#opentelemetrycollectorspectargetallocator
   # Migration blocked, can not scrape all target because of https://github.com/open-telemetry/opentelemetry-operator/issues/1844

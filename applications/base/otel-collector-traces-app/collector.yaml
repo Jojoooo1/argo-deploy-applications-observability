@@ -11,6 +11,11 @@ spec:
         fieldRef:
           apiVersion: v1
           fieldPath: status.podIP
+          
+    # Should be set to 80% of the memory limit. # https://github.com/open-telemetry/opentelemetry-collector/issues/8343
+    # - name: GOMEMLIMIT
+    #   value: 156MiB
+
   config: |
     connectors:
       spanmetrics:
