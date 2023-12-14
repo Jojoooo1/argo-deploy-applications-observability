@@ -82,11 +82,11 @@ spec:
                 - 'local-blocks'
           metrics_generator:
                 storage:
-                  path: "/tmp/tempo"
+                  path: "/tmp/tempo/generator/wal"
                   remote_write:
                     - url: {{ .Values.tempo.metricsGenerator.remoteWriteUrl }}
                 traces_storage:
-                  path: "/tmp/tempo"
+                  path: "/tmp/tempo/generator/traces"
             {{- end }}
 
         serviceMonitor:
