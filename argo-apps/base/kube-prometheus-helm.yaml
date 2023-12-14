@@ -115,9 +115,9 @@ spec:
                   datasourceUid: 'prometheus'
                   spanStartTimeShift: '1h'
                   spanEndTimeShift: '-1h'
-                  tags: [{ key: 'service.name', value: 'service' }, { key: 'job' }]
+                  tags: [{ key: 'service.name', value: 'service' }]
                   queries:
-                    - name: 'Sample query'
+                    - name: 'latency'
                       query: 'sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[5m]))'
                 serviceMap:
                   datasourceUid: 'prometheus'
@@ -125,8 +125,8 @@ spec:
                   enabled: true
                 search:
                   hide: false
-                lokiSearch:
-                  datasourceUid: 'loki'
+                # lokiSearch:
+                #   datasourceUid: 'loki'
                 traceQuery:
                   timeShiftEnabled: true
                   spanStartTimeShift: '1h'

@@ -79,6 +79,7 @@ spec:
                 metrics_generator_processors:
                 - 'service-graphs'
                 - 'span-metrics'
+                - 'local-blocks'
           metrics_generator:
                 storage:
                   path: "/tmp/tempo"
