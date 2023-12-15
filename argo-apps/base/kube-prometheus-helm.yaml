@@ -133,7 +133,8 @@ spec:
                   spanEndTimeShift: '-1h'
                 spanBar:
                   type: 'Tag'
-                  tag: 'None'
+                  # tag: 'None'
+                  tag: 'http.path'
                   
             # - name: Loki
             #   uid: loki
