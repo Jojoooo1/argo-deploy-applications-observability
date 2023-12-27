@@ -16,6 +16,7 @@ spec:
     # - name: GOMEMLIMIT
     #   value: 156MiB
 
+  # https://www.otelbin.io/
   config: |
     connectors:
       spanmetrics:

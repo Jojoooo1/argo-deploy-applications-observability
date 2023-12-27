@@ -33,6 +33,8 @@ spec:
     replicas: 1
 
   serviceAccount: opentelemetry-collector-sa
+
+  # https://www.otelbin.io/
   config: |
     receivers:
       otlp:
@@ -54,6 +56,12 @@ spec:
 
     processors:
       batch:
+
+      # memory_limiter:
+      #   # drop metrics if memory usage gets too high
+      #   check_interval: 1s
+      #   limit_percentage: 65
+      #   spike_limit_percentage: 20
 
     exporters:
       debug:

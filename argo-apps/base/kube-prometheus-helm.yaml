@@ -18,7 +18,7 @@ spec:
   source:
     chart: kube-prometheus-stack
     repoURL: "https://prometheus-community.github.io/helm-charts"
-    targetRevision: 55.3.1
+    targetRevision: 55.5.0
     # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
     helm:
       skipCrds: true
@@ -30,7 +30,7 @@ spec:
         grafana:
           fullnameOverride: grafana
           image:
-            tag: 10.2.2
+            tag: 10.2.3
 
           # resources:
           #   requests: 
@@ -96,6 +96,7 @@ spec:
                 traceIdLabelName: trace_id
 
           additionalDataSources:
+            # More config at https://grafana.com/docs/grafana/latest/datasources/tempo/configure-tempo-data-source/
             - name: Tempo
               uid: tempo
               type: tempo
