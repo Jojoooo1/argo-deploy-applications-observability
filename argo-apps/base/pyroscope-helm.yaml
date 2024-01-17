@@ -45,11 +45,11 @@ spec:
           #   annotations:
           #     iam.gke.io/gcp-service-account: pyroscope-storage@${ARGOCD_ENV_PROJECT}.iam.gserviceaccount.com
 
-      ingress:
-        enabled: true
-        className: "nginx"
-        hosts: 
-          - pyroscope${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
+        ingress:
+          enabled: true
+          className: "nginx"
+          hosts: 
+            - pyroscope${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
 
   destination:
     server: "https://kubernetes.default.svc"
