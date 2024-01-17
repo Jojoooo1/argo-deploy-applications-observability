@@ -26,7 +26,19 @@ spec:
 
         # https://github.com/grafana/agent/blob/main/operations/helm/charts/grafana-agent
         agent:
+          enabled: true
           fullnameOverride: grafana-agent
+
+          # resources:
+          #   requests: 
+          #     memory: 128Mi
+          #     cpu: 100m
+          #   limits:
+          #     memory: 128Mi
+          #     cpu: 100m
+
+          # uncomment if you want to remove grafana-agent monitoring
+          # podAnnotations:
 
         pyroscope:
           fullnameOverride: pyroscope
@@ -44,6 +56,9 @@ spec:
           # serviceAccount:
           #   annotations:
           #     iam.gke.io/gcp-service-account: pyroscope-storage@${ARGOCD_ENV_PROJECT}.iam.gserviceaccount.com
+
+          # uncomment if you want to remove grafana-agent monitoring
+          # podAnnotations:
 
         ingress:
           enabled: true

@@ -152,6 +152,11 @@ spec:
             #         url: "$$$${__value.raw}"
             #         urlDisplayLabel: 'View Trace'
 
+            # - name: Pyroscope
+            #   uid: pyroscope
+            #   type: grafana-pyroscope-datasource
+            #   url: http://pyroscope.observability.svc:4040
+
 
         ## Prometheus ##
         prometheus:

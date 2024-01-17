@@ -9,9 +9,9 @@ resources:
   - ../../../argo-apps/base/grafana-dashboards-app.yaml
   - ../../../argo-apps/base/opentelemetry-operator-helm.yaml
   - ../../../argo-apps/base/otel-collector-traces-app.yaml
-  - ../../../argo-apps/base/pyroscope-helm.yaml
   - ../../../argo-apps/base/tempo-helm.yaml
 
+  # - ../../../argo-apps/base/pyroscope-helm.yaml
   # - ../../../argo-apps/base/otel-metrics-collector-app.yaml
   # - ../../../argo-apps/base/opentelemetry-collector-helm.yaml
   # - ../../../argo-apps/base/postgres-exporter-helm.yaml
