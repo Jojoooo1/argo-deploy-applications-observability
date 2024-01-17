@@ -23,10 +23,13 @@ spec:
 
       # https://github.com/grafana/pyroscope/blob/main/operations/pyroscope/helm/pyroscope
       valuesObject:
-      
-        fullnameOverride: pyroscope
+
+        # https://github.com/grafana/agent/blob/main/operations/helm/charts/grafana-agent
+        agent:
+          fullnameOverride: grafana-agent
 
         pyroscope:
+          fullnameOverride: pyroscope
           # resources:
           #   requests: 
           #     memory: 128Mi
