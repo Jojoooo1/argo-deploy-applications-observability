@@ -91,7 +91,7 @@ spec:
                 foldersFromFilesStructure: true
               label: grafana_dashboard
               labelValue: kube-prometheus-stack
-              # Puts kube-prometheus-stack dashboards within its own folder.
+              # Puts the default kube-prometheus-stack dashboards within its own folder for proper organization.
               annotations:
                 grafana_folder: /tmp/dashboards/Kubernetes
                 
