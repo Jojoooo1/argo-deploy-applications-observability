@@ -85,14 +85,15 @@ spec:
           # Sidecar configurations (used to inject dashboard via configmap)
           sidecar: 
             dashboards:
-              # dashboards created via configmap will be organized into folders for proper organization.
+              # Dashboards created via configmap will be organized into folders for proper organization.
               folderAnnotation: grafana_folder
               provider:
                 foldersFromFilesStructure: true
               label: grafana_dashboard
               labelValue: kube-prometheus-stack
-              # annotations:
-              #   grafana_folder: /tmp/dashboards/Kubernetes
+              # Puts kube-prometheus-stack dashboards within its own folder.
+              annotations:
+                grafana_folder: /tmp/dashboards/Kubernetes
                 
             datasources:
               exemplarTraceIdDestinations:
