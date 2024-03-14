@@ -125,6 +125,12 @@ spec:
                   queries:
                     - name: 'latency'
                       query: 'sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[5m]))'
+                # traceToProfiles:
+                #   datasourceUid: 'grafana-pyroscope-datasource'
+                #   tags: ['job', 'instance', 'pod', 'namespace']
+                #   profileTypeId: 'process_cpu:cpu:nanoseconds:cpu:nanoseconds'
+                #   customQuery: true
+                #   query: 'method="${__span.tags.method}"'
                 serviceMap:
                   datasourceUid: 'prometheus'
                 nodeGraph:
@@ -139,7 +145,6 @@ spec:
                   spanEndTimeShift: '-1h'
                 spanBar:
                   type: 'Tag'
-                  # tag: 'None'
                   tag: 'http.path'
                   
             # - name: Loki
