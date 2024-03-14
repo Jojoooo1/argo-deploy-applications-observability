@@ -199,10 +199,14 @@ spec:
                       storage: 1Gi
 
             # Necessary if using Otel collector.
-            enableRemoteWriteReceiver: true
+            enableRemoteWriteReceiver: true # /api/v1/otlp
+            # https://prometheus.io/docs/prometheus/latest/feature_flags/
             enableFeatures:
               - exemplar-storage
-              - otlp-write-receiver # /api/v1/otlp
+              # - otlp-write-receiver sets by enableRemoteWriteReceiver
+              - memory-snapshot-on-shutdown
+              - new-service-discovery-manager
+              - auto-gomaxprocs
 
             ## Prometheus CRD Selectors ##
             ruleSelectorNilUsesHelmValues: false
