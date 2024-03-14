@@ -45,6 +45,7 @@ spec:
             labels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
+          # Ingress
           ingress:
             enabled: true
             ingressClassName: nginx
@@ -55,7 +56,6 @@ spec:
           adminUser: admin
           adminPassword: password
           grafana.ini:
-            # nestedFolders -> not used for now has it break sidecar folders.
             feature_toggles:
               enable: panelTitleSearch nestedFolders lokiExperimentalStreaming storage traceToMetrics lokiQuerySplittingConfig lokiFormatQuery traceQLStreaming metricsSummary featureToggleAdminPage enableNativeHTTPHistogram prometheusPromQAIL logsInfiniteScrolling enablePluginsTracingByDefault scenes extraThemes dashgpt
 
@@ -82,20 +82,24 @@ spec:
               k8s-views-pods:
                 url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
 
+          # Sidecar configurations (used to inject dashboard via configmap)
           sidecar: 
             dashboards:
-              enabled: true
+              # dashboards created via configmap will be organized into folders for proper organization.
               folderAnnotation: grafana_folder
               provider:
                 foldersFromFilesStructure: true
               label: grafana_dashboard
-              annotations:
-                grafana_folder: /tmp/dashboards/Kubernetes
+              labelValue: kube-prometheus-stack
+              # annotations:
+              #   grafana_folder: /tmp/dashboards/Kubernetes
+                
             datasources:
               exemplarTraceIdDestinations:
                 datasourceUid: tempo
                 traceIdLabelName: trace_id
 
+          # Datasources
           additionalDataSources:
             # More config at https://grafana.com/docs/grafana/latest/datasources/tempo/configure-tempo-data-source/
             - name: Tempo

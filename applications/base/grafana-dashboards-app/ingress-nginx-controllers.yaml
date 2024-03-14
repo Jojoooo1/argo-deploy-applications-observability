@@ -4,7 +4,7 @@ metadata:
   name: dashboard-ingress-nginx-controllers
   namespace: observability
   labels:
-    grafana_dashboard: "1"
+    grafana_dashboard: "kube-prometheus-stack"
   annotations:
     grafana_folder: "Ingress"
 data:

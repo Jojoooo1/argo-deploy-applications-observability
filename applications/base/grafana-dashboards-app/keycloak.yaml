@@ -4,7 +4,7 @@ metadata:
   name: dashboard-keycloak
   namespace: observability
   labels:
-    grafana_dashboard: "1"
+    grafana_dashboard: "kube-prometheus-stack"
   annotations:
     grafana_folder: "Keycloak" # need to be different from title
 data:
