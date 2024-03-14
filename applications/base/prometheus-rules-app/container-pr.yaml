@@ -7,44 +7,44 @@ metadata:
     prometheus.io/scrap-with: kube-prometheus-stack
 spec:
   groups:
+    # Heavily inspired from https://samber.github.io/awesome-prometheus-alerts/rules.html#docker-containers-1
     - name: container.general.rules
       rules:
-      
-        - alert: ContainerCPUThrottlingHigh
-          expr: sum by(container, pod, namespace) (increase(container_cpu_cfs_throttled_periods_total{container!=""}[5m])) / sum by(container, pod, namespace) (increase(container_cpu_cfs_periods_total[5m])) > (35 / 100)
-          for: 10m
+              
+        - alert: ContainerHighCpuUtilization
+          expr: (sum(rate(container_cpu_usage_seconds_total{container!=""}[5m])) by (pod, container) / sum(container_spec_cpu_quota{container!=""}/container_spec_cpu_period{container!=""}) by (pod, container) * 100) > 80
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Container High CPU utilization in pod {{ $labels.pod }}"
+            description: "Container CPU utilization is above 80%\n VALUE = {{ $value }}"
+
+        - alert: ContainerHighMemoryUsage
+          expr: (sum(container_memory_working_set_bytes{name!=""}) BY (instance, name) / sum(container_spec_memory_limit_bytes > 0) BY (instance, name) * 100) > 80
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Container High Memory usage in pod {{ $labels.pod }}"
+            description: "Container Memory usage is above 80%\n  VALUE = {{ $value }}"
+
+        - alert: ContainerVolumeUsage
+          expr: (1 - (sum(container_fs_inodes_free{name!=""}) BY (instance) / sum(container_fs_inodes_total) BY (instance))) * 100 > 80
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Container High Volume usage in pod {{ $labels.pod }}"
+            description: "Container Volume usage is above 80%\n  VALUE = {{ $value }}"
+
+
+        - alert: ContainerHighThrottleRate
+          expr: sum(increase(container_cpu_cfs_throttled_periods_total{container!=""}[5m])) by (container, pod, namespace) / sum(increase(container_cpu_cfs_periods_total[5m])) by (container, pod, namespace) > ( 25 / 100 )
+          for: 5m
           labels:
             severity: info
           annotations:
-            description: "{{ $value | humanizePercentage }} throttling of CPU in namespace {{ $labels.namespace }} for container {{ $labels.container }} in pod {{ $labels.pod }}."
+            description: "Container high throttle rate in pod {{ $labels.pod }}."
+            summary: "Container is being throttled\n  VALUE = {{ $value }}"
             runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/cputhrottlinghigh
-            summary: Processes experience elevated CPU throttling.
-        
-        - alert: ContainerCpuUsage
-          expr: sum(rate(container_cpu_usage_seconds_total{image!=""}[5m])) by (pod) / sum(kube_pod_container_resource_limits{unit="core"}) by (pod) > 0.85
-          for: 10m
-          labels:
-            severity: warning
-          annotations:
-            summary: Container CPU usage in pod {{ $labels.pod }} is too high
-            description: "Container CPU limit is above 85% VALUE = {{ $value }}"
-
-        - alert: ContainerMemoryUsage
-          expr: sum(container_memory_working_set_bytes{image!=""}) by (pod) / sum(kube_pod_container_resource_limits{unit="byte"}) by (pod) > 0.85
-          for: 5m
-          labels:
-            severity: warning
-          annotations:
-            summary: Container Memory usage in pod {{ $labels.pod }} is too high
-            description: "Container Memory limit is above 85% VALUE = {{ $value }}"
-
-        - alert: ContainerVolumeUsage
-          expr: (1 - (sum(container_fs_inodes_free{name!=""}) BY (instance, pod) / sum(container_fs_inodes_total) BY (instance, pod))) * 100 > 85
-          for: 5m
-          labels:
-            severity: warning
-          annotations:
-            summary: Container Volume usage in pod {{ $labels.pod }} is too high
-            description: "Container Volume usage is above 85% VALUE = {{ $value }}"
-
-
