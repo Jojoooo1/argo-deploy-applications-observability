@@ -22,10 +22,9 @@ spec:
   source:
     chart: opentelemetry-operator
     repoURL: https://open-telemetry.github.io/opentelemetry-helm-charts
-    targetRevision: 0.45.2
+    targetRevision: 0.49.0
 
     # https://github.com/open-telemetry/opentelemetry-helm-charts/tree/main/charts/opentelemetry-operator
-    
     # https://opentelemetry.io/docs/kubernetes/operator/target-allocator/
     # https://github.com/open-telemetry/opentelemetry-operator/blob/main/cmd/otel-allocator/README.md
     helm:

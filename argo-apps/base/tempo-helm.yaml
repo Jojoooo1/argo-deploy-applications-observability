@@ -18,12 +18,11 @@ spec:
   source:
     chart: tempo
     repoURL: "https://grafana.github.io/helm-charts"
-    targetRevision: 1.7.1
-    helm:
+    targetRevision: 1.7.2
 
-      # https://github.com/grafana/helm-charts/blob/main/charts/tempo
+    # https://github.com/grafana/helm-charts/blob/main/charts/tempo
+    helm:
       valuesObject:
-      
         fullnameOverride: tempo
 
         tempo:

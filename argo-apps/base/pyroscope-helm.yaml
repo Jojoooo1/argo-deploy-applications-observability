@@ -18,12 +18,11 @@ spec:
   source:
     chart: pyroscope
     repoURL: "https://grafana.github.io/helm-charts"
-    targetRevision: 1.3.6
+    targetRevision: 1.4.1
+
+    # https://github.com/grafana/pyroscope/blob/main/operations/pyroscope/helm/pyroscope
     helm:
-
-      # https://github.com/grafana/pyroscope/blob/main/operations/pyroscope/helm/pyroscope
       valuesObject:
-
         # https://github.com/grafana/agent/blob/main/operations/helm/charts/grafana-agent
         agent:
           enabled: true
