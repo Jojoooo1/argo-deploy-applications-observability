@@ -212,10 +212,9 @@ spec:
             # https://prometheus.io/docs/prometheus/latest/feature_flags/
             enableFeatures:
               - exemplar-storage
-              # - otlp-write-receiver sets by enableRemoteWriteReceiver
               - memory-snapshot-on-shutdown
+              - otlp-write-receiver
               # - new-service-discovery-manager
-              - auto-gomaxprocs
 
             ## Prometheus CRD Selectors ##
             ruleSelectorNilUsesHelmValues: false
