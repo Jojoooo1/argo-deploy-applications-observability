@@ -214,7 +214,7 @@ spec:
               - exemplar-storage
               # - otlp-write-receiver sets by enableRemoteWriteReceiver
               - memory-snapshot-on-shutdown
-              - new-service-discovery-manager
+              # - new-service-discovery-manager
               - auto-gomaxprocs
 
             ## Prometheus CRD Selectors ##
@@ -442,9 +442,8 @@ spec:
           labels:
             prometheus.io/scrap-with: kube-prometheus-stack
 
-          # Keep all rules by default.
           rules:
-            # disable components that are not exposed in controle-plane with managed environment.
+            # disable components that are not exposed in controle-plane in managed environment.
             kubeApiserverAvailability: false
             kubeApiserverBurnrate: false
             kubeApiserverHistogram: false
