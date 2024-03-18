@@ -311,10 +311,10 @@ spec:
               routes:
                 - receiver: 'null'
                   matchers:
-                    - alertname = Watchdog
+                    - alertname = "Watchdog"
                 - receiver: 'slack'
                   matchers:
-                    - severity = info|critical|warning
+                    - severity = "info|critical|warning"
                   continue: true
 
             receivers:
