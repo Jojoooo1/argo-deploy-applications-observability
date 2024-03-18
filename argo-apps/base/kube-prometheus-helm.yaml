@@ -85,13 +85,13 @@ spec:
           # Sidecar configurations (used to inject dashboard via configmap)
           sidecar: 
             dashboards:
-              # Dashboards created via configmap will be organized into folders for proper organization.
+              # Dashboards created via configmap will be organized into folders for proper visualisation in Grafana.
               folderAnnotation: grafana_folder
               provider:
                 foldersFromFilesStructure: true
               label: grafana_dashboard
               labelValue: kube-prometheus-stack
-              # Puts the default kube-prometheus-stack dashboards within its own folder for proper organization.
+              # Puts the default kube-prometheus-stack dashboards within its own folder for proper visualisation in Grafana.
               annotations:
                 grafana_folder: /tmp/dashboards/Kubernetes
                 
@@ -188,6 +188,15 @@ spec:
           prometheusSpec:
             externalUrl: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
             retention: "30d"
+
+            # resources:
+            #   requests: 
+            #     memory: 3Gi
+            #     cpu: 550m
+            #   limits:
+            #     memory: 3Gi
+            #     cpu: 550m
+            
             storageSpec: 
               volumeClaimTemplate:
                 spec:
@@ -239,13 +248,13 @@ spec:
                 prometheus.io/scrap-with: kube-prometheus-stack
 
         prometheusOperator:
-          # resources:
-          #   requests: 
-          #     memory: 512Mi
-          #     cpu: 100m
-          #   limits:
-          #     memory: 1.5Gi
-          #     cpu: 200m
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 200m
+              memory: 200Mi
 
           serviceMonitor:
             additionalLabels:
@@ -254,13 +263,6 @@ spec:
 
         ## Alertmanager ##
         alertmanager:
-          # resources:
-          #   requests: 
-          #     memory: 64Mi
-          #     cpu: 50m
-          #   limits:
-          #     memory: 128Mi
-          #     cpu: 100m
 
           serviceMonitor:
             additionalLabels:
@@ -271,12 +273,24 @@ spec:
             ingressClassName: nginx
             hosts: 
               - alertmanager${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
+          
+          # AlertManager configuration
           alertmanagerSpec:
-            retention: "720h" # 30 days
             externalUrl: http://alertmanager${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
+            retention: "720h" # 30 days
+
+            # resources:
+            #   requests: 
+            #     memory: 128Mi
+            #     cpu: 100m
+            #   limits:
+            #     memory: 128Mi
+            #     cpu: 100m
+
             storage: 
               volumeClaimTemplate:
                 spec:
+                  # update if you want a better storage class.
                   # storageClassName: standard-rwo
                   accessModes:
                   - ReadWriteOnce
@@ -285,29 +299,24 @@ spec:
                       storage: 1Gi
 
           config:
-            global:
-              resolve_timeout: 5m
-              slack_api_url: "https://hooks.slack.com/services/T5BG38LNS/fake-url"
             route:
-              group_by: ['job']
-              group_wait: 10s
-              group_interval: 30s
-              repeat_interval: 12h
               receiver: 'slack'
               routes:
                 - receiver: 'null'
                   matchers:
-                    - alertname = Watchdog
+                    - alertname = "Watchdog"
                 - receiver: 'slack'
                   matchers:
                     - severity = info|critical|warning
-                  continue: true
+
             receivers:
               - name: 'null'
               - name: slack
                 slack_configs:
                   - send_resolved: true
                     channel: '#danger-room-sandbox'
+                    username: 'Alertmanager'
+                    api_url: https://hooks.slack.com/services/your-slack-url
                     icon_url: https://avatars3.githubusercontent.com/u/3380462
                     title: |
                       [{{ .Status | toUpper -}}
@@ -325,7 +334,6 @@ spec:
 
                     actions:
                       # TODO: add in the future: log_url, dashboard_url, runbook_url
-
                       - type: button
                         text: 'Runbook :green_book:'
                         url: '{{ (index .Alerts 0).Annotations.runbook_url }}'
@@ -432,7 +440,7 @@ spec:
 
           # Keep all rules by default.
           rules:
-            # disable components that are not exposed in managed environment.
+            # disable components that are not exposed in controle-plane with managed environment.
             kubeApiserverAvailability: false
             kubeApiserverBurnrate: false
             kubeApiserverHistogram: false
