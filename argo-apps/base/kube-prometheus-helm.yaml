@@ -297,32 +297,28 @@ spec:
                   resources:
                     requests: 
                       storage: 1Gi
-          # {container="grafana", severity="critical", alertname="Watchdog"}
+
           config:
-            global:
-              resolve_timeout: 5m
             route:
-              group_by: ['job']
-              group_wait: 10s
-              group_interval: 30s
-              repeat_interval: 120h
               receiver: 'slack'
               routes:
                 - receiver: 'null'
                   matchers:
-                    - alertname = Watchdog
+                    - alertname = "Watchdog"
+                
+                # Redirect all severity to slack
                 - receiver: 'slack'
                   matchers:
-                    - severity = info|critical|warning
-                  continue: true
+                    - severity =~ info|critical|warning
 
             receivers:
               - name: 'null'
               - name: slack
                 slack_configs:
                   - send_resolved: true
-                    api_url: https://hooks.slack.com/services/your-slack-url
                     channel: '#danger-room-sandbox'
+                    username: 'Alertmanager'
+                    api_url: https://hooks.slack.com/services/your-slack-url
                     icon_url: https://avatars3.githubusercontent.com/u/3380462
                     title: |
                       [{{ .Status | toUpper -}}
@@ -331,7 +327,6 @@ spec:
                     text: |-
                       {{ range .Alerts -}}
                       *Severity:* `{{ .Labels.severity }}`
-                      *Summary:* {{ .Annotations.summary }}
                       *Description:* {{ .Annotations.description }}
                       *Details:*
                          • *env:* `${ARGOCD_ENV_ENV}`
@@ -340,8 +335,7 @@ spec:
                       {{ end }}
 
                     actions:
-                      # TODO: add in the future: log_url, dashboard_url, runbook_url
-
+                      # Can add dashboard_url, runbook_url [...]
                       - type: button
                         text: 'Runbook :green_book:'
                         url: '{{ (index .Alerts 0).Annotations.runbook_url }}'
@@ -358,61 +352,6 @@ spec:
                               {{- end -}}
                           {{- end -}}
                           alertname%3D"{{- .CommonLabels.alertname -}}"%7D
-
-          # config:
-          #   route:
-          #     receiver: 'slack'
-          #     routes:
-          #       - receiver: 'null'
-          #         matchers:
-          #           - alertname = "Watchdog"
-                
-          #       # Redirect all to slack receiver
-          #       - receiver: 'slack'
-          #         matchers:
-          #           - severity = info|critical|warning
-
-          #   receivers:
-          #     - name: 'null'
-          #     - name: slack
-          #       slack_configs:
-          #         - send_resolved: true
-          #           channel: '#danger-room-sandbox'
-          #           username: 'Alertmanager'
-          #           api_url: https://hooks.slack.com/services/your-slack-url
-          #           icon_url: https://avatars3.githubusercontent.com/u/3380462
-          #           title: |
-          #             [{{ .Status | toUpper -}}
-          #             {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
-          #             ] {{ .CommonLabels.alertname }}
-          #           text: |-
-          #             {{ range .Alerts -}}
-          #             *Severity:* `{{ .Labels.severity }}`
-          #             *Description:* {{ .Annotations.description }}
-          #             *Details:*
-          #                • *env:* `${ARGOCD_ENV_ENV}`
-          #               {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
-          #               {{ end }}
-          #             {{ end }}
-
-          #           actions:
-          #             # Can add dashboard_url, runbook_url [...]
-          #             - type: button
-          #               text: 'Runbook :green_book:'
-          #               url: '{{ (index .Alerts 0).Annotations.runbook_url }}'
-          #             - type: button
-          #               text: 'Query :mag:'
-          #               url: '{{ (index .Alerts 0).GeneratorURL }}'
-          #             - type: button
-          #               text: 'Silence :no_bell:'
-          #               url: |
-          #                 {{ .ExternalURL }}/#/silences/new?filter=%7B
-          #                 {{- range .CommonLabels.SortedPairs -}}
-          #                     {{- if ne .Name "alertname" -}}
-          #                         {{- .Name }}%3D"{{- .Value -}}"%2C%20
-          #                     {{- end -}}
-          #                 {{- end -}}
-          #                 alertname%3D"{{- .CommonLabels.alertname -}}"%7D
 
         ## Stack ##
         
