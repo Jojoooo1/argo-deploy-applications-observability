@@ -298,15 +298,16 @@ spec:
                     requests: 
                       storage: 1Gi
 
+          # https://prometheus.io/docs/alerting/latest/configuration/#configuration
           config:
-            # https://prometheus.io/webtools/alerting/routing-tree-editor/
+            # Try your configuration with https://prometheus.io/webtools/alerting/routing-tree-editor/
             route:
-              receiver: 'slack'
+              receiver: 'slack' # default receiver
               routes:
+                # Ensure alerting pipeline is functional
                 - receiver: 'null'
                   matchers:
                     - alertname = "Watchdog"
-                
                 # Redirect all severity to slack
                 - receiver: 'slack'
                   matchers:
