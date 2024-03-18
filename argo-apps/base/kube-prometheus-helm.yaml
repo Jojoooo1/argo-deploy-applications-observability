@@ -214,7 +214,6 @@ spec:
               - exemplar-storage
               - memory-snapshot-on-shutdown
               - otlp-write-receiver
-              # - new-service-discovery-manager
 
             ## Prometheus CRD Selectors ##
             ruleSelectorNilUsesHelmValues: false
