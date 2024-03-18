@@ -314,7 +314,7 @@ spec:
             receivers:
               - name: 'null'
               - name: slack
-                slack_config:
+                slack_configs:
                   - send_resolved: true
                     channel: '#danger-room-sandbox'
                     username: 'Alertmanager'
