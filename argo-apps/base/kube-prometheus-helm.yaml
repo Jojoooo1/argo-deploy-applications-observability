@@ -305,6 +305,8 @@ spec:
                 - receiver: 'null'
                   matchers:
                     - alertname = "Watchdog"
+                
+                # Redirect all to slack receiver
                 - receiver: 'slack'
                   matchers:
                     - severity = info|critical|warning
@@ -333,7 +335,7 @@ spec:
                       {{ end }}
 
                     actions:
-                      # TODO: add in the future: log_url, dashboard_url, runbook_url
+                      # Can add dashboard_url, runbook_url [...]
                       - type: button
                         text: 'Runbook :green_book:'
                         url: '{{ (index .Alerts 0).Annotations.runbook_url }}'
@@ -350,7 +352,6 @@ spec:
                               {{- end -}}
                           {{- end -}}
                           alertname%3D"{{- .CommonLabels.alertname -}}"%7D
-
 
         ## Stack ##
         
