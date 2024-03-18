@@ -299,6 +299,7 @@ spec:
                       storage: 1Gi
 
           config:
+            # https://prometheus.io/webtools/alerting/routing-tree-editor/
             route:
               receiver: 'slack'
               routes:
@@ -327,6 +328,7 @@ spec:
                     text: |-
                       {{ range .Alerts -}}
                       *Severity:* `{{ .Labels.severity }}`
+                      *Summary:* {{ .Annotations.summary }}
                       *Description:* {{ .Annotations.description }}
                       *Details:*
                          • *env:* `${ARGOCD_ENV_ENV}`
