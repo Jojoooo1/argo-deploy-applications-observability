@@ -213,7 +213,7 @@ spec:
             enableFeatures:
               - exemplar-storage
               - memory-snapshot-on-shutdown
-              - otlp-write-receiver
+              - otlp-write-receiver # allow to write otel metrics at /api/v1/otlp
 
             ## Prometheus CRD Selectors ##
             ruleSelectorNilUsesHelmValues: false
