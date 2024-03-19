@@ -10,3 +10,4 @@ resources:
   - postgres-pr.yaml
   - rabbitmq-pr.yaml
   - spring-pr.yaml
+  - tempo-pr.yaml

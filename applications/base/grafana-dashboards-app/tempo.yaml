@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dashboard-tempo
+  namespace: observability
+  labels:
+    grafana_dashboard: "kube-prometheus-stack"
+  annotations:
+    grafana_folder: "Tempo"
+data:
+  # If needed: https://github.com/grafana/tempo/tree/main/operations/tempo-mixin-compiled/dashboards
