@@ -42,6 +42,7 @@ spec:
           #     cpu: 100m
           
           serviceMonitor:
+            enabled: true
             labels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
@@ -173,6 +174,7 @@ spec:
         prometheus:
 
           serviceMonitor:
+            enabled: true
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
@@ -256,6 +258,7 @@ spec:
           #     memory: 200Mi
 
           serviceMonitor:
+            enabled: true
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
@@ -264,6 +267,7 @@ spec:
         alertmanager:
 
           serviceMonitor:
+            enabled: true
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
@@ -376,6 +380,7 @@ spec:
               
           prometheus:
             monitor:
+              enabled: true
               additionalLabels:
                 prometheus.io/scrap-with: kube-prometheus-stack
                 
@@ -396,6 +401,7 @@ spec:
 
           prometheus:
             monitor:
+              enabled: true
               additionalLabels:
                 prometheus.io/scrap-with: kube-prometheus-stack
 
@@ -408,6 +414,7 @@ spec:
           # k3s: sudo curl --insecure https://localhost:10250/metrics --cacert /var/lib/rancher/k3s/server/tls/server-ca.crt --cert /var/lib/rancher/k3s/server/tls/client-admin.crt --key /var/lib/rancher/k3s/server/tls/client-admin.key
           enabled: true
           serviceMonitor:
+            enabled: true
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
@@ -416,6 +423,7 @@ spec:
         kubeProxy:
           enabled: true
           serviceMonitor:
+            enabled: true
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
