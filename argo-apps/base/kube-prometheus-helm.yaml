@@ -361,6 +361,8 @@ spec:
         ## Stack ##
         
         # type: Daemonset -> collects metrics from the host system
+        nodeExporter:
+          enabled: true
         prometheus-node-exporter:
           fullnameOverride: prometheus-node-exporter
 
@@ -379,6 +381,8 @@ spec:
                 
 
         # type: Deployment -> Listens to the Kubernetes API server and generates metrics about the state of the objects such as deployments, nodes and pods.
+        kubeStateMetrics:
+          enabled: true
         kube-state-metrics:
           fullnameOverride: kube-state-metrics
 
@@ -401,6 +405,7 @@ spec:
         # Manage deployment of pods to Kubernetes nodes. It receives commands from the API server and instructs the container runtime to start/stop containers
         # It pulls node, pod, and container metrics
         kubelet: 
+          # k3s: sudo curl --insecure https://localhost:10250/metrics --cacert /var/lib/rancher/k3s/server/tls/server-ca.crt --cert /var/lib/rancher/k3s/server/tls/client-admin.crt --key /var/lib/rancher/k3s/server/tls/client-admin.key
           enabled: true
           serviceMonitor:
             additionalLabels:
@@ -409,7 +414,7 @@ spec:
         # Network proxy that runs on each node, it maintains network rules on nodes.
         # Depending on managed provider can be accessed or not.
         kubeProxy:
-          enabled: false
+          enabled: true
           serviceMonitor:
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
