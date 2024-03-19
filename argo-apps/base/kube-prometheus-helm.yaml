@@ -418,12 +418,12 @@ spec:
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
-        # Network proxy that runs on each node, it maintains network rules on nodes.
-        # Depending on managed provider can be accessed or not.
+        # Network proxy that runs on each node.
+        # Depending on managed provider can be accessed or not. 
         kubeProxy:
-          enabled: true
+          enabled: false
           serviceMonitor:
-            enabled: true
+            enabled: false
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
