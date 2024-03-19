@@ -52,14 +52,14 @@ spec:
             hosts: 
               - grafana${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
           
-          # Configuration
+          # Configurations
           adminUser: admin
           adminPassword: password
           grafana.ini:
             feature_toggles:
               enable: panelTitleSearch nestedFolders lokiExperimentalStreaming storage traceToMetrics lokiQuerySplittingConfig lokiFormatQuery traceQLStreaming metricsSummary featureToggleAdminPage enableNativeHTTPHistogram prometheusPromQAIL logsInfiniteScrolling enablePluginsTracingByDefault scenes extraThemes dashgpt
 
-          # Dashboards configurations
+          # Dashboards
           defaultDashboardsTimezone: browser
           dashboardProviders:
             dashboardproviders.yaml:
@@ -85,13 +85,13 @@ spec:
           # Sidecar configurations (used to inject dashboard via configmap)
           sidecar: 
             dashboards:
-              # Dashboards created via configmap will be organized into folders for proper visualisation in Grafana.
+              # Allow dashboards to be consolidated into folders for proper visualisation in Grafana.
               folderAnnotation: grafana_folder
               provider:
                 foldersFromFilesStructure: true
               label: grafana_dashboard
               labelValue: kube-prometheus-stack
-              # Puts the default kube-prometheus-stack dashboards within its own folder for proper visualisation in Grafana.
+              # Puts kube-prometheus-stack default dashboards in 'Kubernetes' folder
               annotations:
                 grafana_folder: /tmp/dashboards/Kubernetes
                 
@@ -185,9 +185,10 @@ spec:
             hosts: 
               - prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
 
+          # Configurations
           prometheusSpec:
             externalUrl: http://prometheus${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
-            retention: "30d"
+            retention: "30d" # keep metrics for 30 days
 
             # resources:
             #   requests: 
@@ -211,9 +212,9 @@ spec:
             enableRemoteWriteReceiver: true # /api/v1/otlp
             # https://prometheus.io/docs/prometheus/latest/feature_flags/
             enableFeatures:
-              - exemplar-storage
+              - exemplar-storage # enable traces in metrics.
               - memory-snapshot-on-shutdown
-              - otlp-write-receiver # allow to write otel metrics at /api/v1/otlp
+              - otlp-write-receiver # allow to write otel metrics to /api/v1/otlp
 
             ## Prometheus CRD Selectors ##
             ruleSelectorNilUsesHelmValues: false
@@ -272,7 +273,7 @@ spec:
             hosts: 
               - alertmanager${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
           
-          # AlertManager configuration
+          # Configurations
           alertmanagerSpec:
             externalUrl: http://alertmanager${ARGOCD_ENV_DNS_ENV}.${ARGOCD_ENV_DNS_DOMAIN}
             retention: "720h" # 30 days
@@ -313,6 +314,8 @@ spec:
 
             receivers:
               - name: 'null'
+              
+              # Slack configurations
               - name: slack
                 slack_configs:
                   - send_resolved: true
@@ -320,6 +323,8 @@ spec:
                     username: 'Alertmanager'
                     api_url: https://hooks.slack.com/services/your-slack-url
                     icon_url: https://avatars3.githubusercontent.com/u/3380462
+
+                    # Alert template
                     title: |
                       [{{ .Status | toUpper -}}
                       {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
@@ -334,7 +339,6 @@ spec:
                         {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
                         {{ end }}
                       {{ end }}
-
                     actions:
                       # Can add dashboard_url, runbook_url [...]
                       - type: button
