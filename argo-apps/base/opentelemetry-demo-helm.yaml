@@ -24,6 +24,11 @@ spec:
     repoURL: https://open-telemetry.github.io/opentelemetry-helm-charts
     targetRevision: 0.29.2
 
+    # https://github.com/open-telemetry/opentelemetry-helm-charts/tree/main/charts/opentelemetry-demo
+    helm:
+      valuesObject:
+        fullnameOverride: otel-demo
+
   destination:
     server: "https://kubernetes.default.svc"
     namespace: observability
