@@ -8,7 +8,7 @@ resources:
   - ../../../argo-apps/base/kube-prometheus-helm.yaml
   - ../../../argo-apps/base/grafana-dashboards-app.yaml
   - ../../../argo-apps/base/opentelemetry-operator-helm.yaml
-  - ../../../argo-apps/base/opentelemetry-demo-helm.yaml
+  # - ../../../argo-apps/base/opentelemetry-demo-helm.yaml
   - ../../../argo-apps/base/otel-collector-traces-app.yaml
   - ../../../argo-apps/base/prometheus-rules-app.yaml
   - ../../../argo-apps/base/pyroscope-helm.yaml
