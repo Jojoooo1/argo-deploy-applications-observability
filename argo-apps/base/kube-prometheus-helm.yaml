@@ -18,7 +18,7 @@ spec:
   source:
     chart: kube-prometheus-stack
     repoURL: "https://prometheus-community.github.io/helm-charts"
-    targetRevision: 57.0.2
+    targetRevision: 57.0.3
     
     # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
     helm:
@@ -406,7 +406,7 @@ spec:
                 prometheus.io/scrap-with: kube-prometheus-stack
 
 
-        ## Node component ## Controle plane https://kubernetes.io/docs/concepts/overview/components/#control-plane-components ##  ## 
+        ## Node component: https://kubernetes.io/docs/concepts/overview/components/#node-components ##
         
         # Manage deployment of pods to Kubernetes nodes. It receives commands from the API server and instructs the container runtime to start/stop containers
         # It pulls node, pod, and container metrics
@@ -418,8 +418,8 @@ spec:
             additionalLabels:
               prometheus.io/scrap-with: kube-prometheus-stack
 
-        # Network proxy that runs on each node.
-        # Depending on managed provider can be accessed or not. 
+        # Network proxy that runs on each node that maintains the network rules.
+        # kube-proxy
         kubeProxy:
           enabled: false
           serviceMonitor:
@@ -428,7 +428,7 @@ spec:
               prometheus.io/scrap-with: kube-prometheus-stack
 
 
-        ## Controle plane https://kubernetes.io/docs/concepts/overview/components/#control-plane-components ## 
+        ## Controle plane components: https://kubernetes.io/docs/concepts/overview/components/#control-plane-components ## 
         ## k3s https://docs.k3s.io/installation/requirements#inbound-rules-for-k3s-server-nodes ##
 
         # kubernetes API
