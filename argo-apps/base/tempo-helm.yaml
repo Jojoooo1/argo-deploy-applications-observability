@@ -48,6 +48,7 @@ spec:
           #       bucket_name: <bucket_name>
 
           # Create metrics based on traces (traces_spanmetrics_latency_count, traces_spanmetrics_latency_count [...])
+          # Disable if use otel.connectors.spanmetrics
           metricsGenerator:
             enabled: true
             remoteWriteUrl: "http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write"
