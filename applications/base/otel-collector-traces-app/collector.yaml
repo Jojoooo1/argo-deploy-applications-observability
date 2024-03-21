@@ -101,6 +101,7 @@ spec:
             batch:
               exporter:
                 otlp:
+                  protocol: grpc/protobuf
                   endpoint: tempo.observability:4317
 
       # add healthcheck, debugging port and pprof endpoints
