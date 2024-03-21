@@ -35,10 +35,11 @@ spec:
   config: |
     # if you are using tempo disable tempo.metricsGenerator
     connectors:
+      
+      # Adapted to use spring micrometer tracing (migrate to otel sdk for better integration)
       spanmetrics:
         namespace: span.metrics # necessary for spanmetrics to work (probably a bug in the collector)
 
-        # Adapt to spring micrometer tracing
         exclude_dimensions: ['status.code']
         dimensions:
           - name: outcome
@@ -47,7 +48,7 @@ spec:
           - name: uri
           - name: exception
         
-        # Create span_metrics_events_total counter
+        # Create span_metrics_events_total containing span.event content
         # events:
         #   enabled: true
         #   dimensions:
@@ -60,13 +61,13 @@ spec:
           grpc:
           http:
 
-      # Collect own metrics
+      # Scrape collector metrics
       prometheus:
-        # trim_metric_suffixes: true
+        # trim_metric_suffixes: true # singing_duration_seconds_total to be trimmed to singing_duration
         config:
           scrape_configs:
             - job_name: 'otel-collector-traces'
-              scrape_interval: 5s
+              scrape_interval: 10s
               static_configs:
                 - targets: [":8888"]
 
@@ -88,10 +89,10 @@ spec:
           insecure: true
 
       # Use this exporter if you want to send otlp metrics to prometheus.
-      # otlphttp/prometheus:
-      #   endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
-      #   tls:
-      #     insecure: true
+      otlphttp/prometheus:
+        endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
+        tls:
+          insecure: true
 
       prometheusremotewrite:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
