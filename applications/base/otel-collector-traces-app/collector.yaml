@@ -43,6 +43,8 @@ spec:
         exclude_dimensions: ['status.code']
         dimensions:
           - name: status
+          - name: uri
+          # - name: exception
         resource_metrics_key_attributes:
           - service.name
           - telemetry.sdk.language
