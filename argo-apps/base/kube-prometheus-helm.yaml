@@ -30,7 +30,7 @@ spec:
         grafana:
           fullnameOverride: grafana
           image:
-            tag: 10.4.0
+            tag: 10.4.1
 
           # resources:
           #   requests: 
