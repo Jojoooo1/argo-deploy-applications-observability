@@ -45,11 +45,7 @@ spec:
           - name: status
           - name: http.url
           - name: uri
-          # - name: exception
-        resource_metrics_key_attributes:
-          - service.name
-          - telemetry.sdk.language
-          - telemetry.sdk.name
+          - name: exception
         events:
           enabled: true
           dimensions:
