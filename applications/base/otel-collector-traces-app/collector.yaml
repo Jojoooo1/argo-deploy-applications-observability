@@ -36,7 +36,8 @@ spec:
     # if you are using tempo disable tempo.metricsGenerator
     connectors:
       spanmetrics:
-
+        namespace: span.metrics
+  
     receivers:
       otlp:
         protocols:
@@ -78,6 +79,8 @@ spec:
 
       prometheusremotewrite:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
+        target_info:
+          enabled: true
         tls:
           insecure: true
 
