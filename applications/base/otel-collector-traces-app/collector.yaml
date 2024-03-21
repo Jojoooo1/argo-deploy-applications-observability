@@ -47,6 +47,9 @@ spec:
 
       # Collect own metrics
       prometheus:
+        trim_metric_suffixes: true
+        use_start_time_metric: true
+        start_time_metric_regex: .*
         config:
           scrape_configs:
             - job_name: 'otel-collector-traces'
@@ -104,15 +107,15 @@ spec:
           insecure: true
 
       # Use this exporter if you want to send otlp metrics to prometheus.
-      # otlphttp/prometheus:
-      #   endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
-      #   tls:
-      #     insecure: true
+      otlphttp/prometheus:
+        endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
+        # tls:
+        #   insecure: true
 
-      prometheusremotewrite:
-        endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
-        resource_to_telemetry_conversion:
-          enabled: true
+      # prometheusremotewrite:
+      #   endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
+      #   resource_to_telemetry_conversion:
+      #     enabled: true
 
     extensions:
       health_check:
