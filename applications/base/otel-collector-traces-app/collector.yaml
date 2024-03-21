@@ -47,7 +47,12 @@ spec:
           - service.name
           - telemetry.sdk.language
           - telemetry.sdk.name
-
+        events:
+          enabled: true
+          dimensions:
+            - name: exception.type
+            - name: exception.message
+          
     receivers:
       otlp:
         protocols:
