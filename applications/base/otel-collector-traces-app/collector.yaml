@@ -43,6 +43,7 @@ spec:
         exclude_dimensions: ['status.code']
         dimensions:
           - name: status
+          - name: http.url
           - name: uri
           # - name: exception
         resource_metrics_key_attributes:
