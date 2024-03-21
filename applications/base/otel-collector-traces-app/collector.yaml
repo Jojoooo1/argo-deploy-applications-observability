@@ -46,6 +46,7 @@ spec:
           - name: http.url
           - name: uri
           - name: exception
+          - name: outcome
         events:
           enabled: true
           dimensions:
