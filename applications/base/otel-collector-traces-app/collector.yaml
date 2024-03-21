@@ -36,22 +36,24 @@ spec:
     # if you are using tempo disable tempo.metricsGenerator
     connectors:
       spanmetrics: # span_metrics_duration_milliseconds_bucket
-        # necessary for spanmetrics
-        namespace: span.metrics
+        # necessary for spanmetrics to work
+        # namespace: span.metrics
 
-        # adapt to spring micrometer tracing
+        # Adapt to spring micrometer tracing
         exclude_dimensions: ['status.code']
         dimensions:
+          - name: outcome
           - name: status
           - name: http.url
           - name: uri
           - name: exception
-          - name: outcome
-        events:
-          enabled: true
-          dimensions:
-            - name: exception.type
-            - name: exception.message
+        
+        # Create span_metrics_events_total counter
+        # events:
+        #   enabled: true
+        #   dimensions:
+        #     - name: exception.type
+        #     - name: exception.message
           
     receivers:
       otlp:
