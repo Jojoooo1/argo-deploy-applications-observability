@@ -79,10 +79,11 @@ spec:
 
       prometheusremotewrite:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
-        # target_info:
-        #   enabled: true
         tls:
           insecure: true
+        # necessary for spanmetrics
+        target_info: 
+          enabled: true
 
     extensions:
       health_check:
