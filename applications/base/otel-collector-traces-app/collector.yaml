@@ -105,15 +105,15 @@ spec:
           insecure: true
 
       # Use this exporter if you want to send otlp metrics to prometheus.
-      # otlphttp/prometheus:
-      #   endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
-      #   tls:
-      #     insecure: true
-
-      prometheusremotewrite:
-        endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
+      otlphttp/prometheus:
+        endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
         tls:
           insecure: true
+
+      # prometheusremotewrite:
+      #   endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
+      #   tls:
+      #     insecure: true
 
     extensions:
       health_check:
@@ -139,4 +139,4 @@ spec:
         metrics:
           receivers: [prometheus, spanmetrics]
           processors: [k8sattributes, batch, memory_limiter]
-          exporters: [prometheusremotewrite, debug]
+          exporters: [otlphttp/prometheus, debug]
