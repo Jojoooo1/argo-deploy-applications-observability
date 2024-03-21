@@ -58,30 +58,7 @@ spec:
                 - targets: ["${env:MY_POD_IP}:8888"]
 
     processors:
-      k8sattributes:
-        auth_type: "serviceAccount"
-        passthrough: false
-        extract:
-          metadata:
-            - k8s.pod.name
-            - k8s.pod.uid
-            - k8s.deployment.name
-            - k8s.namespace.name
-            - k8s.node.name
-            - k8s.pod.start_time
-          labels:
-            - tag_name: app.label.component
-              key: app.kubernetes.io/component
-              from: pod
-        pod_association:
-          - sources:
-              - from: resource_attribute
-                name: k8s.pod.ip
-          - sources:
-              - from: resource_attribute
-                name: k8s.pod.uid
-          - sources:
-              - from: connection
+      k8sattributes/default:
 
       batch:
         timeout: 200ms
@@ -91,12 +68,6 @@ spec:
         check_interval: 1s
         limit_percentage: 75
         spike_limit_percentage: 15
-
-    # resource:
-    #   attributes:
-    #     - key: otel.provider
-    #       value: otel-collector-traces
-    #       action: upsert
 
     exporters:
       debug:
@@ -109,8 +80,6 @@ spec:
       # Use this exporter if you want to send otlp metrics to prometheus.
       otlphttp/prometheus:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
-        # tls:
-        #   insecure: true
 
       # prometheusremotewrite:
       #   endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
