@@ -5,5 +5,4 @@ namespace: observability
 
 resources:
   - rbac-collector.yaml
-  - rbac-ta.yaml
   - collector.yaml
