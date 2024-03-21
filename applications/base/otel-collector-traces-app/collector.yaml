@@ -36,7 +36,6 @@ spec:
     # if you are using tempo disable tempo.metricsGenerator
     connectors:
       spanmetrics:
-        namespace: span.metrics
   
     receivers:
       otlp:
