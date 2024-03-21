@@ -80,8 +80,6 @@ spec:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
         tls:
           insecure: true
-        # resource_to_telemetry_conversion:
-        #   enabled: true
 
     extensions:
       health_check:
