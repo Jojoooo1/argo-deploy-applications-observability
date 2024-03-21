@@ -105,15 +105,18 @@ spec:
           insecure: true
 
       # Use this exporter if you want to send otlp metrics to prometheus.
-      otlphttp/prometheus:
-        endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
-        tls:
-          insecure: true
-
-      # prometheusremotewrite:
-      #   endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
+      # otlphttp/prometheus:
+      #   endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
       #   tls:
       #     insecure: true
+
+      prometheusremotewrite:
+        endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
+        tls:
+          insecure: true
+        # Convert resource attributes to metric labels
+        resource_to_telemetry_conversion:
+          enabled: true 
 
     extensions:
       health_check:
