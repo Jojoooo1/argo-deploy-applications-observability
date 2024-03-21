@@ -141,4 +141,4 @@ spec:
         metrics:
           receivers: [prometheus, spanmetrics]
           processors: [k8sattributes, batch, memory_limiter]
-          exporters: [prometheusremotewrite, debug]
+          exporters: [otlphttp/prometheus, debug]
