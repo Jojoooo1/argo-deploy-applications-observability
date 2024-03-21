@@ -36,8 +36,10 @@ spec:
     # if you are using tempo disable tempo.metricsGenerator
     connectors:
       spanmetrics: # span_metrics_duration_milliseconds_bucket
+        # necessary for spanmetrics
         namespace: span.metrics
-  
+        dimensions:
+          - name: status
     receivers:
       otlp:
         protocols:
