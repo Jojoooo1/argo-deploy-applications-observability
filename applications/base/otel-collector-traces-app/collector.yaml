@@ -98,7 +98,7 @@ spec:
       telemetry:
         metrics:
           level: detailed
-          address: ${env:MY_POD_IP}:8888
+          address: "${env:MY_POD_IP}:8888"
 
       # add healthcheck, debugging port and pprof endpoints
       extensions: [health_check, zpages, pprof]
