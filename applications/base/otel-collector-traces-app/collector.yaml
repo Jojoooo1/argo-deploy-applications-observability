@@ -102,7 +102,7 @@ spec:
               exporter:
                 otlp:
                   protocol: grpc/protobuf
-                  endpoint: ${env:MY_POD_IP}:4318
+                  endpoint: ${env:MY_POD_IP}:4317
 
       # add healthcheck, debugging port and pprof endpoints
       extensions: [health_check, zpages, pprof]
