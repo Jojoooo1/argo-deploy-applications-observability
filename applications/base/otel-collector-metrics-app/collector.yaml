@@ -74,7 +74,7 @@ spec:
                 - targets: ["${env:MY_POD_IP}:8888"]
 
     processors:
-      resource_attribute:
+      k8sattributes:
       batch:
         timeout: 200ms
       # drop metrics if memory usage gets too high
