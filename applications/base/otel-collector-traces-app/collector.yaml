@@ -59,9 +59,7 @@ spec:
       k8sattributes:
       batch:
         timeout: 200ms
-
-      # drop metrics if memory usage gets too high
-      memory_limiter:
+      memory_limiter: # drop metrics if memory usage gets too high
         check_interval: 1s
         limit_percentage: 75
         spike_limit_percentage: 15
@@ -82,12 +80,10 @@ spec:
 
       prometheusremotewrite:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
-        target_info:
-          enabled: true
-        resource_to_telemetry_conversion:
-          enabled: true
         tls:
           insecure: true
+        # resource_to_telemetry_conversion:
+        #   enabled: true
 
     extensions:
       health_check:
