@@ -18,7 +18,8 @@ rules:
     - services
     - endpoints
     - pods
-    - replicasets
+    - namespaces
+    - replicasets.app
     verbs: ["get", "list", "watch"]
 
   - apiGroups: [""]
