@@ -98,6 +98,13 @@ spec:
           encoding: json
         metrics:
           level: detailed
+        traces:
+          processors:
+            batch:
+              exporter:
+                otlp:
+                  protocol: grpc/protobuf
+                  endpoint: ${MY_POD_IP}:4317
 
       # add healthcheck, debugging port and pprof endpoints
       extensions: [health_check, zpages, pprof]
