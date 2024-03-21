@@ -20,6 +20,7 @@ spec:
       selfHeal: true
 
   sources:
+    # Operator
     - chart: opentelemetry-operator
       repoURL: https://open-telemetry.github.io/opentelemetry-helm-charts
       targetRevision: 0.49.1
@@ -32,6 +33,7 @@ spec:
         valuesObject:
           fullnameOverride: opentelemetry-operator
 
+    # Collector
     - repoURL: ${ARGOCD_ENV_GITHUB_REPO}/argo-deploy-applications-observability.git
       targetRevision: main
       path: applications/overlays/local/otel-collector-traces-app
