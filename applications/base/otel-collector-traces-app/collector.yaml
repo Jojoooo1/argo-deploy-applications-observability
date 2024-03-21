@@ -38,8 +38,9 @@ spec:
       spanmetrics: # span_metrics_duration_milliseconds_bucket
         # necessary for spanmetrics
         namespace: span.metrics
+
         # adapt to spring micrometer tracing
-        exclude_dimensions: ['status_code']
+        exclude_dimensions: ['status.code']
         dimensions:
           - name: status
         resource_metrics_key_attributes:
