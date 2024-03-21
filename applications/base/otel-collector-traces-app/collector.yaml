@@ -35,9 +35,8 @@ spec:
   config: |
     # if you are using tempo disable tempo.metricsGenerator
     connectors:
-      spanmetrics: # span_metrics_duration_milliseconds_bucket
-        # necessary for spanmetrics to work
-        # namespace: span.metrics
+      spanmetrics:
+        namespace: span.metrics # necessary for spanmetrics to work (probably a bug in the collector)
 
         # Adapt to spring micrometer tracing
         exclude_dimensions: ['status.code']
