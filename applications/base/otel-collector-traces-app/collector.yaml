@@ -107,9 +107,9 @@ spec:
       pipelines:
         traces:
           receivers: [otlp]
-          processors: [k8sattributes/default, batch, memory_limiter]
+          processors: [k8sattributes, batch, memory_limiter]
           exporters: [otlp, spanmetrics]
         metrics:
           receivers: [prometheus, spanmetrics]
-          processors: [k8sattributes/default, batch, memory_limiter]
+          processors: [k8sattributes, batch, memory_limiter]
           exporters: [prometheusremotewrite, debug]
