@@ -106,7 +106,7 @@ spec:
             - name: Tempo
               uid: tempo
               type: tempo
-              access: proxy
+              # access: proxy
               url: http://tempo.observability.svc:3100
               jsonData:
                 # tracesToLogsV2:
