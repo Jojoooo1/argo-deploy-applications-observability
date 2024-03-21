@@ -5,7 +5,7 @@ metadata:
 spec:
   # https://github.com/open-telemetry/opentelemetry-operator/blob/main/docs/api.md
   mode: deployment
-  
+  serviceAccount: opentelemetry-collector-sa
   env:
     - name: MY_POD_IP
       valueFrom:
