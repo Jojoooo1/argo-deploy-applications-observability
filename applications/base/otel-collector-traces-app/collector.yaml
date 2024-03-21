@@ -40,10 +40,10 @@ spec:
         namespace: span.metrics
         dimensions:
           - name: status
-      resource_metrics_key_attributes:
-        - service.name
-        - telemetry.sdk.language
-        - telemetry.sdk.name
+        resource_metrics_key_attributes:
+          - service.name
+          - telemetry.sdk.language
+          - telemetry.sdk.name
 
     receivers:
       otlp:
