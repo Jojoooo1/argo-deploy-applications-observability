@@ -56,8 +56,8 @@ spec:
           adminUser: admin
           adminPassword: password
           grafana.ini:
-            feature_toggles:
-              enable: panelTitleSearch nestedFolders lokiExperimentalStreaming storage traceToMetrics lokiQuerySplittingConfig lokiFormatQuery traceQLStreaming metricsSummary featureToggleAdminPage enableNativeHTTPHistogram prometheusPromQAIL logsInfiniteScrolling enablePluginsTracingByDefault scenes extraThemes dashgpt
+            feature_toggles: # traceQLStreaming
+              enable: panelTitleSearch nestedFolders lokiExperimentalStreaming storage traceToMetrics lokiQuerySplittingConfig lokiFormatQuery metricsSummary featureToggleAdminPage enableNativeHTTPHistogram prometheusPromQAIL logsInfiniteScrolling enablePluginsTracingByDefault scenes extraThemes dashgpt
 
           # Dashboards
           defaultDashboardsTimezone: browser
@@ -106,7 +106,7 @@ spec:
             - name: Tempo
               uid: tempo
               type: tempo
-              # access: proxy
+              access: proxy
               url: http://tempo.observability.svc:3100
               jsonData:
                 # tracesToLogsV2:
