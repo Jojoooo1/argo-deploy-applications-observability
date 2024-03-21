@@ -467,6 +467,6 @@ spec:
             kubeSchedulerAlerting: false
             kubeSchedulerRecording: false
           
-destination:
-  server: "https://kubernetes.default.svc"
-  namespace: observability
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: observability
