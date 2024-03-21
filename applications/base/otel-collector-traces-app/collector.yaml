@@ -78,11 +78,14 @@ spec:
       # Use this exporter if you want to send otlp metrics to prometheus.
       otlphttp/prometheus:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
-
+        tls:
+          insecure: true
       # prometheusremotewrite:
       #   endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
       #   resource_to_telemetry_conversion:
       #     enabled: true
+      #   tls:
+      #     insecure: true
 
     extensions:
       health_check:
@@ -96,13 +99,13 @@ spec:
           encoding: json
         metrics:
           level: detailed
-        traces:
-          processors:
-            batch:
-              exporter:
-                otlp:
-                  protocol: grpc/protobuf
-                  endpoint: tempo.observability:4317
+        # traces:
+        #   processors:
+        #     batch:
+        #       exporter:
+        #         otlp:
+        #           protocol: grpc/protobuf
+        #           endpoint: tempo.observability:4317
 
       # add healthcheck, debugging port and pprof endpoints
       extensions: [health_check, zpages, pprof]
