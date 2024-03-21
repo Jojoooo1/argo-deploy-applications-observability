@@ -19,8 +19,8 @@ spec:
   autoscaler:
     minReplicas: 1
     maxReplicas: 3
-    targetCPUUtilizationPercentage: 80
-    targetMemoryUtilizationPercentage: 80
+    targetCPUUtilization: 80
+    targetMemoryUtilization: 80
 
   resources:
     requests:

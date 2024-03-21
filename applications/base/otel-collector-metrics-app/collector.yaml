@@ -1,5 +1,5 @@
 apiVersion: opentelemetry.io/v1alpha1
-kind: OpenTelemetryCollector
+kind: OpenTelemetryCollector # https://github.com/open-telemetry/opentelemetry-operator/blob/main/docs/api.md#opentelemetrycollector
 metadata:
   name: otel-collector-metrics
 spec:
@@ -41,8 +41,8 @@ spec:
   autoscaler:
     minReplicas: 1
     maxReplicas: 3
-    targetCPUUtilizationPercentage: 80
-    targetMemoryUtilizationPercentage: 80
+    targetCPUUtilization: 80
+    targetMemoryUtilization: 80
 
   resources:
     requests:
