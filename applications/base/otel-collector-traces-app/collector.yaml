@@ -35,7 +35,8 @@ spec:
   config: |
     # if you are using tempo disable tempo.metricsGenerator
     connectors:
-      spanmetrics:
+      spanmetrics: # span_metrics_duration_milliseconds_bucket
+        namespace: span.metrics
   
     receivers:
       otlp:
