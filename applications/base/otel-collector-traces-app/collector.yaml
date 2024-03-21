@@ -130,7 +130,7 @@ spec:
         traces:
           receivers: [otlp]
           processors: [k8sattributes, k8sattributes/2, batch, memory_limiter]
-          exporters: [otlp, spanmetrics]
+          exporters: [otlp, spanmetrics, debug]
         metrics:
           receivers: [prometheus, spanmetrics]
           processors: [k8sattributes, k8sattributes/2, batch, memory_limiter]
