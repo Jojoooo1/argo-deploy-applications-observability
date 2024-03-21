@@ -56,8 +56,8 @@ spec:
           adminUser: admin
           adminPassword: password
           grafana.ini:
-            feature_toggles: # traceQLStreaming
-              enable: panelTitleSearch nestedFolders lokiExperimentalStreaming storage traceToMetrics lokiQuerySplittingConfig lokiFormatQuery metricsSummary featureToggleAdminPage enableNativeHTTPHistogram prometheusPromQAIL logsInfiniteScrolling enablePluginsTracingByDefault scenes extraThemes dashgpt
+            feature_toggles: # traceQLStreaming lokiExperimentalStreaming
+              enable: panelTitleSearch nestedFolders  storage traceToMetrics lokiQuerySplittingConfig lokiFormatQuery metricsSummary featureToggleAdminPage enableNativeHTTPHistogram prometheusPromQAIL logsInfiniteScrolling enablePluginsTracingByDefault scenes extraThemes dashgpt
 
           # Dashboards
           defaultDashboardsTimezone: browser
