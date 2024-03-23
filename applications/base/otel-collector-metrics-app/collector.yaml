@@ -118,7 +118,7 @@ spec:
 
       prometheusremotewrite:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
-        # Add k8sattributes to metric labels
+        # Add k8sattributes to metric labels (be very carefull with quantity of labels, by default java agent sends lots of resource labels)
         resource_to_telemetry_conversion: 
           enabled: true
         tls:
