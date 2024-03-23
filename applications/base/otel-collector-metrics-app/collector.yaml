@@ -87,7 +87,9 @@ spec:
 
       prometheusremotewrite:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
-        resource_to_telemetry_conversion: "true" # necessary for k8sattributes
+        # necessary for k8sattributes
+        resource_to_telemetry_conversion: 
+          enabled: "true" 
         tls:
           insecure: true
 
