@@ -34,20 +34,26 @@ spec:
       spanmetrics:
         namespace: span.metrics # necessary for spanmetrics to work (probably a bug in the collector)
 
-      #   exclude_dimensions: ['status.code']
-      #   dimensions:
-      #     - name: outcome
-      #     - name: status
-      #     - name: http.url
-      #     - name: uri
-      #     - name: exception
+        exclude_dimensions: ['status.code']
+
+        # For micrometer
+        #   dimensions:
+        #     - name: outcome
+        #     - name: status
+        #     - name: http.url
+        #     - name: uri
+        #     - name: exception
+          
+        dimensions:
+          - name: http.response.status_code
+
         
-      #   # Create span_metrics_events_total containing span.event content
-      #   # events:
-      #   #   enabled: true
-      #   #   dimensions:
-      #   #     - name: exception.type
-      #   #     - name: exception.message
+        # Create span_metrics_events_total containing span.event content
+        # events:
+        #   enabled: true
+        #   dimensions:
+        #     - name: exception.type
+        #     - name: exception.message
           
     receivers:
       otlp:
@@ -57,7 +63,8 @@ spec:
 
       # Scrape collector metrics
       prometheus:
-        # trim_metric_suffixes: true # singing_duration_seconds_total to be trimmed to singing_duration
+        # Used for otel dashboard  to be compatible.
+        trim_metric_suffixes: true # otelcol_process_cpu_seconds_total to be trimmed to otelcol_process_cpu_seconds
         config:
           scrape_configs:
             - job_name: 'otel-collector-traces'
@@ -112,9 +119,9 @@ spec:
       pipelines:
         traces:
           receivers: [otlp]
-          processors: [batch, memory_limiter]
+          processors: [k8sattributes, batch, memory_limiter]
           exporters: [otlp, spanmetrics, debug]
         metrics:
-          receivers: [prometheus, spanmetrics]
+          receivers: [otlp, prometheus, spanmetrics]
           processors: [k8sattributes, batch, memory_limiter]
-          exporters: [prometheusremotewrite, debug]
+          exporters: [otlphttp/prometheus, debug]
