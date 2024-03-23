@@ -5,7 +5,7 @@ metadata:
   namespace: observability
 spec:
   mode: statefulset # Only allowed mode with targetAllocator
-  serviceAccount: opentelemetry-collector-sa
+  serviceAccount: collector-ta
   env:
     - name: GOMEMLIMIT
       value: 205MiB # should be 80% of memory limit
