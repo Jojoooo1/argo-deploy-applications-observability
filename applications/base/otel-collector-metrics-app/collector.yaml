@@ -103,6 +103,7 @@ spec:
       
     exporters:
       debug:
+        verbosity: detailed
 
       # Use this exporter if you want to send otlp metrics to prometheus.
       otlphttp/prometheus:
@@ -140,5 +141,5 @@ spec:
       pipelines:
         metrics:
           receivers: [prometheus, otlp]
-          processors: [k8sattributes, batch, memory_limiter]
+          processors: [k8sattributes, batch]
           exporters: [otlphttp/prometheus, debug]
