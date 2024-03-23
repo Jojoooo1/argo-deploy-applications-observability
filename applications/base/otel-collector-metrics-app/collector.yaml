@@ -68,9 +68,8 @@ spec:
                 - targets: [":8888"]
 
     processors:
-      processors:
-        resourcedetection/env:
-            detectors: [env]
+      resourcedetection/env:
+          detectors: [env]
 
       k8sattributes:
         extract:
