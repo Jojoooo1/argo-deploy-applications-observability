@@ -18,6 +18,10 @@ rules:
       - endpoints
       - pods
     verbs: ["get", "list", "watch"]
+  # added (not present in github)
+  - apiGroups: ["apps"]
+    resources: ["replicasets"]
+    verbs: ["get", "list", "watch"]
   - apiGroups: [""]
     resources:
       - configmaps
