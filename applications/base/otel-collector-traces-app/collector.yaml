@@ -31,7 +31,7 @@ spec:
     # if you are using tempo disable tempo.metricsGenerator
     connectors:
       spanmetrics:
-        # namespace: span.metrics # necessary for spanmetrics to work (probably a bug in the collector)
+        namespace: span.metrics # necessary for spanmetrics to work (probably a bug in the collector)
 
         exclude_dimensions: ['status.code']
         dimensions:
