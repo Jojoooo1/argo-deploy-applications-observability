@@ -32,7 +32,7 @@ spec:
     connectors:
       # Adapted to use spring micrometer tracing (migrate to otel sdk for better integration)
       spanmetrics:
-      #   namespace: span.metrics # necessary for spanmetrics to work (probably a bug in the collector)
+        namespace: span.metrics # necessary for spanmetrics to work (probably a bug in the collector)
 
       #   exclude_dimensions: ['status.code']
       #   dimensions:
@@ -112,7 +112,7 @@ spec:
       pipelines:
         traces:
           receivers: [otlp]
-          processors: [k8sattributes, batch, memory_limiter]
+          processors: [batch, memory_limiter]
           exporters: [otlp, spanmetrics, debug]
         metrics:
           receivers: [prometheus, spanmetrics]
