@@ -132,7 +132,7 @@ spec:
       extensions: [health_check, pprof, zpages]
       telemetry:
         logs:
-          encoding: json
+          # encoding: json
           level: debug
         metrics:
           level: basic # expose collector metrics on port 8888
