@@ -122,6 +122,6 @@ spec:
           processors: [k8sattributes, batch, memory_limiter]
           exporters: [otlp, spanmetrics, debug]
         metrics:
-          receivers: [otlp, prometheus, spanmetrics]
+          receivers: [prometheus, spanmetrics]
           processors: [k8sattributes, batch, memory_limiter]
           exporters: [otlphttp/prometheus, debug]
