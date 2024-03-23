@@ -68,7 +68,9 @@ spec:
                 - targets: [":8888"]
 
     processors:
-      # k8sattributes:
+      processors:
+        resourcedetection/env:
+            detectors: [env]
 
       k8sattributes:
         extract:
@@ -140,5 +142,5 @@ spec:
       pipelines:
         metrics:
           receivers: [prometheus, otlp]
-          processors: [k8sattributes, batch]
+          processors: [resourcedetection/env, k8sattributes, batch]
           exporters: [otlphttp/prometheus, debug]
