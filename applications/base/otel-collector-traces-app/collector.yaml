@@ -96,9 +96,13 @@ spec:
           enabled: true
 
     # add healthcheck, debugging port and pprof endpoints
-    extensions: [health_check, zpages, pprof]
+    extensions:
+      health_check:
+      pprof:
+      zpages:
 
     service:
+      extensions: [health_check, pprof, zpages]
       telemetry:
         logs:
           encoding: json
