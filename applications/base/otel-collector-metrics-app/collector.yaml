@@ -75,6 +75,7 @@ spec:
           value: "otel-collector-metrics"
           action: upsert
 
+      # https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/k8sattributesprocessor/README.md
       k8sattributes:
         extract:
           metadata:
@@ -89,9 +90,9 @@ spec:
           - k8s.pod.uid
         passthrough: false
         pod_association:
-        # - sources:
-        #   - from: resource_attribute
-        #     name: k8s.pod.ip
+        - sources:
+          - from: resource_attribute
+            name: k8s.pod.ip
         - sources:
           - from: resource_attribute
             name: k8s.pod.uid
@@ -101,9 +102,9 @@ spec:
       batch:
         timeout: 200ms
       memory_limiter: # drop metrics if memory usage gets too high
-        check_interval: 1s
-        limit_percentage: 75
-        spike_limit_percentage: 15
+        check_interval: 5s
+        limit_percentage: 80
+        spike_limit_percentage: 25
       
     exporters:
       debug:
@@ -133,8 +134,8 @@ spec:
       extensions: [health_check, pprof, zpages]
       telemetry:
         logs:
-          # encoding: json
-          level: debug
+          encoding: json
+          # level: debug
         metrics:
           level: basic # expose collector metrics on port 8888
           address: :8888
@@ -142,5 +143,5 @@ spec:
       pipelines:
         metrics:
           receivers: [prometheus, otlp]
-          processors: [k8sattributes, resource, batch] # memory_limiter
+          processors: [k8sattributes, resource, batch, memory_limiter]
           exporters: [prometheusremotewrite, debug]

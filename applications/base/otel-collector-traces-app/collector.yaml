@@ -70,7 +70,37 @@ spec:
                 - targets: [":8888"]
 
     processors:
+      # https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/resourcedetectionprocessor/README.md#resource-detection-processor
+      resource:
+        attributes:
+        - key: collector.name
+          value: "otel-collector-metrics"
+          action: upsert
+
+      # https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/k8sattributesprocessor/README.md
       k8sattributes:
+        extract:
+          metadata:
+          - k8s.namespace.name
+          - k8s.deployment.name
+          - k8s.statefulset.name
+          - k8s.daemonset.name
+          - k8s.cronjob.name
+          - k8s.job.name
+          - k8s.node.name
+          - k8s.pod.name
+          - k8s.pod.uid
+        passthrough: false
+        pod_association:
+        - sources:
+          - from: resource_attribute
+            name: k8s.pod.ip
+        - sources:
+          - from: resource_attribute
+            name: k8s.pod.uid
+        - sources:
+          - from: connection
+
       batch:
         timeout: 200ms
       memory_limiter: # drop metrics if memory usage gets too high
@@ -94,6 +124,9 @@ spec:
 
       prometheusremotewrite:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
+        # Add k8sattributes to metric labels
+        resource_to_telemetry_conversion: 
+          enabled: true
         tls:
           insecure: true
         target_info:  # necessary for spanmetrics
@@ -110,6 +143,7 @@ spec:
       telemetry:
         logs:
           encoding: json
+          # level: debug
         metrics:
           level: basic # expose collector metrics on port 8888
 
@@ -120,5 +154,5 @@ spec:
           exporters: [otlp, spanmetrics, debug]
         metrics:
           receivers: [prometheus, spanmetrics]
-          processors: [k8sattributes, batch, memory_limiter]
-          exporters: [otlphttp/prometheus, debug]
+          processors: [k8sattributes, resource, batch, memory_limiter]
+          exporters: [prometheusremotewrite, debug]
