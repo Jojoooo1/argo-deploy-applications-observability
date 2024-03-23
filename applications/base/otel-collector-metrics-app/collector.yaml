@@ -123,6 +123,8 @@ spec:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
         tls:
           insecure: true
+        resource_to_telemetry_conversion: 
+          enabled: "true" 
 
       prometheusremotewrite:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
@@ -154,5 +156,5 @@ spec:
       pipelines:
         metrics:
           receivers: [prometheus, otlp]
-          processors: [resourcedetection/docker, resource, k8sattributes, batch]
+          processors: [resourcedetection/docker, resource, batch]
           exporters: [otlphttp/prometheus, debug]
