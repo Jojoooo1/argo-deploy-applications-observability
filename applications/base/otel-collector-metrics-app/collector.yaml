@@ -5,20 +5,15 @@ metadata:
   namespace: observability
 spec:
   mode: statefulset # Only allowed mode with targetAllocator
+  serviceAccount: opentelemetry-collector-sa
   env:
-    - name: MY_POD_IP
-      valueFrom:
-        fieldRef:
-          apiVersion: v1
-          fieldPath: status.podIP
-          env:
-
     - name: GOMEMLIMIT
       value: 205MiB # should be 80% of memory limit
 
-  # https://github.com/open-telemetry/opentelemetry-operator/blob/main/docs/api.md#opentelemetrycollectorspectargetallocator
+  # https://opentelemetry.io/docs/kubernetes/operator/target-allocator/
+  # https://github.com/open-telemetry/opentelemetry-operator/blob/main/cmd/otel-allocator/README.md
   # Migration blocked, can not scrape all target because of https://github.com/open-telemetry/opentelemetry-operator/issues/1844
-  serviceAccount: opentelemetry-collector-sa
+  # https://github.com/open-telemetry/opentelemetry-operator/blob/main/docs/api.md#opentelemetrycollectorspectargetallocator
   targetAllocator:
     enabled: true
     serviceAccount: opentelemetry-targetallocator-sa
@@ -60,44 +55,35 @@ spec:
       otlp:
         protocols:
           grpc:
-            endpoint: ${env:MY_POD_IP}:4317
           http:
-            endpoint: ${env:MY_POD_IP}:4318
 
-      # Collect own metrics
+      # Scrape collector metrics
       prometheus:
-        trim_metric_suffixes: true
+        # trim_metric_suffixes: true # singing_duration_seconds_total to be trimmed to singing_duration
         config:
           scrape_configs:
             - job_name: 'otel-collector-traces'
-              scrape_interval: 5s
+              scrape_interval: 10s
               static_configs:
-                - targets: ["${env:MY_POD_IP}:8888"]
+                - targets: [":8888"]
 
     processors:
       k8sattributes:
       batch:
         timeout: 200ms
-      # drop metrics if memory usage gets too high
-      memory_limiter:
+      memory_limiter: # drop metrics if memory usage gets too high
         check_interval: 1s
         limit_percentage: 75
         spike_limit_percentage: 15
-
-    resource:
-      attributes:
-        - key: otel.provider
-          value: otel-collector-metrics
-          action: insert
 
     exporters:
       debug:
 
       # Use this exporter if you want to send otlp metrics to prometheus.
-      # otlphttp/prometheus:
-      #   endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
-      #   tls:
-      #     insecure: true
+      otlphttp/prometheus:
+        endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
+        tls:
+          insecure: true
 
       prometheusremotewrite:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
@@ -108,15 +94,12 @@ spec:
     extensions: [health_check, zpages, pprof]
       
     service:
-      # expose collector metrics on port 8888
       telemetry:
+        logs:
+          encoding: json
         metrics:
-          # level: detailed
-          address: ${env:MY_POD_IP}:8888
-      
-      # add healthcheck, debugging port and pprof endpoints
-      extensions: [health_check, zpages, pprof]
-      
+          level: basic # expose collector metrics on port 8888
+
       pipelines:
         metrics:
           receivers: [prometheus]

@@ -3,17 +3,12 @@ kind: OpenTelemetryCollector
 metadata:
   name: otel-collector-traces
   namespace: observability
+
+# https://github.com/open-telemetry/opentelemetry-operator/blob/main/docs/api.md
 spec:
-  # https://github.com/open-telemetry/opentelemetry-operator/blob/main/docs/api.md
   mode: deployment
   serviceAccount: collector
-  env:
-    - name: MY_POD_IP
-      valueFrom:
-        fieldRef:
-          apiVersion: v1
-          fieldPath: status.podIP
-          
+  env:        
     - name: GOMEMLIMIT
       value: 205MiB # should be 80% of memory limit
 
@@ -35,25 +30,24 @@ spec:
   config: |
     # if you are using tempo disable tempo.metricsGenerator
     connectors:
-      
       # Adapted to use spring micrometer tracing (migrate to otel sdk for better integration)
-      spanmetrics:
-        namespace: span.metrics # necessary for spanmetrics to work (probably a bug in the collector)
+      # spanmetrics:
+      #   namespace: span.metrics # necessary for spanmetrics to work (probably a bug in the collector)
 
-        exclude_dimensions: ['status.code']
-        dimensions:
-          - name: outcome
-          - name: status
-          - name: http.url
-          - name: uri
-          - name: exception
+      #   exclude_dimensions: ['status.code']
+      #   dimensions:
+      #     - name: outcome
+      #     - name: status
+      #     - name: http.url
+      #     - name: uri
+      #     - name: exception
         
-        # Create span_metrics_events_total containing span.event content
-        # events:
-        #   enabled: true
-        #   dimensions:
-        #     - name: exception.type
-        #     - name: exception.message
+      #   # Create span_metrics_events_total containing span.event content
+      #   # events:
+      #   #   enabled: true
+      #   #   dimensions:
+      #   #     - name: exception.type
+      #   #     - name: exception.message
           
     receivers:
       otlp:
@@ -98,25 +92,18 @@ spec:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
         tls:
           insecure: true
-        # necessary for spanmetrics
-        target_info: 
+        target_info:  # necessary for spanmetrics
           enabled: true
 
-    extensions:
-      health_check:
-      pprof:
-      zpages:
+    # add healthcheck, debugging port and pprof endpoints
+    extensions: [health_check, zpages, pprof]
 
     service:
-      # expose collector metrics on port 8888
       telemetry:
         logs:
           encoding: json
         metrics:
-          level: detailed
-
-      # add healthcheck, debugging port and pprof endpoints
-      extensions: [health_check, zpages, pprof]
+          level: basic # expose collector metrics on port 8888
 
       pipelines:
         traces:
