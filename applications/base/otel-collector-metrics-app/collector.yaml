@@ -89,9 +89,9 @@ spec:
           - k8s.pod.uid
         passthrough: false
         pod_association:
-        - sources:
-          - from: resource_attribute
-            name: k8s.pod.ip
+        # - sources:
+        #   - from: resource_attribute
+        #     name: k8s.pod.ip
         - sources:
           - from: resource_attribute
             name: k8s.pod.uid
@@ -117,10 +117,7 @@ spec:
 
       prometheusremotewrite:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
-        # Add k8sattributes to metric label
-        # Metric example need to ne filtered! Or use OTEL_JAVA_DISABLED_RESOURCE_PROVIDERS=io.opentelemetry.instrumentation.resources.ProcessArguments,ProcessResource
-        # https://github.com/open-telemetry/opentelemetry-java/tree/main/sdk-extensions/autoconfigure#disabling-automatic-resourceproviders
-        # http_server_request_duration_seconds_count{host_arch="amd64", host_name="api-5bc96c6776-tftc7", http_request_method="GET", http_response_status_code="404", http_route="/*", job="api", k8s_namespace_name="cloud-diplomats", k8s_node_name="jonathan-xps-15-9500", k8s_pod_ip="10.42.0.53", k8s_pod_name="api-5bc96c6776-tftc7", k8s_pod_start_time="2024-03-23T18:35:32Z", k8s_pod_uid="2eb3edd6-c6e1-4fbd-a59e-22e7da4b1007", network_protocol_version="1.1", os_description="Linux 6.5.0-26-generic", os_type="linux", process_command_args="["/layers/paketo-buildpacks_bellsoft-liberica/jre/bin/java","org.springframework.boot.loader.launch.JarLauncher"]", process_executable_path="/layers/paketo-buildpacks_bellsoft-liberica/jre/bin/java", process_pid="1", process_runtime_description="BellSoft OpenJDK 64-Bit Server VM 21.0.2+14-LTS", process_runtime_name="OpenJDK Runtime Environment", process_runtime_version="21.0.2+14-LTS", service_name="api", telemetry_distro_name="opentelemetry-java-instrumentation", telemetry_distro_version="2.2.0", telemetry_sdk_language="java", telemetry_sdk_name="opentelemetry", telemetry_sdk_version="1.36.0", url_scheme="http"}
+        # Add k8sattributes to metric labels
         resource_to_telemetry_conversion: 
           enabled: true
         tls:
@@ -145,5 +142,5 @@ spec:
       pipelines:
         metrics:
           receivers: [prometheus, otlp]
-          processors: [resource, k8sattributes, batch] # memory_limiter
+          processors: [k8sattributes, resource, batch] # memory_limiter
           exporters: [prometheusremotewrite, debug]
