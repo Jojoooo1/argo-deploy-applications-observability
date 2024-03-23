@@ -69,20 +69,11 @@ spec:
 
     processors:
       # https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/resourcedetectionprocessor/README.md#resource-detection-processor
-      resourcedetection/docker:
-        detectors: [env, docker]
-        timeout: 2s
-        override: false
       resource:
         attributes:
-        - key: cloud.availability_zone
-          value: "zone-1"
+        - key: collector.name
+          value: "otel-collector-metrics"
           action: upsert
-        - key: k8s.cluster.name
-          from_attribute: k8s-cluster
-          action: insert
-        - key: redundant-attribute
-          action: delete
 
       k8sattributes:
         extract:
@@ -154,5 +145,5 @@ spec:
       pipelines:
         metrics:
           receivers: [prometheus, otlp]
-          processors: [resourcedetection/docker, resource, batch]
+          processors: [k8sattributes, resource, batch] # memory_limiter
           exporters: [prometheusremotewrite, debug]
