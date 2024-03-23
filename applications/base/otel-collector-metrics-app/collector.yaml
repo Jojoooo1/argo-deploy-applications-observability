@@ -14,17 +14,17 @@ spec:
   # https://github.com/open-telemetry/opentelemetry-operator/blob/main/cmd/otel-allocator/README.md
   # Migration blocked, can not scrape all target because of https://github.com/open-telemetry/opentelemetry-operator/issues/1844
   # https://github.com/open-telemetry/opentelemetry-operator/blob/main/docs/api.md#opentelemetrycollectorspectargetallocator
-  targetAllocator:
-    enabled: true
-    serviceAccount: opentelemetry-targetallocator-sa
-    prometheusCR:
-      enabled: true
-      serviceMonitorSelector:
-        matchLabels:
-          prometheus.io/scrap-with: otel-collector-metrics
-      podMonitorSelector:
-        matchLabels:
-          prometheus.io/scrap-with: otel-collector-metrics
+  # targetAllocator:
+  #   enabled: true
+  #   serviceAccount: opentelemetry-targetallocator-sa
+  #   prometheusCR:
+  #     enabled: true
+  #     serviceMonitorSelector:
+  #       matchLabels:
+  #         prometheus.io/scrap-with: otel-collector-metrics
+  #     podMonitorSelector:
+  #       matchLabels:
+  #         prometheus.io/scrap-with: otel-collector-metrics
     
     # resources:
     #   requests:
@@ -106,6 +106,6 @@ spec:
 
       pipelines:
         metrics:
-          receivers: [prometheus]
+          receivers: [otlp, prometheus]
           processors: [k8sattributes, batch, memory_limiter]
           exporters: [prometheusremotewrite, debug]
