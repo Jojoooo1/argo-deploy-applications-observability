@@ -29,9 +29,6 @@ spec:
       
       # https://opentelemetry.io/docs/kubernetes/operator/target-allocator/
       # https://github.com/open-telemetry/opentelemetry-operator/blob/main/cmd/otel-allocator/README.md
-      helm:
-        valuesObject:
-          fullnameOverride: opentelemetry-operator
 
     # Collector
     - repoURL: ${ARGOCD_ENV_GITHUB_REPO}/argo-deploy-applications-observability.git
