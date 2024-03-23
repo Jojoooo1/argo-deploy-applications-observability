@@ -106,6 +106,6 @@ spec:
 
       pipelines:
         metrics:
-          receivers: [otlp, prometheus]
+          receivers: [otlp]
           processors: [k8sattributes, batch, memory_limiter]
           exporters: [prometheusremotewrite, debug]
