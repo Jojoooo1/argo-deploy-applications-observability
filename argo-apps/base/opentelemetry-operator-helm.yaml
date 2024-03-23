@@ -38,9 +38,9 @@ spec:
         commonAnnotations:
           argocd.argoproj.io/sync-wave: "5"
 
-    # - repoURL: ${ARGOCD_ENV_GITHUB_REPO}/argo-deploy-applications-observability.git
-    #   targetRevision: main
-    #   path: applications/overlays/local/otel-collector-metrics-app
+    - repoURL: ${ARGOCD_ENV_GITHUB_REPO}/argo-deploy-applications-observability.git
+      targetRevision: main
+      path: applications/overlays/local/otel-collector-metrics-app
 
   destination:
     server: "https://kubernetes.default.svc"
