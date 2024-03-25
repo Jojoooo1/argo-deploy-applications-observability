@@ -28,14 +28,14 @@ spec:
 
   # https://www.otelbin.io/
   config: |
-    # if you are using tempo disable tempo.metricsGenerator
+    # if you are using tempo make sur to disable metricsGenerator
+    # and be carefull with resource consumption
     connectors:
-      spanmetrics:
-        namespace: span.metrics # necessary for spanmetrics to work (probably a bug in the collector)
-
-        exclude_dimensions: ['status.code']
-        dimensions:
-          - name: http.response.status_code
+      # spanmetrics:
+      #   namespace: span.metrics # necessary for spanmetrics to work (probably a bug in the collector)
+      #   exclude_dimensions: ['status.code'] # java agent do not use status.code but http.response.status_code
+      #   dimensions:
+      #     - name: http.response.status_code
 
         # For micrometer
         #   dimensions:
@@ -105,7 +105,7 @@ spec:
 
       batch:
         timeout: 200ms
-      memory_limiter: # drops metrics if memory usage gets too high
+      memory_limiter: # start dropping telemetry if memory usage gets too high
         check_interval: 1s
         limit_percentage: 75
         spike_limit_percentage: 15
