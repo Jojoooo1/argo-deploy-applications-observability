@@ -4,7 +4,7 @@ metadata:
   name: otel-collector-metrics
   namespace: observability
 spec:
-  mode: statefulset # Only allowed mode with targetAllocator
+  mode: deployment # statefulset is the only allowed mode with targetAllocator
   serviceAccount: collector-ta
   env:
     - name: GOMEMLIMIT
@@ -25,14 +25,13 @@ spec:
   #     podMonitorSelector:
   #       matchLabels:
   #         prometheus.io/scrap-with: otel-collector-metrics
-    
-    # resources:
-    #   requests:
-    #     memory: 256Mi
-    #     cpu: 100m
-    #   limits:
-    #     memory: 256Mi
-    #     cpu: 100m
+  #   resources:
+  #     requests:
+  #       memory: 256Mi
+  #       cpu: 100m
+  #     limits:
+  #       memory: 256Mi
+  #       cpu: 100m
 
   autoscaler:
     minReplicas: 1

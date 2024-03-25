@@ -10,7 +10,7 @@ spec:
   serviceAccount: collector
   env:        
     - name: GOMEMLIMIT
-      value: 205MiB # should be 80% of memory limit
+      value: 800MiB # should be 80% of memory limit
 
   autoscaler:
     minReplicas: 1
@@ -20,10 +20,10 @@ spec:
 
   resources:
     requests:
-      memory: 256Mi
+      memory: 1Gi
       cpu: 200m
     limits:
-      memory: 256Mi
+      memory: 1Gi
       cpu: 200m
 
   # https://www.otelbin.io/
@@ -60,8 +60,8 @@ spec:
 
       # Scrape collector metrics
       prometheus:
-        # Used for otel dashboard  to be compatible.
-        trim_metric_suffixes: true # otelcol_process_cpu_seconds_total to be trimmed to otelcol_process_cpu_seconds
+        # Can be used for otel dashboard to be compatible.
+        # trim_metric_suffixes: true # otelcol_process_cpu_seconds_total to be trimmed to otelcol_process_cpu_seconds
         config:
           scrape_configs:
             - job_name: 'otel-collector-traces'
@@ -72,6 +72,7 @@ spec:
     processors:
       # https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/resourcedetectionprocessor/README.md#resource-detection-processor
       resource:
+        # Add collector name to all telemetry (traces, metrics, logs) attributes.
         attributes:
         - key: collector.name
           value: "otel-collector-metrics"
@@ -79,15 +80,16 @@ spec:
 
       # https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/k8sattributesprocessor/README.md
       k8sattributes:
+        # Add k8s info to all telemetry (traces, metrics, logs) attributes.
         extract:
           metadata:
           - k8s.namespace.name
+          - k8s.node.name
           - k8s.deployment.name
           - k8s.statefulset.name
           - k8s.daemonset.name
           - k8s.cronjob.name
           - k8s.job.name
-          - k8s.node.name
           - k8s.pod.name
           - k8s.pod.uid
         passthrough: false
@@ -103,7 +105,7 @@ spec:
 
       batch:
         timeout: 200ms
-      memory_limiter: # drop metrics if memory usage gets too high
+      memory_limiter: # drops metrics if memory usage gets too high
         check_interval: 1s
         limit_percentage: 75
         spike_limit_percentage: 15
@@ -111,7 +113,7 @@ spec:
     exporters:
       debug:
 
-      otlp:
+      otlp/tempo:
         endpoint: tempo.observability:4317
         tls:
           insecure: true
@@ -122,13 +124,13 @@ spec:
         tls:
           insecure: true
 
-      prometheusremotewrite:
+      prometheusremotewrite/kube-prom-stack:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
+        tls:
+          insecure: true
         # Add k8sattributes to metric labels (be very carefull with quantity of labels, by default java agent sends lots of resource labels)
         resource_to_telemetry_conversion: 
           enabled: true
-        tls:
-          insecure: true
         target_info:  # necessary for spanmetrics
           enabled: true
 
@@ -151,8 +153,8 @@ spec:
         traces:
           receivers: [otlp]
           processors: [k8sattributes, batch, memory_limiter]
-          exporters: [otlp, spanmetrics, debug]
+          exporters: [otlp/tempo, spanmetrics, debug]
         metrics:
           receivers: [prometheus, spanmetrics]
           processors: [k8sattributes, resource, batch, memory_limiter]
-          exporters: [prometheusremotewrite, debug]
+          exporters: [prometheusremotewrite/kube-prom-stack, debug]
