@@ -54,7 +54,6 @@ spec:
       otlp:
         protocols:
           grpc:
-          http:
 
       # Scrape collector metrics
       prometheus:
