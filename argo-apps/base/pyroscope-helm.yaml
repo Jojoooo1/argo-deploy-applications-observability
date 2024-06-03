@@ -18,7 +18,7 @@ spec:
   source:
     chart: pyroscope
     repoURL: "https://grafana.github.io/helm-charts"
-    targetRevision: 1.4.1
+    targetRevision: 1.6.0
 
     # https://github.com/grafana/pyroscope/blob/main/operations/pyroscope/helm/pyroscope
     helm:
@@ -27,14 +27,13 @@ spec:
         agent:
           enabled: true
           fullnameOverride: grafana-agent
-
-          # resources:
-          #   requests: 
-          #     memory: 128Mi
-          #     cpu: 100m
-          #   limits:
-          #     memory: 128Mi
-          #     cpu: 100m
+          resources:
+            requests: 
+              memory: 128Mi
+              cpu: 100m
+            limits:
+              memory: 128Mi
+              cpu: 100m
 
           # uncomment if you want to remove grafana-agent monitoring
           # podAnnotations:
