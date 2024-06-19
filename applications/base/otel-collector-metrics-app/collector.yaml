@@ -47,17 +47,13 @@ spec:
       memory: 256Mi
       cpu: 200m
 
-
-  # https://www.otelbin.io/
   config: |
     receivers:
       otlp:
         protocols:
           grpc: 0.0.0.0:4318
 
-      # Scrape collector metrics
       prometheus:
-        # trim_metric_suffixes: true # singing_duration_seconds_total to be trimmed to singing_duration
         config:
           scrape_configs:
             - job_name: otel-collector-metrics
@@ -66,14 +62,12 @@ spec:
                 - targets: [":8888"]
 
     processors:
-      # https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/resourcedetectionprocessor/README.md#resource-detection-processor
       resource:
         attributes:
         - key: collector.name
           value: "otel-collector-metrics"
           action: upsert
 
-      # https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/k8sattributesprocessor/README.md
       k8sattributes:
         extract:
           metadata:
@@ -99,7 +93,7 @@ spec:
 
       batch:
         timeout: 200ms
-      memory_limiter: # drop metrics if memory usage gets too high
+      memory_limiter:
         check_interval: 5s
         limit_percentage: 80
         spike_limit_percentage: 25
@@ -108,21 +102,17 @@ spec:
       debug:
         verbosity: detailed
 
-      # Use this exporter if you want to send otlp metrics to prometheus.
       otlphttp/prometheus:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
         tls:
           insecure: true
 
       prometheusremotewrite:
-        endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
-        # Add k8sattributes to metric labels (be very carefull with quantity of labels, by default java agent sends lots of resource labels)
         resource_to_telemetry_conversion: 
           enabled: true
         tls:
           insecure: true
 
-    # add healthcheck, debugging port and pprof endpoints
     extensions:
       health_check:
       pprof:
@@ -143,3 +133,99 @@ spec:
           receivers: [prometheus, otlp]
           processors: [k8sattributes, resource, batch, memory_limiter]
           exporters: [prometheusremotewrite, debug]
+
+  # https://www.otelbin.io/
+  # config: |
+  #   receivers:
+  #     otlp:
+  #       protocols:
+  #         grpc: 0.0.0.0:4318
+
+  #     # Scrape collector metrics
+  #     prometheus:
+  #       # trim_metric_suffixes: true # singing_duration_seconds_total to be trimmed to singing_duration
+  #       config:
+  #         scrape_configs:
+  #           - job_name: otel-collector-metrics
+  #             scrape_interval: 10s
+  #             static_configs:
+  #               - targets: [":8888"]
+
+  #   processors:
+  #     # https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/resourcedetectionprocessor/README.md#resource-detection-processor
+  #     resource:
+  #       attributes:
+  #       - key: collector.name
+  #         value: "otel-collector-metrics"
+  #         action: upsert
+
+  #     # https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/k8sattributesprocessor/README.md
+  #     k8sattributes:
+  #       extract:
+  #         metadata:
+  #         - k8s.namespace.name
+  #         - k8s.deployment.name
+  #         - k8s.statefulset.name
+  #         - k8s.daemonset.name
+  #         - k8s.cronjob.name
+  #         - k8s.job.name
+  #         - k8s.node.name
+  #         - k8s.pod.name
+  #         - k8s.pod.uid
+  #       passthrough: false
+  #       pod_association:
+  #       - sources:
+  #         - from: resource_attribute
+  #           name: k8s.pod.ip
+  #       - sources:
+  #         - from: resource_attribute
+  #           name: k8s.pod.uid
+  #       - sources:
+  #         - from: connection
+
+  #     batch:
+  #       timeout: 200ms
+  #     memory_limiter: # drop metrics if memory usage gets too high
+  #       check_interval: 5s
+  #       limit_percentage: 80
+  #       spike_limit_percentage: 25
+      
+  #   exporters:
+  #     debug:
+  #       verbosity: detailed
+
+  #     # Use this exporter if you want to send otlp metrics to prometheus.
+  #     otlphttp/prometheus:
+  #       endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
+  #       tls:
+  #         insecure: true
+
+  #     prometheusremotewrite:
+  #       endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
+  #       # Add k8sattributes to metric labels (be very carefull with quantity of labels, by default java agent sends lots of resource labels)
+  #       resource_to_telemetry_conversion: 
+  #         enabled: true
+  #       tls:
+  #         insecure: true
+
+  #   # add healthcheck, debugging port and pprof endpoints
+  #   extensions:
+  #     health_check:
+  #     pprof:
+  #     zpages:
+      
+  #   service:
+  #     extensions: [health_check, pprof, zpages]
+  #     telemetry:
+  #       logs:
+  #         encoding: json
+  #         # level: debug
+  #       metrics:
+  #         level: basic # expose collector metrics on port 8888
+  #         address: :8888
+
+  #     pipelines:
+  #       metrics:
+  #         receivers: [prometheus, otlp]
+  #         processors: [k8sattributes, resource, batch, memory_limiter]
+  #         exporters: [prometheusremotewrite, debug]
