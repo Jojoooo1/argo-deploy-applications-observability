@@ -99,7 +99,7 @@ spec:
           - sources:
             - from: connection
 
-      # Used to keep backwards compatibility with old prometheus metric names
+      # Used to keep backwards compatibility between prom and otel collector to prevent from rewriting all grafana dashboards
       metricstransform:
         transforms:
           - include: k8s.node.name
