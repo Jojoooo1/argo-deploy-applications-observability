@@ -32,7 +32,7 @@ spec:
           replicaCount: 1
           manager:
             collectorImage:
-              repository: "otel/opentelemetry-collector-k8s"
+              repository: "otel/opentelemetry-collector-contrib"
             resources:
               limits:
                 cpu: 100m
