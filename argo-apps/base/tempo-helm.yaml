@@ -24,7 +24,9 @@ spec:
     helm:
       valuesObject:
         fullnameOverride: tempo
-
+        # securityContext:
+        #   # needed for tempo 2.5.0 https://github.com/grafana/tempo/pull/2265
+        #   fsGroup: 10001
         tempo:
           retention: 720h # 30d
           resources:
