@@ -99,23 +99,24 @@ spec:
           - sources:
             - from: connection
 
-      attributes:
-        actions:
-          - key: k8s.node.name
+      # Used to keep backwards compatibility with old prometheus metric names
+      metricstransform:
+        transforms:
+          - include: k8s.node.name
+            action: update
+            new_name: node
+          - include: k8s.namespace.name
             action: rename
-            new_key: node
-          - key: k8s.namespace.name
+            new_name: namespace
+          - include: k8s.deployment.name
             action: rename
-            new_key: namespace
-          - key: k8s.deployment.name
+            new_name: deployment
+          - include: k8s.pod.name
             action: rename
-            new_key: deployment
-          - key: k8s.pod.name
+            new_name: pod
+          - include: k8s.container.name
             action: rename
-            new_key: pod
-          - key: k8s.container.name
-            action: rename
-            new_key: container
+            new_name: container
 
       batch:
         timeout: 200ms
