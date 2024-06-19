@@ -3368,7 +3368,7 @@ data:
             "hide": 0,
             "includeAll": false,
             "label": "Application",
-            "multi": true,
+            "multi": false,
             "name": "application",
             "options": [],
             "query": {
