@@ -3357,8 +3357,8 @@ data:
           {
             "current": {
               "selected": true,
-              "text": "cloud-diplomats-api",
-              "value": "cloud-diplomats-api"
+              "text": "api",
+              "value": "api"
             },
             "datasource": {
               "type": "prometheus",
