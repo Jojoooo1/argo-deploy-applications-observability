@@ -102,19 +102,19 @@ spec:
       # Used to keep backwards compatibility between prom and otel collector to prevent from rewriting all grafana dashboards
       metricstransform:
         transforms:
-          - include: k8s.node.name
+          - include: k8s_node_name
             action: update
             new_name: node
-          - include: k8s.namespace.name
+          - include: k8s_namespace_name
             action: update
             new_name: namespace
-          - include: k8s.deployment.name
+          - include: k8s_deployment_name
             action: update
             new_name: deployment
-          - include: k8s.pod.name
+          - include: k8s_pod_name
             action: update
             new_name: pod
-          - include: k8s.container.name
+          - include: k8s_container_name
             action: update
             new_name: container
 
