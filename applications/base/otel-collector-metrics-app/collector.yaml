@@ -60,7 +60,7 @@ spec:
               scrape_interval: 10s
               static_configs:
                 - targets: 
-                    - ":8888"
+                    - :8888
     exporters:
       debug:
         verbosity: detailed
@@ -124,7 +124,6 @@ spec:
       telemetry:
         logs:
           encoding: json
-          # level: debug
         metrics:
           level: basic # expose collector metrics on port 8888
           address: :8888
