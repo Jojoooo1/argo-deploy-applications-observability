@@ -85,7 +85,6 @@ spec:
             - tag_name: component
               key: app.kubernetes.io/component
               from: pod
-          labels:
             - tag_name: application
               key: app.kubernetes.io/application
               from: pod
