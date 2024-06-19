@@ -3357,8 +3357,8 @@ data:
           {
             "current": {
               "selected": false,
-              "text": "cloud-diplomats-api",
-              "value": "cloud-diplomats-api"
+              "text": "All",
+              "value": "$__all"
             },
             "datasource": {
               "type": "prometheus",
@@ -3366,9 +3366,9 @@ data:
             },
             "definition": "label_values(jvm_classes_loaded_classes{component=\"api\"}, application)",
             "hide": 0,
-            "includeAll": false,
+            "includeAll": true,
             "label": "Application",
-            "multi": false,
+            "multi": true,
             "name": "application",
             "options": [],
             "query": {
