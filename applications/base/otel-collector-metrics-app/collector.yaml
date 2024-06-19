@@ -59,7 +59,22 @@ spec:
             - job_name: otel-collector-metrics
               scrape_interval: 10s
               static_configs:
-                - targets: [":8888"]
+                - targets: 
+                    - ":8888"
+    exporters:
+      debug:
+        verbosity: detailed
+
+      otlphttp/prometheus:
+        endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
+        tls:
+          insecure: true
+
+      prometheusremotewrite:
+        resource_to_telemetry_conversion: 
+          enabled: true
+        tls:
+          insecure: true
 
     processors:
       resource:
@@ -97,21 +112,7 @@ spec:
         check_interval: 5s
         limit_percentage: 80
         spike_limit_percentage: 25
-      
-    exporters:
-      debug:
-        verbosity: detailed
 
-      otlphttp/prometheus:
-        endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
-        tls:
-          insecure: true
-
-      prometheusremotewrite:
-        resource_to_telemetry_conversion: 
-          enabled: true
-        tls:
-          insecure: true
 
     extensions:
       health_check:
