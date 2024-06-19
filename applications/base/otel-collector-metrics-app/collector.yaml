@@ -77,12 +77,6 @@ spec:
           insecure: true
 
     processors:
-      resource:
-        attributes:
-        - key: collector.name
-          value: "otel-collector-metrics"
-          action: upsert
-
       k8sattributes:
         extract:
           metadata:
@@ -112,7 +106,6 @@ spec:
         check_interval: 5s
         limit_percentage: 80
         spike_limit_percentage: 25
-
 
     extensions:
       health_check:
