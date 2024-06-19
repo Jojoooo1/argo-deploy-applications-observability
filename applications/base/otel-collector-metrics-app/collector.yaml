@@ -51,7 +51,7 @@ spec:
     receivers:
       otlp:
         protocols:
-          grpc: ":4318"
+          grpc: ':4318'
 
       prometheus:
         config:
