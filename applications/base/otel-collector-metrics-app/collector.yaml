@@ -106,16 +106,16 @@ spec:
             action: update
             new_name: node
           - include: k8s.namespace.name
-            action: rename
+            action: update
             new_name: namespace
           - include: k8s.deployment.name
-            action: rename
+            action: update
             new_name: deployment
           - include: k8s.pod.name
-            action: rename
+            action: update
             new_name: pod
           - include: k8s.container.name
-            action: rename
+            action: update
             new_name: container
 
       batch:
