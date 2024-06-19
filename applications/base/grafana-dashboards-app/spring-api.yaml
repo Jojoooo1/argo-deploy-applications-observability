@@ -3366,7 +3366,7 @@ data:
             },
             "definition": "label_values(jvm_classes_loaded_classes{component=\"api\"}, application)",
             "hide": 0,
-            "includeAll": true,
+            "includeAll": false,
             "label": "Application",
             "multi": true,
             "name": "application",
