@@ -3356,9 +3356,9 @@ data:
         "list": [
           {
             "current": {
-              "selected": false,
-              "text": "All",
-              "value": "$__all"
+              "selected": true,
+              "text": "cloud-diplomats-api",
+              "value": "cloud-diplomats-api"
             },
             "datasource": {
               "type": "prometheus",
