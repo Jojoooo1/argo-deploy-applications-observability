@@ -62,8 +62,8 @@ spec:
                 - targets: 
                     - :8888
     exporters:
-      debug:
-        verbosity: detailed
+      # debug:
+      #   verbosity: detailed
 
       otlphttp/prometheus:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
@@ -115,8 +115,8 @@ spec:
     service:
       extensions: [health_check, pprof, zpages]
       telemetry:
-        logs:
-          encoding: json
+        # logs:
+        #   encoding: json
         metrics:
           level: basic # expose collector metrics on port 8888
           address: :8888
