@@ -55,12 +55,12 @@ spec:
                 prometheus.io/scrap-with: kube-prometheus-stack
 
     # Collector
-    - repoURL: ${ARGOCD_ENV_GITHUB_REPO}/argo-deploy-applications-observability.git
-      targetRevision: main
-      path: applications/overlays/local/otel-collector-traces-app
-      kustomize:
-        commonAnnotations:
-          argocd.argoproj.io/sync-wave: "2"
+    # - repoURL: ${ARGOCD_ENV_GITHUB_REPO}/argo-deploy-applications-observability.git
+    #   targetRevision: main
+    #   path: applications/overlays/local/otel-collector-traces-app
+    #   kustomize:
+    #     commonAnnotations:
+    #       argocd.argoproj.io/sync-wave: "2"
 
     - repoURL: ${ARGOCD_ENV_GITHUB_REPO}/argo-deploy-applications-observability.git
       targetRevision: main
