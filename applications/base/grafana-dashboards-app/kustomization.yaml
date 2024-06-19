@@ -10,6 +10,7 @@ resources:
   - ingress-nginx-controllers.yaml
   - keycloak.yaml
   - rabbitmq-overview.yaml
-  - spring-api.yaml
+  - spring-api-prom.yaml
+  - spring-api-otel.yaml
   - spring-middleware.yaml
   - spring-worker.yaml
