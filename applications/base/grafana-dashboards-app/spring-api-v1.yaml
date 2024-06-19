@@ -3448,7 +3448,7 @@ data:
               "type": "prometheus",
               "uid": "prometheus"
             },
-            "definition": "label_values(jvm_classes_loaded_classes{component=\"api\"}, application)",
+            "definition": "label_values(jvm_classes_loaded_classes{component=\"api\"}, name)",
             "hide": 0,
             "includeAll": false,
             "label": "Application",
@@ -3456,7 +3456,7 @@ data:
             "name": "application",
             "options": [],
             "query": {
-              "query": "label_values(jvm_classes_loaded_classes{component=\"api\"}, application)",
+              "query": "label_values(jvm_classes_loaded_classes{component=\"api\"}, name)",
               "refId": "StandardVariableQuery"
             },
             "refresh": 1,
