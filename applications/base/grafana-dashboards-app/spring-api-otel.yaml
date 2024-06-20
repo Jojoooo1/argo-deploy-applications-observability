@@ -2535,7 +2535,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "irate(jvm_classes_unloaded_classes_total{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\"}[5m])",
+                  "expr": "irate(jvm_class_unloaded_total{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\"}[5m])",
                   "intervalFactor": 1,
                   "legendFormat": "Classes Unloaded",
                   "refId": "A"
@@ -2738,9 +2738,9 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_threads_daemon_threads{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\"}",
+                  "expr": "jvm_thread_count{application="$application", k8s_pod_name=~"\$k8s_pod_name\", jvm_thread_daemon=\"true\"},
                   "intervalFactor": 1,
-                  "legendFormat": "Daemon",
+                  "legendFormat": "Daemon {{jvm_thread_state}}",
                   "refId": "A"
                 },
                 {
@@ -2748,20 +2748,10 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_threads_live_threads{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\"}",
+                  "expr": "jvm_thread_count{application="$application", k8s_pod_name=~"\$k8s_pod_name\", jvm_thread_daemon=\"false\"}",
                   "intervalFactor": 1,
-                  "legendFormat": "Live",
+                  "legendFormat": "Non daemon {{jvm_thread_state}}",
                   "refId": "B"
-                },
-                {
-                  "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                  },
-                  "expr": "jvm_threads_peak_threads{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\"}",
-                  "intervalFactor": 1,
-                  "legendFormat": "Peak",
-                  "refId": "C"
                 }
               ],
               "title": "Threads",
