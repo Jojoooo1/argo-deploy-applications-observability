@@ -48,7 +48,7 @@ spec:
       cpu: 200m
 
   # https://www.otelbin.io/
-  config: |-
+  config: |
     receivers:
       otlp:
         protocols:
@@ -122,7 +122,7 @@ spec:
       resource:
         attributes:
           - key: collector.name
-            value: "otel-collector-metrics"
+            value: otel-collector-metrics
             action: upsert
 
     extensions:
