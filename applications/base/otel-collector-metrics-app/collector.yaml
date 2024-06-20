@@ -151,7 +151,6 @@ spec:
             - otlp
           processors: 
             - k8sattributes
-            - metricstransform
             - resource
             - batch
             - memory_limiter
