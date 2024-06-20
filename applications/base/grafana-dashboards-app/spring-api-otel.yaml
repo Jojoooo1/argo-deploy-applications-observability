@@ -2738,7 +2738,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_thread_count{application="$application", k8s_pod_name=~"\$k8s_pod_name\", jvm_thread_daemon=\"true\"},
+                  "expr": "jvm_thread_count{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_thread_daemon=\"true\"},
                   "intervalFactor": 1,
                   "legendFormat": "Daemon {{jvm_thread_state}}",
                   "refId": "A"
@@ -2748,7 +2748,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_thread_count{application="$application", k8s_pod_name=~"\$k8s_pod_name\", jvm_thread_daemon=\"false\"}",
+                  "expr": "jvm_thread_count{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_thread_daemon=\"false\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Non daemon {{jvm_thread_state}}",
                   "refId": "B"
