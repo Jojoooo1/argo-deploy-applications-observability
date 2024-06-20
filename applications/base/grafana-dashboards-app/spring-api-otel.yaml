@@ -1834,7 +1834,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "db_client_connections_wait_time_milliseconds_seconds_sum{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool_name=\"$pool_name\"} / db_client_connections_wait_time_milliseconds_seconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool_name=\"$pool_name\"}",
+                  "expr": "db_client_connections_wait_time_milliseconds_sum{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool_name=\"$pool_name\"} / db_client_connections_wait_time_milliseconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool_name=\"$pool_name\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Acquire Time",
                   "refId": "A"
