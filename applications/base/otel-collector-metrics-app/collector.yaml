@@ -54,9 +54,8 @@ spec:
         protocols:
           grpc: null
 
-      # Scrape collector metrics
       prometheus:
-        # trim_metric_suffixes: true # singing_duration_seconds_total to be trimmed to singing_duration
+        # trim_metric_suffixes: true # request_duration_seconds_total to be trimmed to request_duration
         config:
           scrape_configs:
             - job_name: otel-collector-metrics
@@ -69,17 +68,19 @@ spec:
       debug:
         verbosity: detailed
 
-      otlphttp/prometheus: # Use this exporter if you want to send otlp metrics to prometheus.
+      # Use this exporter if you want to send otlp metrics to prometheus.
+      otlphttp/prometheus: 
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
         tls:
           insecure: true
 
       prometheusremotewrite:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
-        resource_to_telemetry_conversion: # Add k8sattributes to metric labels (be very carefull with quantity of labels, by default java agent sends lots of resource labels)
-          enabled: true
         tls:
           insecure: true
+        # Add k8sattributes to metric labels (be very carefull with quantity of labels, by default java agent sends lots of resource labels)
+        resource_to_telemetry_conversion:
+          enabled: true
 
     processors:
       batch:
@@ -112,8 +113,8 @@ spec:
           - sources:
               - from: connection
 
-
-      memory_limiter: # drop metrics if memory usage gets too high
+      # drop metrics if memory usage gets too high
+      memory_limiter: 
         check_interval: 5s
         limit_percentage: 80
         spike_limit_percentage: 25
@@ -124,7 +125,7 @@ spec:
             value: "otel-collector-metrics"
             action: upsert
 
-    extensions: # add healthcheck, debugging port and pprof endpoints
+    extensions:
       health_check: null
       pprof: null
       zpages: null
@@ -141,7 +142,7 @@ spec:
           # level: debug
         metrics:
           address: :8888
-          level: basic # expose collector metrics on port 8888
+          level: basic
 
       pipelines:
         metrics:
