@@ -137,7 +137,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "process_uptime_seconds{application=\"$application\", k8s_pod_name=\"k8s_pod_name\"}",
+              "expr": "process_uptime_seconds{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\"}",
               "intervalFactor": 2,
               "legendFormat": "",
               "metric": "",
@@ -224,7 +224,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", area=\"heap\"})*100/sum(jvm_memory_max_bytes{application=\"$application\",k8s_pod_name=\"k8s_pod_name\", area=\"heap\"})",
+              "expr": "sum(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", area=\"heap\"})*100/sum(jvm_memory_max_bytes{application=\"$application\",k8s_pod_name=\"$k8s_pod_name\", area=\"heap\"})",
               "intervalFactor": 1,
               "legendFormat": "",
               "refId": "A",
@@ -320,7 +320,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", area=\"nonheap\"})*100/sum(jvm_memory_max_bytes{application=\"$application\",k8s_pod_name=\"k8s_pod_name\", area=\"nonheap\"})",
+              "expr": "sum(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", area=\"nonheap\"})*100/sum(jvm_memory_max_bytes{application=\"$application\",k8s_pod_name=\"$k8s_pod_name\", area=\"nonheap\"})",
               "intervalFactor": 2,
               "legendFormat": "",
               "refId": "A",
@@ -400,7 +400,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "process_start_time_seconds{application=\"$application\", k8s_pod_name=\"k8s_pod_name\"}*1000",
+              "expr": "process_start_time_seconds{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\"}*1000",
               "intervalFactor": 2,
               "legendFormat": "",
               "metric": "",
@@ -517,7 +517,7 @@ data:
                 "type": "prometheus",
                 "uid": ""
               },
-              "expr": "sum(rate(container_cpu_usage_seconds_total{k8s_pod_name=\"k8s_pod_name\", image!=\"\"}[$__rate_interval])) by (pod)",
+              "expr": "sum(rate(container_cpu_usage_seconds_total{k8s_pod_name=\"$k8s_pod_name\", image!=\"\"}[$__rate_interval])) by (pod)",
               "interval": "$resolution",
               "legendFormat": "{{ pod }}",
               "refId": "A"
@@ -619,7 +619,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "system_load_average_1m{application=\"$application\", k8s_pod_name=\"k8s_pod_name\"}",
+              "expr": "system_load_average_1m{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\"}",
               "intervalFactor": 1,
               "legendFormat": "Load Average [1m]",
               "refId": "A"
@@ -629,7 +629,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "system_cpu_count{application=\"$application\", k8s_pod_name=\"k8s_pod_name\"}",
+              "expr": "system_cpu_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\"}",
               "intervalFactor": 1,
               "legendFormat": "CPU Core Size",
               "refId": "B"
@@ -731,7 +731,7 @@ data:
                 "uid": "prometheus"
               },
               "exemplar": true,
-              "expr": "irate(http_sever_request_duration_seconds_count{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", uri!~\".*actuator.*\"}[5m]) > 0",
+              "expr": "irate(http_sever_request_duration_seconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", uri!~\".*actuator.*\"}[5m]) > 0",
               "intervalFactor": 1,
               "legendFormat": "{{method}} [{{status}}] - {{uri}}",
               "refId": "A"
@@ -833,7 +833,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "irate(http_sever_request_duration_seconds_sum{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", uri!~\".*actuator.*\"}[5m]) / irate(http_sever_request_duration_seconds_count{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", uri!~\".*actuator.*\"}[5m]) > 0",
+              "expr": "irate(http_sever_request_duration_seconds_sum{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", uri!~\".*actuator.*\"}[5m]) / irate(http_sever_request_duration_seconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", uri!~\".*actuator.*\"}[5m]) > 0",
               "exemplar": true,
               "intervalFactor": 1,
               "legendFormat": "{{method}} [{{status}}] - {{uri}}",
@@ -1070,7 +1070,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": true,
-              "expr": "irate(http_client_request_duration_seconds_count{k8s_pod_name=\"k8s_pod_name\", application=\"$application\", uri!~\".*actuator.*\"}[5m])",
+              "expr": "irate(http_client_request_duration_seconds_count{k8s_pod_name=\"$k8s_pod_name\", application=\"$application\", uri!~\".*actuator.*\"}[5m])",
               "intervalFactor": 1,
               "legendFormat": "{{method}} [{{status}}] - {{uri}}",
               "range": true,
@@ -1174,7 +1174,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "irate(http_client_request_duration_seconds_sum{k8s_pod_name=\"k8s_pod_name\", application=\"$application\", uri!~\".*actuator.*\"}[5m]) / irate(http_client_request_duration_seconds_count{k8s_pod_name=\"k8s_pod_name\", application=\"$application\", uri!~\".*actuator.*\"}[5m]) > 0",
+              "expr": "irate(http_client_request_duration_seconds_sum{k8s_pod_name=\"$k8s_pod_name\", application=\"$application\", uri!~\".*actuator.*\"}[5m]) / irate(http_client_request_duration_seconds_count{k8s_pod_name=\"$k8s_pod_name\", application=\"$application\", uri!~\".*actuator.*\"}[5m]) > 0",
               "exemplar": true,
               "intervalFactor": 1,
               "legendFormat": "{{method}} [{{status}}] - {{uri}}",
@@ -1278,7 +1278,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum by(client_name,uri) (http_client_request_duration_seconds_count{k8s_pod_name=\"k8s_pod_name\", application=\"$application\", status=~\"2.*\", uri!~\".*actuator.*\", uri!~\"/api/internal.*\", uri!~\"/management.*\"}) / sum by(client_name,uri) (http_client_request_duration_seconds_count{k8s_pod_name=\"k8s_pod_name\", application=\"$application\", uri!~\".*actuator.*\", uri!~\"/api/internal.*\", uri!~\"/management.*\"})",
+              "expr": "sum by(client_name,uri) (http_client_request_duration_seconds_count{k8s_pod_name=\"$k8s_pod_name\", application=\"$application\", status=~\"2.*\", uri!~\".*actuator.*\", uri!~\"/api/internal.*\", uri!~\"/management.*\"}) / sum by(client_name,uri) (http_client_request_duration_seconds_count{k8s_pod_name=\"$k8s_pod_name\", application=\"$application\", uri!~\".*actuator.*\", uri!~\"/api/internal.*\", uri!~\"/management.*\"})",
               "exemplar": true,
               "intervalFactor": 1,
               "legendFormat": "{{client_name}}{{uri}}",
@@ -1373,7 +1373,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "hikaricp_connections{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", pool=\"$hikaricp\"}",
+                  "expr": "hikaricp_connections{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"}",
                   "intervalFactor": 1,
                   "legendFormat": "",
                   "refId": "A"
@@ -1475,7 +1475,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "hikaricp_connections_active{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", pool=\"$hikaricp\"}",
+                  "expr": "hikaricp_connections_active{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Active",
                   "refId": "B"
@@ -1485,7 +1485,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "hikaricp_connections_idle{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", pool=\"$hikaricp\"}",
+                  "expr": "hikaricp_connections_idle{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Idle",
                   "refId": "A"
@@ -1495,7 +1495,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "hikaricp_connections_pending{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", pool=\"$hikaricp\"}",
+                  "expr": "hikaricp_connections_pending{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Pending",
                   "refId": "C"
@@ -1574,7 +1574,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "hikaricp_connections_timeout_total{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", pool=\"$hikaricp\"}",
+                  "expr": "hikaricp_connections_timeout_total{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"}",
                   "intervalFactor": 1,
                   "legendFormat": "",
                   "refId": "A"
@@ -1671,7 +1671,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "hikaricp_connections_creation_seconds_sum{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", pool=\"$hikaricp\"} / hikaricp_connections_creation_seconds_count{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", pool=\"$hikaricp\"}",
+                  "expr": "hikaricp_connections_creation_seconds_sum{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"} / hikaricp_connections_creation_seconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Creation Time",
                   "refId": "A"
@@ -1768,7 +1768,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "hikaricp_connections_usage_seconds_sum{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", pool=\"$hikaricp\"} / hikaricp_connections_usage_seconds_count{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", pool=\"$hikaricp\"}",
+                  "expr": "hikaricp_connections_usage_seconds_sum{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"} / hikaricp_connections_usage_seconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"}",
                   "exemplar": true,
                   "intervalFactor": 1,
                   "legendFormat": "Usage Time",
@@ -1834,7 +1834,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "hikaricp_connections_acquire_seconds_sum{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", pool=\"$hikaricp\"} / hikaricp_connections_acquire_seconds_count{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", pool=\"$hikaricp\"}",
+                  "expr": "hikaricp_connections_acquire_seconds_sum{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"} / hikaricp_connections_acquire_seconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Acquire Time",
                   "refId": "A"
@@ -1991,7 +1991,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", id=\"$memory_pool_heap\"}",
+                  "expr": "jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", id=\"$memory_pool_heap\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Used",
                   "refId": "C"
@@ -2001,7 +2001,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_committed_bytes{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", id=\"$memory_pool_heap\"}",
+                  "expr": "jvm_memory_committed_bytes{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", id=\"$memory_pool_heap\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Commited",
                   "refId": "A"
@@ -2011,7 +2011,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_max_bytes{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", id=\"$memory_pool_heap\"}",
+                  "expr": "jvm_memory_max_bytes{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", id=\"$memory_pool_heap\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Max",
                   "refId": "B"
@@ -2113,7 +2113,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", id=\"$${memory_pool_nonheap:raw}\"}",
+                  "expr": "jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", id=\"$${memory_pool_nonheap:raw}\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Used",
                   "refId": "C"
@@ -2123,7 +2123,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_committed_bytes{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", id=\"$${memory_pool_nonheap:raw}\"}",
+                  "expr": "jvm_memory_committed_bytes{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", id=\"$${memory_pool_nonheap:raw}\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Commited",
                   "refId": "A"
@@ -2133,7 +2133,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_max_bytes{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", id=\"$${memory_pool_nonheap:raw}\"}",
+                  "expr": "jvm_memory_max_bytes{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", id=\"$${memory_pool_nonheap:raw}\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Max",
                   "refId": "B"
@@ -2227,7 +2227,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_buffer_memory_used_bytes{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", id=\"direct\"}",
+                  "expr": "jvm_buffer_memory_used_bytes{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", id=\"direct\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Used Bytes",
                   "refId": "A"
@@ -2237,7 +2237,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_buffer_total_capacity_bytes{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", id=\"direct\"}",
+                  "expr": "jvm_buffer_total_capacity_bytes{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", id=\"direct\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Capacity Bytes",
                   "refId": "B"
@@ -2331,7 +2331,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_buffer_memory_used_bytes{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", id=\"mapped\"}",
+                  "expr": "jvm_buffer_memory_used_bytes{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", id=\"mapped\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Used Bytes",
                   "refId": "A"
@@ -2341,7 +2341,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_buffer_total_capacity_bytes{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", id=\"mapped\"}",
+                  "expr": "jvm_buffer_total_capacity_bytes{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", id=\"mapped\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Capacity Bytes",
                   "refId": "B"
@@ -2441,7 +2441,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_class_loaded_total{application=\"$application\", k8s_pod_name=\"k8s_pod_name\"}",
+                  "expr": "jvm_class_loaded_total{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Classes Loaded",
                   "refId": "A"
@@ -2535,7 +2535,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "irate(jvm_classes_unloaded_classes_total{application=\"$application\", k8s_pod_name=\"k8s_pod_name\"}[5m])",
+                  "expr": "irate(jvm_classes_unloaded_classes_total{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\"}[5m])",
                   "intervalFactor": 1,
                   "legendFormat": "Classes Unloaded",
                   "refId": "A"
@@ -2629,7 +2629,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "irate(jvm_gc_memory_allocated_bytes_total{application=\"$application\", k8s_pod_name=\"k8s_pod_name\"}[5m])",
+                  "expr": "irate(jvm_gc_memory_allocated_bytes_total{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\"}[5m])",
                   "intervalFactor": 1,
                   "legendFormat": "allocated",
                   "refId": "A"
@@ -2639,7 +2639,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "irate(jvm_gc_memory_promoted_bytes_total{application=\"$application\", k8s_pod_name=\"k8s_pod_name\"}[5m])",
+                  "expr": "irate(jvm_gc_memory_promoted_bytes_total{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\"}[5m])",
                   "intervalFactor": 1,
                   "legendFormat": "promoted",
                   "refId": "B"
@@ -2738,7 +2738,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_threads_daemon_threads{application=\"$application\", k8s_pod_name=\"k8s_pod_name\"}",
+                  "expr": "jvm_threads_daemon_threads{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Daemon",
                   "refId": "A"
@@ -2748,7 +2748,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_threads_live_threads{application=\"$application\", k8s_pod_name=\"k8s_pod_name\"}",
+                  "expr": "jvm_threads_live_threads{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Live",
                   "refId": "B"
@@ -2758,7 +2758,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_threads_peak_threads{application=\"$application\", k8s_pod_name=\"k8s_pod_name\"}",
+                  "expr": "jvm_threads_peak_threads{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Peak",
                   "refId": "C"
@@ -2853,7 +2853,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "irate(jvm_gc_pause_seconds_count{application=\"$application\", k8s_pod_name=\"k8s_pod_name\"}[5m])",
+                  "expr": "irate(jvm_gc_pause_seconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\"}[5m])",
                   "intervalFactor": 1,
                   "legendFormat": "{{action}} [{{cause}}]",
                   "refId": "A"
@@ -2948,7 +2948,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "irate(jvm_gc_pause_seconds_sum{application=\"$application\", k8s_pod_name=\"k8s_pod_name\"}[5m])",
+                  "expr": "irate(jvm_gc_pause_seconds_sum{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\"}[5m])",
                   "intervalFactor": 1,
                   "legendFormat": "{{action}} [{{cause}}]",
                   "refId": "A"
@@ -3106,7 +3106,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "irate(logback_events_total{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", level=\"info\"}[5m])",
+                  "expr": "irate(logback_events_total{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", level=\"info\"}[5m])",
                   "exemplar": true,
                   "intervalFactor": 1,
                   "legendFormat": "info",
@@ -3212,7 +3212,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "irate(logback_events_total{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", level=\"warn\"}[5m])",
+                  "expr": "irate(logback_events_total{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", level=\"warn\"}[5m])",
                   "exemplar": true,
                   "intervalFactor": 1,
                   "legendFormat": "warn",
@@ -3318,7 +3318,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "irate(logback_events_total{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", level=\"error\"}[5m])",
+                  "expr": "irate(logback_events_total{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", level=\"error\"}[5m])",
                   "exemplar": true,
                   "intervalFactor": 1,
                   "legendFormat": "error",
@@ -3392,7 +3392,7 @@ data:
               "type": "prometheus",
               "uid": "prometheus"
             },
-            "definition": "label_values(jvm_class_loaded_total{application=\"$application\", component=\"api\"}, pod)",
+            "definition": "label_values(jvm_class_loaded_total{application=\"$application\", component=\"api\"}, k8s_pod_name)",
             "hide": 0,
             "includeAll": true,
             "label": "pod",
@@ -3400,7 +3400,7 @@ data:
             "name": "pod",
             "options": [],
             "query": {
-              "query": "label_values(jvm_class_loaded_total{application=\"$application\", component=\"api\"}, pod)",
+              "query": "label_values(jvm_class_loaded_total{application=\"$application\", component=\"api\"}, k8s_pod_name)",
               "refId": "StandardVariableQuery"
             },
             "refresh": 1,
@@ -3430,7 +3430,7 @@ data:
             "name": "hikaricp",
             "options": [],
             "query": {
-              "query": "label_values(hikaricp_connections{application=\"$application\", k8s_pod_name=\"k8s_pod_name\"}, pool)",
+              "query": "label_values(hikaricp_connections{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\"}, pool)",
               "refId": "Prometheus-hikaricp-Variable-Query"
             },
             "refresh": 1,
@@ -3460,7 +3460,7 @@ data:
             "name": "memory_pool_heap",
             "options": [],
             "query": {
-              "query": "label_values(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", area=\"heap\"},id)",
+              "query": "label_values(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", area=\"heap\"},id)",
               "refId": "Prometheus-memory_pool_heap-Variable-Query"
             },
             "refresh": 1,
@@ -3490,7 +3490,7 @@ data:
             "name": "memory_pool_nonheap",
             "options": [],
             "query": {
-              "query": "label_values(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=\"k8s_pod_name\", area=\"nonheap\"},id)",
+              "query": "label_values(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", area=\"nonheap\"},id)",
               "refId": "Prometheus-memory_pool_nonheap-Variable-Query"
             },
             "refresh": 1,
