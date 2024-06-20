@@ -3397,7 +3397,7 @@ data:
             "includeAll": true,
             "label": "pod",
             "multi": true,
-            "name": "pod",
+            "name": "k8s_pod_name",
             "options": [],
             "query": {
               "query": "label_values(jvm_class_loaded_total{application=\"$application\", component=\"api\"}, k8s_pod_name)",
