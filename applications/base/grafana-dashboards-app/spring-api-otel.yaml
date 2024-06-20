@@ -731,7 +731,7 @@ data:
                 "uid": "prometheus"
               },
               "exemplar": true,
-              "expr": "irate(http_sever_request_duration_seconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", uri!~\".*actuator.*\"}[5m]) > 0",
+              "expr": "irate(http_server_request_duration_seconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", uri!~\".*actuator.*\"}[5m]) > 0",
               "intervalFactor": 1,
               "legendFormat": "{{method}} [{{status}}] - {{uri}}",
               "refId": "A"
@@ -833,7 +833,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "irate(http_sever_request_duration_seconds_sum{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", uri!~\".*actuator.*\"}[5m]) / irate(http_sever_request_duration_seconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", uri!~\".*actuator.*\"}[5m]) > 0",
+              "expr": "irate(http_server_request_duration_seconds_sum{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", uri!~\".*actuator.*\"}[5m]) / irate(http_server_request_duration_seconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", uri!~\".*actuator.*\"}[5m]) > 0",
               "exemplar": true,
               "intervalFactor": 1,
               "legendFormat": "{{method}} [{{status}}] - {{uri}}",
@@ -937,7 +937,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum by(uri) (http_sever_request_duration_seconds_count{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", status=~\"2.*\", uri!~\".*actuator.*\", uri!~\"/management.*\"}) / sum by(uri) (http_sever_request_duration_seconds_count{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", uri!~\".*actuator.*\", uri!~\"/management.*\"})",
+              "expr": "sum by(uri) (http_server_request_duration_seconds_count{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", status=~\"2.*\", uri!~\".*actuator.*\", uri!~\"/management.*\"}) / sum by(uri) (http_server_request_duration_seconds_count{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", uri!~\".*actuator.*\", uri!~\"/management.*\"})",
               "exemplar": true,
               "intervalFactor": 1,
               "legendFormat": "{{uri}}",
