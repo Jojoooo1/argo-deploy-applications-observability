@@ -1991,7 +1991,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", id=\"$memory_pool_heap\"}",
+                  "expr": "jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_type=\"$memory_pool_heap\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Used",
                   "refId": "C"
@@ -2001,7 +2001,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_committed_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", id=\"$memory_pool_heap\"}",
+                  "expr": "jvm_memory_committed_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_type=\"$memory_pool_heap\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Commited",
                   "refId": "A"
@@ -2011,7 +2011,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_max_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", id=\"$memory_pool_heap\"}",
+                  "expr": "jvm_memory_max_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_type=\"$memory_pool_heap\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Max",
                   "refId": "B"
@@ -2113,7 +2113,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", id=\"$${memory_pool_nonheap:raw}\"}",
+                  "expr": "jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_type=\"$${memory_pool_nonheap:raw}\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Used",
                   "refId": "C"
@@ -2123,7 +2123,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_committed_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", id=\"$${memory_pool_nonheap:raw}\"}",
+                  "expr": "jvm_memory_committed_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_type=\"$${memory_pool_nonheap:raw}\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Commited",
                   "refId": "A"
@@ -2133,7 +2133,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_max_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", id=\"$${memory_pool_nonheap:raw}\"}",
+                  "expr": "jvm_memory_max_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_type=\"$${memory_pool_nonheap:raw}\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Max",
                   "refId": "B"
@@ -3460,7 +3460,7 @@ data:
             "name": "memory_pool_heap",
             "options": [],
             "query": {
-              "query": "label_values(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", area=\"heap\"},id)",
+              "query": "label_values(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_type=\"heap\"}, jvm_memory_pool_name)",
               "refId": "Prometheus-memory_pool_heap-Variable-Query"
             },
             "refresh": 1,
@@ -3490,7 +3490,7 @@ data:
             "name": "memory_pool_nonheap",
             "options": [],
             "query": {
-              "query": "label_values(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", area=\"nonheap\"},id)",
+              "query": "label_values(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_type=\"nonheap\"}, jvm_memory_pool_name)",
               "refId": "Prometheus-memory_pool_nonheap-Variable-Query"
             },
             "refresh": 1,
