@@ -69,16 +69,14 @@ spec:
       debug:
         verbosity: detailed
 
-      # Use this exporter if you want to send otlp metrics to prometheus.
-      otlphttp/prometheus:
+      otlphttp/prometheus: # Use this exporter if you want to send otlp metrics to prometheus.
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/otlp
         tls:
           insecure: true
 
       prometheusremotewrite:
         endpoint: http://kube-prometheus-stack-prometheus.observability:9090/api/v1/write
-        # Add k8sattributes to metric labels (be very carefull with quantity of labels, by default java agent sends lots of resource labels)
-        resource_to_telemetry_conversion: 
+        resource_to_telemetry_conversion: # Add k8sattributes to metric labels (be very carefull with quantity of labels, by default java agent sends lots of resource labels)
           enabled: true
         tls:
           insecure: true
@@ -120,15 +118,13 @@ spec:
         limit_percentage: 80
         spike_limit_percentage: 25
 
-      # https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/resourcedetectionprocessor/README.md#resource-detection-processor
       resource:
         attributes:
           - key: collector.name
             value: "otel-collector-metrics"
             action: upsert
 
-    # add healthcheck, debugging port and pprof endpoints
-    extensions:
+    extensions: # add healthcheck, debugging port and pprof endpoints
       health_check: null
       pprof: null
       zpages: null
