@@ -3490,7 +3490,7 @@ data:
             "name": "memory_pool_nonheap",
             "options": [],
             "query": {
-              "query": "label_values(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_type=\"nonheap\"}, jvm_memory_pool_name)",
+              "query": "label_values(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_type=\"non_heap\"}, jvm_memory_pool_name)",
               "refId": "Prometheus-memory_pool_nonheap-Variable-Query"
             },
             "refresh": 1,
