@@ -1373,7 +1373,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "hikaricp_connections{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"}",
+                  "expr": "db_client_connections_usage{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool_name=\"$pool_name\"}",
                   "intervalFactor": 1,
                   "legendFormat": "",
                   "refId": "A"
@@ -1475,7 +1475,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "hikaricp_connections_active{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"}",
+                  "expr": "db_client_connections_usage{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool_name=\"$pool_name\", state=\"used\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Active",
                   "refId": "B"
@@ -1485,7 +1485,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "hikaricp_connections_idle{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"}",
+                  "expr": "db_client_connections_usage{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool_name=\"$pool_name\", state=\"idle\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Idle",
                   "refId": "A"
@@ -1495,7 +1495,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "hikaricp_connections_pending{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"}",
+                  "expr": "db_client_connections_pending_requests{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool_name=\"$pool_name\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Pending",
                   "refId": "C"
@@ -1574,7 +1574,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "hikaricp_connections_timeout_total{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"}",
+                  "expr": "db_client_connections_timeouts{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool_name=\"$pool_name\"}",
                   "intervalFactor": 1,
                   "legendFormat": "",
                   "refId": "A"
@@ -1671,7 +1671,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "hikaricp_connections_creation_seconds_sum{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"} / hikaricp_connections_creation_seconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"}",
+                  "expr": "db_client_connections_create_time_milliseconds_sum{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool_name=\"$pool_name\"} / db_client_connections_create_time_milliseconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool_name=\"$pool_name\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Creation Time",
                   "refId": "A"
@@ -1768,7 +1768,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "hikaricp_connections_usage_seconds_sum{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"} / hikaricp_connections_usage_seconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"}",
+                  "expr": "db_client_connections_use_time_milliseconds_sum{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool_name=\"$pool_name\"} / db_client_connections_use_time_milliseconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool_name=\"$pool_name\"}",
                   "exemplar": true,
                   "intervalFactor": 1,
                   "legendFormat": "Usage Time",
@@ -1834,7 +1834,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "hikaricp_connections_acquire_seconds_sum{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"} / hikaricp_connections_acquire_seconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool=\"$hikaricp\"}",
+                  "expr": "db_client_connections_wait_time_milliseconds_seconds_sum{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool_name=\"$pool_name\"} / db_client_connections_wait_time_milliseconds_seconds_count{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\", pool_name=\"$pool_name\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Acquire Time",
                   "refId": "A"
@@ -3425,12 +3425,12 @@ data:
             "definition": "",
             "hide": 0,
             "includeAll": false,
-            "label": "HikariCP-Pool",
+            "label": "Connection pool",
             "multi": false,
-            "name": "hikaricp",
+            "name": "pool_name",
             "options": [],
             "query": {
-              "query": "label_values(hikaricp_connections{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\"}, pool)",
+              "query": "label_values(db_client_connections_usage{application=\"$application\", k8s_pod_name=\"$k8s_pod_name\"}, pool_name)",
               "refId": "Prometheus-hikaricp-Variable-Query"
             },
             "refresh": 1,
