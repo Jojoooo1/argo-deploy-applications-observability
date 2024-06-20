@@ -48,11 +48,11 @@ spec:
       cpu: 200m
 
   # https://www.otelbin.io/
-  config: |
+  config: |-
     receivers:
       otlp:
         protocols:
-          grpc:
+          grpc: null
 
       # Scrape collector metrics
       prometheus:
@@ -65,6 +65,8 @@ spec:
                 - targets: [":8888"]
 
     processors:
+      batch:
+        timeout: 200ms
       # https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/resourcedetectionprocessor/README.md#resource-detection-processor
       resource:
         attributes:
@@ -75,12 +77,6 @@ spec:
       # https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/k8sattributesprocessor/README.md
       k8sattributes:
         extract:
-          metadata:
-            - k8s.node.name
-            - k8s.namespace.name
-            - k8s.deployment.name
-            - k8s.pod.name
-            - k8s.container.name
           labels:
             - tag_name: component
               key: app.kubernetes.io/component
@@ -88,6 +84,12 @@ spec:
             - tag_name: application
               key: app.kubernetes.io/application
               from: pod
+          metadata:
+            - k8s.node.name
+            - k8s.namespace.name
+            - k8s.deployment.name
+            - k8s.pod.name
+            - k8s.container.name
         passthrough: false
         pod_association:
           - sources:
@@ -99,8 +101,7 @@ spec:
           - sources:
             - from: connection
 
-      batch:
-        timeout: 200ms
+
       memory_limiter: # drop metrics if memory usage gets too high
         check_interval: 5s
         limit_percentage: 80
@@ -126,22 +127,35 @@ spec:
 
     # add healthcheck, debugging port and pprof endpoints
     extensions:
-      health_check:
-      pprof:
-      zpages:
+      health_check: null
+      pprof: null
+      zpages: null
       
     service:
-      extensions: [health_check, pprof, zpages]
+      extensions: 
+        - health_check
+        - pprof
+        - zpages
+
       telemetry:
         logs:
           # encoding: json
           # level: debug
         metrics:
-          level: basic # expose collector metrics on port 8888
           address: :8888
+          level: basic # expose collector metrics on port 8888
 
       pipelines:
         metrics:
-          receivers: [prometheus, otlp]
-          processors: [k8sattributes, metricstransform, resource, batch, memory_limiter]
-          exporters: [prometheusremotewrite, debug]
+          receivers: 
+            - prometheus
+            - otlp
+          processors: 
+            - k8sattributes
+            - metricstransform
+            - resource
+            - batch
+            - memory_limiter
+          exporters: 
+            - prometheusremotewrite
+            - debug
