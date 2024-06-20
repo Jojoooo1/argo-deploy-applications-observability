@@ -3384,9 +3384,7 @@ data:
           },
           {
             "current": {
-              "selected": false,
-              "text": "All",
-              "value": "$__all"
+
             },
             "datasource": {
               "type": "prometheus",
@@ -3396,7 +3394,7 @@ data:
             "hide": 0,
             "includeAll": true,
             "label": "pod",
-            "multi": true,
+            "multi": false,
             "name": "k8s_pod_name",
             "options": [],
             "query": {
