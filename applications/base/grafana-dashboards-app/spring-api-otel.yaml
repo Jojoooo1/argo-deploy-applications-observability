@@ -1574,7 +1574,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "db_client_connections_timeouts{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", pool_name=\"$pool_name\"}",
+                  "expr": "db_client_connections_timeouts{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", pool_name=\"$pool_name\"} or vector(0)",
                   "intervalFactor": 1,
                   "legendFormat": "",
                   "refId": "A"
