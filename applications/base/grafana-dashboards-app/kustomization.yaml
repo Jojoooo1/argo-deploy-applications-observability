@@ -11,6 +11,6 @@ resources:
   - keycloak.yaml
   - rabbitmq-overview.yaml
   - spring-api-prom.yaml
-  - spring-api-otel.yaml
+  # - spring-api-otel.yaml
   - spring-middleware.yaml
   - spring-worker.yaml
