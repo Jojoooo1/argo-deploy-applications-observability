@@ -9,7 +9,7 @@ metadata:
     grafana_folder: "Spring"
 data:
   # Migrated to timeseries, add exemplar
-  spring-api.json: |
+  spring-api-otel.json: |
     {
         "annotations": {
             "list": [
