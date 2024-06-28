@@ -1,3 +1,7 @@
+# Medium
+
+[Create your own open-source observability platform using ArgoCD, Prometheus, AlertManager, OpenTelemetry and Tempo (13/17)](https://medium.com/itnext/create-your-own-open-source-observability-platform-using-argocd-prometheus-alertmanager-a17cfb74bfcf?source=user_profile---------2----------------------------)
+
 # ArgoCD Observability labs
 
 ## Apps
