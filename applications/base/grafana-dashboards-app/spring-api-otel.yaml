@@ -320,7 +320,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_type=\"nonheap\"})*100/sum(jvm_memory_limit_bytes{application=\"$application\",k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_type=\"nonheap\"})",
+              "expr": "sum(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_type=\"non_heap\"})*100/sum(jvm_memory_limit_bytes{application=\"$application\",k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_type=\"non_heap\"})",
               "intervalFactor": 2,
               "legendFormat": "",
               "refId": "A",
