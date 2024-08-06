@@ -2639,7 +2639,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "irate(jvm_gc_memory_promoted_bytes_total{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\"}[5m])",
+                  "expr": "irate(jvm_memory_used_after_last_gc_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\"}[5m])",
                   "intervalFactor": 1,
                   "legendFormat": "promoted",
                   "refId": "B"
