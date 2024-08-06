@@ -58,6 +58,8 @@ spec:
         protocols:
           grpc:
             endpoint: ${env:MY_POD_IP}:4317
+          http:
+            endpoint: ${env:MY_POD_IP}:4318
 
       prometheus:
         # trim_metric_suffixes: true # request_duration_seconds_total to be trimmed to request_duration
