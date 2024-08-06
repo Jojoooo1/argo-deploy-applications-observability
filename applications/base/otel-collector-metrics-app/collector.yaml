@@ -57,7 +57,7 @@ spec:
       otlp:
         protocols:
           grpc:
-            endpoint: ${env:MY_POD_IP}:4317
+            endpoint: ${MY_POD_IP}:4317
 
       prometheus:
         # trim_metric_suffixes: true # request_duration_seconds_total to be trimmed to request_duration
@@ -67,7 +67,7 @@ spec:
               scrape_interval: 30s
               static_configs:
                 - targets:
-                    - ${env:MY_POD_IP}:8888
+                    - ${MY_POD_IP}:8888
 
     exporters:
       debug:
@@ -144,7 +144,7 @@ spec:
           # We need to add the pod IP as a resource label so the k8s attributes processor can find it.
           - action: insert
             key: k8s.pod.ip
-            value: ${env:MY_POD_IP}
+            value: ${MY_POD_IP}
 
     # resourcedetection:
     #   detectors: [gcp]
@@ -166,7 +166,7 @@ spec:
           # encoding: json
           # level: debug
         metrics:
-          address: ${env:MY_POD_IP}:8888
+          address: ${MY_POD_IP}:8888
 
       pipelines:
         metrics:
