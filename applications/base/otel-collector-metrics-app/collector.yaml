@@ -10,7 +10,6 @@ spec:
     - name: MY_POD_IP
       valueFrom:
         fieldRef:
-          apiVersion: v1
           fieldPath: status.podIP
     - name: GOMEMLIMIT
       value: 205MiB # should be 80% of memory limit
