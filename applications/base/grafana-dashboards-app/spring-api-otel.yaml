@@ -224,7 +224,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", area=\"heap\"})*100/sum(jvm_memory_max_bytes{application=\"$application\",k8s_pod_name=~\"$k8s_pod_name\", area=\"heap\"})",
+              "expr": "sum(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", area=\"heap\"})*100/sum(jvm_memory_limit_bytes{application=\"$application\",k8s_pod_name=~\"$k8s_pod_name\", area=\"heap\"})",
               "intervalFactor": 1,
               "legendFormat": "",
               "refId": "A",
@@ -320,7 +320,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", area=\"nonheap\"})*100/sum(jvm_memory_max_bytes{application=\"$application\",k8s_pod_name=~\"$k8s_pod_name\", area=\"nonheap\"})",
+              "expr": "sum(jvm_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", area=\"nonheap\"})*100/sum(jvm_memory_limit_bytes{application=\"$application\",k8s_pod_name=~\"$k8s_pod_name\", area=\"nonheap\"})",
               "intervalFactor": 2,
               "legendFormat": "",
               "refId": "A",
@@ -517,7 +517,7 @@ data:
                 "type": "prometheus",
                 "uid": ""
               },
-              "expr": "sum(rate(container_cpu_usage_seconds_total{k8s_pod_name=~\"$k8s_pod_name\", image!=\"\"}[$__rate_interval])) by (pod)",
+              "expr": "sum(rate(container_cpu_usage_seconds_total{pod=~\"$k8s_pod_name\", image!=\"\"}[$__rate_interval])) by (pod)",
               "interval": "$resolution",
               "legendFormat": "{{ pod }}",
               "refId": "A"
@@ -629,7 +629,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "system_cpu_count{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\"}",
+              "expr": "jvm_cpu_count{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\"}",
               "intervalFactor": 1,
               "legendFormat": "CPU Core Size",
               "refId": "B"
@@ -2011,7 +2011,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_max_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_pool_name=\"$memory_pool_heap\"}",
+                  "expr": "jvm_memory_limit_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_pool_name=\"$memory_pool_heap\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Max",
                   "refId": "B"
@@ -2133,7 +2133,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_memory_max_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_pool_name=\"$${memory_pool_nonheap:raw}\"}",
+                  "expr": "jvm_memory_limit_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", jvm_memory_pool_name=\"$${memory_pool_nonheap:raw}\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Max",
                   "refId": "B"
