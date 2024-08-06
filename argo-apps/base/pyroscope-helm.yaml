@@ -18,7 +18,7 @@ spec:
   source:
     chart: pyroscope
     repoURL: "https://grafana.github.io/helm-charts"
-    targetRevision: 1.6.0
+    targetRevision: 1.7.1
 
     # https://github.com/grafana/pyroscope/blob/main/operations/pyroscope/helm/pyroscope
     helm:

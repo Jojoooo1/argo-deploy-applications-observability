@@ -18,7 +18,7 @@ spec:
   source:
     chart: kube-prometheus-stack
     repoURL: "https://prometheus-community.github.io/helm-charts"
-    targetRevision: 61.3.2
+    targetRevision: 61.7.1
 
     # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
     helm:
@@ -30,7 +30,7 @@ spec:
         grafana:
           fullnameOverride: grafana
           image:
-            tag: 11.1.0
+            tag: 11.1.3
 
           # resources:
           #   requests: 
