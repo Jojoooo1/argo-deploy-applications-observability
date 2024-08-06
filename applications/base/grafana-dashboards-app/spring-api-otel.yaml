@@ -2227,7 +2227,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_buffer_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", id=\"direct\"}",
+                  "expr": "jvm_buffer_memory_usage_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", id=\"direct\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Used Bytes",
                   "refId": "A"
@@ -2237,7 +2237,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_buffer_total_capacity_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", id=\"direct\"}",
+                  "expr": "jvm_buffer_memory_limit_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", id=\"direct\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Capacity Bytes",
                   "refId": "B"
@@ -2331,7 +2331,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_buffer_memory_used_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", id=\"mapped\"}",
+                  "expr": "jvm_buffer_memory_usage_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", id=\"mapped\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Used Bytes",
                   "refId": "A"
@@ -2341,7 +2341,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "jvm_buffer_total_capacity_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", id=\"mapped\"}",
+                  "expr": "jvm_buffer_memory_limit_bytes{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\", id=\"mapped\"}",
                   "intervalFactor": 1,
                   "legendFormat": "Capacity Bytes",
                   "refId": "B"
