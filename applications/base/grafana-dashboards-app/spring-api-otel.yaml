@@ -2928,7 +2928,7 @@ data:
                     "type": "prometheus",
                     "uid": "prometheus"
                   },
-                  "expr": "irate(jvm_gc_duration_seconds_count{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\"}[5m])",
+                  "expr": "irate(jvm_gc_duration_seconds_sum{application=\"$application\", k8s_pod_name=~\"$k8s_pod_name\"}[5m])",
                   "intervalFactor": 1,
                   "legendFormat": "{{jvm_gc_action}} [{{jvm_gc_name}}]",
                   "refId": "A"
