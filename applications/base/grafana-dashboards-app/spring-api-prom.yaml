@@ -3582,8 +3582,8 @@ data:
         ]
       },
       "timezone": "",
-      "title": "API",
-      "uid": "spring-api",
+      "title": "API Micrometer",
+      "uid": "spring-api-micrometer",
       "version": 1,
       "weekStart": ""
     }
