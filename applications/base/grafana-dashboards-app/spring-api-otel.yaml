@@ -776,7 +776,7 @@ data:
               "refId": "B"
             }
           ],
-          "title": "Memory Usage",
+          "title": "Load Average",
           "type": "timeseries"
         },
         {
