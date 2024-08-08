@@ -22,7 +22,7 @@ spec:
   source:
     chart: opentelemetry-collector
     repoURL: https://open-telemetry.github.io/opentelemetry-helm-charts
-    targetRevision: 0.101.1
+    targetRevision: 0.101.2
 
     # https://github.com/open-telemetry/opentelemetry-helm-charts/tree/main/charts/opentelemetry-collector
     helm:
@@ -71,82 +71,6 @@ spec:
           # Report pod phases, node conditions, and cluster-level resource usage.
           clusterMetrics:
               enabled: false
-
-        config:
-
-          extensions:
-            health_check: {}
-            memory_ballast: {}
-
-          exporters:
-            debug: {}
-            
-          processors:
-            batch: {}
-            # If set to null, will be overridden with values based on k8s resource limits
-            memory_limiter: null
-          
-          receivers:
-            jaeger:
-              protocols:
-                grpc:
-                  endpoint: ${env:MY_POD_IP}:14250
-                thrift_http:
-                  endpoint: ${env:MY_POD_IP}:14268
-                thrift_compact:
-                  endpoint: ${env:MY_POD_IP}:6831
-            otlp:
-              protocols:
-                grpc:
-                  endpoint: ${env:MY_POD_IP}:4317
-                http:
-                  endpoint: ${env:MY_POD_IP}:4318
-            prometheus:
-              config:
-                scrape_configs:
-                  - job_name: opentelemetry-collector
-                    scrape_interval: 10s
-                    static_configs:
-                      - targets:
-                          - ${env:MY_POD_IP}:8888
-            zipkin:
-              endpoint: ${env:MY_POD_IP}:9411
-
-          service:
-            telemetry:
-              metrics:
-                address: ${env:MY_POD_IP}:8888
-            extensions:
-              - health_check
-              - memory_ballast
-            pipelines:
-              logs:
-                exporters:
-                  - debug
-                processors:
-                  - memory_limiter
-                  - batch
-                receivers:
-                  - otlp
-              metrics:
-                exporters:
-                  - debug
-                processors:
-                  - memory_limiter
-                  - batch
-                receivers:
-                  - otlp
-                  - prometheus
-              traces:
-                exporters:
-                  - debug
-                processors:
-                  - memory_limiter
-                  - batch
-                receivers:
-                  - otlp
-                  - jaeger
-                  - zipkin
 
           # resources: 
           #   limits:
